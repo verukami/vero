@@ -1,3 +1,0 @@
-# beta
-♡ book project ♡
-
