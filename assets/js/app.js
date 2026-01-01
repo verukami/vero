@@ -105,3 +105,29 @@ document.getElementById("enter").addEventListener("click", () => {
   }
 });
 
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to(".project-hero-image", {
+  y: -80,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".project-hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+gsap.to(".reveal", {
+  opacity: 1,
+  y: 0,
+  duration: 1,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".reveal",
+    start: "top 95%",
+    toggleActions: "play none none none"
+  }
+});
+
