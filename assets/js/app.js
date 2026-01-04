@@ -67,31 +67,28 @@ if (pieces.length) {
 
 const bgSections = document.querySelectorAll("[data-bg]");
 
-bgSections.forEach((section, i) => {
-  const nextBg = section.dataset.bg;
-
+bgSections.forEach(section => {
   ScrollTrigger.create({
     trigger: section,
     start: "top 80%",
     end: "top 30%",
     scrub: true,
-    onUpdate: self => {
-      gsap.to("body", {
-        backgroundColor: nextBg,
-        overwrite: "auto",
-        ease: "none",
-        duration: 0.2
-      });
-          // 🌓 lógica de texto claro / oscuro
-    const isDark =
-      section.dataset.bg.includes("0f") ||
-      section.dataset.bg.includes("dark");
+    onUpdate: () => {
+      const bg = section.dataset.bg;
+      const theme = section.dataset.theme || "light";
 
-    document.body.classList.toggle("is-dark", isDark);
-    document.body.classList.toggle("is-light", !isDark);
+      gsap.to("body", {
+        backgroundColor: bg,
+        duration: 0.2,
+        overwrite: "auto"
+      });
+
+      document.body.classList.toggle("is-dark", theme === "dark");
+      document.body.classList.toggle("is-light", theme === "light");
     }
   });
 });
+
 
 document.getElementById("enter").addEventListener("click", () => {
   const pwd = document.getElementById("password").value;
