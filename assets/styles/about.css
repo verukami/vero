@@ -225,3 +225,16 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+.about-image {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 2.5rem;
+}
+
+.about-image img {
+  max-width: 320px; /* ajusta si quieres más grande */
+  width: 100%;
+  border-radius: 12px; 
+  object-fit: cover;
+}

@@ -360,7 +360,7 @@ blockquote {
 /* --- PASSWORD GATE --- */
 
 #password-gate {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background: #000;
   display: flex;
