@@ -91,7 +91,6 @@
 .shape {
   position: sticky;
   top: 30vh;
-  transition: transform 0.6s ease-out;
   will-change: transform;
   pointer-events: none;
   width: clamp(60px, 8vw, 140px);
@@ -554,4 +553,24 @@ body {
   .footer-link {
     font-size: 1rem;
   }
+}
+
+/* Efecto Glitch */
+.glitch-hover {
+  display: inline-block; /* Importante para que la animación funcione bien */
+  transition: color 0.2s;
+}
+
+.glitch-hover:hover {
+  animation: glitch-anim 0.3s infinite;
+  text-shadow: 2px 0 #ff3ecf, -2px 0 #3300ff;
+}
+
+@keyframes glitch-anim {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
 }

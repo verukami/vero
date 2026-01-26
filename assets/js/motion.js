@@ -1,63 +1,34 @@
 gsap.registerPlugin(ScrollTrigger);
 
-document.querySelectorAll(".shape").forEach(shape => {
-  const targetClass = shape.dataset.target;
-  const target = document.querySelector(`.${targetClass}`);
-  if (!target) return;
+// Esperamos a que el contenido cargue para calcular bien las alturas
+window.addEventListener("load", () => {
+  
+  const shapes = document.querySelectorAll(".shape");
 
-  ScrollTrigger.create({
-    trigger: target,
-    start: "top center",
-    end: "center center",
-    scrub: true,
-    onUpdate: self => {
-      gsap.to(shape, {
-        y: self.progress * 120,
-        ease: "none"
-      });
-    }
-  });
-});
+  shapes.forEach((shape, i) => {
+    // Animación de Scroll con Inercia (Rebote)
+    gsap.to(shape, {
+      y: i % 2 === 0 ? -150 : 150, // Unas suben, otras bajan
+      rotation: i % 2 === 0 ? 20 : -20,
+      ease: "none", 
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 2, // <--- Este número alto crea el efecto de "persecución" y rebote
+        invalidateOnRefresh: true
+      }
+    });
 
-
-/* =========================
-   SHAPES → FLOATING MOTION
-========================= */
-
-gsap.to(".shape", {
-  y: "+=24",
-  rotation: 8,
-  duration: 5,
-  ease: "sine.inOut",
-  repeat: -1,
-  yoyo: true,
-  stagger: 0.4
-});
-
-/* =========================
-   MOBILE MENU
-========================= */
-
-(() => {
-  const toggle = document.querySelector(".menu-toggle");
-  const nav = document.querySelector(".micro-nav");
-  let menuOpen = false;
-
-  if (!toggle || !nav) return;
-
-  toggle.addEventListener("click", () => {
-    menuOpen = !menuOpen;
-
-    nav.classList.toggle("open", menuOpen);
-    toggle.textContent = menuOpen ? "✕" : "☰";
-
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-  });
-})();
-
-document.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('touchstart', () => {
-    card.classList.toggle('is-active');
+    // Animación extra: Flotación infinita (Drift)
+    // Esto se suma al movimiento del scroll
+    gsap.to(shape, {
+      y: "+=20",
+      duration: 3 + i,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
   });
 });
 
