@@ -18,7 +18,7 @@
 
   <div class="nav-actions">
     <a href="../../index.html" class="nav-link">← Back</a>
-    <a href="#" class="nav-link">Next →</a>
+    <a href="../alienpooh/index.html" class="nav-link">Next →</a>
   </div>
 </header>
 
@@ -37,134 +37,77 @@
   </div>
 </section>
 
-<section class="case-section">
+<section class="case-section" data-bg="#E5EBFB" data-theme="light">
   <p class="case-intro">
-    This project was developed within a large-scale digital banking platform used by
-    multiple financial institutions across different markets.
+    Backbase is a platform that banks use as the foundation for their digital products. My work was not building from scratch, it was adapting existing flows for two clients with very different users and business rules, without breaking the shared system both products relied on.
   </p>
 
   <p>
-    The core product, design system, and base application flows already existed for both
-    desktop and mobile experiences.
+    <h5>B2C (Peru)</h5>
+A financial inclusion product for a state-owned bank, built as a mobile app. Many users were opening 
+a bank account for the first time, with only a national ID and a smartphone. Clarity and accessibility were the main focus.
   </p>
 
   <p>
-    The challenge was not to redesign from scratch, but to adapt complex financial flows
-    to specific business, regulatory, and user needs without compromising scalability
-    or consistency.
+        <h5>B2B (United States)</h5>
+    A commercial banking and treasury web platform for business clients. Flows covered wire transfers, 
+    ACH, FX, and payment scheduling, with strict business and regulatory rules throughout.
   </p>
-</section>
-
-<section class="case-section">
-  <h2>The challenge</h2>
-
-  <p>
-    While the platform provided robust banking functionality, real-world implementations
-    required adjustments to align with each institution’s operational model.
-  </p>
-
-  <p>
-    Many existing flows needed refinement to support local requirements while remaining
-    aligned with the core product architecture.
-  </p>
-
-  <blockquote>
-    How can enterprise banking flows be customized to local needs without fragmenting
-    the product or increasing long-term complexity?
+    <blockquote>
+    How do you adapt the same platform for a first-time banking user in Peru and a treasury manager in the US, 
+    without fragmenting the product?
   </blockquote>
+
+  
 </section>
 
-<section class="case-section" data-bg="#000000" data-theme="dark">
-  <h2>Users and context</h2>
+<div class="project-quote">
+  <p>"An innovative project focused on the bankarization and financial 
+  inclusion of the Peruvian population, designed to significantly reduce 
+  the friction related to traditional bank accounts."</p>
+  <span>Banco de la Nación, via Backbase</span>
+</div>
+
+<section class="case-section">
+  <h2>What I worked on</h2>
 
   <p>
-    The end users varied depending on the market and type of banking product, but shared
-    a common expectation of clarity, reliability, and efficiency.
+    I owned UX strategy and interaction design for both products. Before touching any screen, I mapped each market throug
+    service blueprints and journey maps to understand the business rules and where the real friction was. Then I worked with
+    PMs, BAs, engineering leads, and banking stakeholders to turn those cosntraints into something usable.
   </p>
 
-  <ul class="insights-list">
-    <li>
-      End users performing frequent financial operations
-    </li>
-    <li>
-      Internal banking teams managing and configuring products
-    </li>
-    <li>
-      Stakeholders operating under strict regulatory constraints
-    </li>
-  </ul>
+  <p>
+    A big part of the work was deciding  what to reuse, what to extend, and what to push back on. Every time something
+    new was requested, the first question was whether it was actually a new problem or just a familiar one in a different context.
+  </p>
 
-  <blockquote>
-    In enterprise banking, predictability matters more than novelty.
-  </blockquote>
+ <div class="callout">
+  <strong> Example decision</strong>
+  <p>For the B2B permissions model, the initial ask was to build custom components. After mapping the actual use cases,
+    the existing components could handle everything if we changed the information hierarchy instead. That kept the system
+    intact and saved weeks of implementation work.
+  </p>
+ </div>
 </section>
 
-<section class="case-section">
-  <h2>UX approach</h2>
+<section class="case-section" data-bg="#F8F9F9" data-theme="light">
+  <h2>Key challenges</h2>
 
   <p>
-    The UX approach focused on identifying friction within existing flows and proposing
-    improvements that balanced usability, technical feasibility, and business rules.
+    The Peru product needed to work for people with no banking experience. The onboarding had regulatory steps that could not
+    be removed, so the work was about sequencing them in a way that built context before asking for information, instead of
+    making users feel like they were just filling out a form.
   </p>
 
-  <ul>
-    <li>Reviewing existing desktop and mobile flows</li>
-    <li>Collaborating with banking stakeholders to understand local needs</li>
-    <li>Designing solutions within the constraints of the existing design system</li>
-  </ul>
-
-  <p>
-    Every proposal required alignment across design, product, engineering, and business.
-  </p>
-
-    <p>
-      The platform supported both B2C and B2B banking flows, requiring different levels of complexity, permissions, and operational logic.
-    </p>
-  </section>
-
-<section class="case-section">
-  <h2>Working within a design system</h2>
-
-  <p>
-    The platform relied on an established design system shared across multiple markets.
+  <p> 
+    The US product had a different problem: multiple users with different roles accessing the same accounts, with complex permission
+    logic that had to stay invisible to each person unless it was directly relevant to them. 
   </p>
 
   <p>
-    My role involved determining when existing components could be reused and when
-    extensions were necessary to support new requirements.
-  </p>
-
-  <p>
-    All adaptations were documented to ensure future scalability and consistency.
-  </p>
-</section>
-
-<section class="case-section">
-  <h2>Cross-functional collaboration</h2>
-
-  <p>
-    The team included a product manager, business analyst, engineering lead, designer,
-    and additional technical stakeholders.
-  </p>
-
-  <p>
-    I worked closely with both internal teams and banking representatives to validate
-    assumptions, align on constraints, and ensure design decisions were feasible and
-    clearly communicated.
-  </p>
-</section>
-
-<section class="case-section">
-  <h2>Outcome</h2>
-
-  <p>
-    The resulting solutions enabled banks to adapt critical flows to their needs without
-    deviating from the core platform.
-  </p>
-
-  <p>
-    This approach reduced implementation friction while maintaining a consistent user
-    experience across markets.
+    Everything was documented as it was built, so the teams that continued the work after launchh could understand not just
+    what was built, but why.
   </p>
 </section>
 
@@ -172,14 +115,13 @@
   <h2>Reflection</h2>
 
   <p>
-    Designing for enterprise banking reinforced the importance of working within
-    constraints rather than around them.
+    Working on an enterprise platform is mostly about judgment, not creativity.
+    knowing when to reuse, when to extend, and when to stay no because something would
+    create problems later is what actually moves the work forward. That only comes from 
+    spending real time in the system, not just in the screens.
   </p>
 
-  <p>
-    The value was not in visual novelty, but in making complex systems clearer,
-    more adaptable, and easier to operate.
-  </p>
+  
 </section>
 
 <footer class="ghost-footer">
