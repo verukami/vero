@@ -31,7 +31,8 @@
     <h1 class="project-title">Enterprise Healthcare Platform</h1>
 
     <p class="project-subtitle">
-      Simplifying complex workforce and compensation workflows in healthcare systems
+Improving a workforce management system used by doctors and hospital staff to track and validate working hours
+
     </p>
 
     <div class="project-tags">
@@ -46,58 +47,33 @@
 <!-- INTRO -->
 <section class="case-section" data-bg="#F5F5F5" data-theme="light">
   <p class="case-intro">
-    Large healthcare organizations rely on accurate workforce data to ensure proper
-    compensation, compliance, and operational efficiency.
+    This was a US-based healthcare startup building an internal platform for hospitals to manage their workforce. The core problem: doctors don't follow fixed schedules. They move between hospitals, work different hours each day, cover emergencies, and their compensation depends on all of that being tracked correctly.
   </p>
 
   <p>
-    This project focused on improving a critical internal platform used by healthcare
-    professionals to report working hours, which directly impacts payroll calculations,
-    hospital budgeting, and workforce planning.
+    The platform already existed. My job was to improve it: better interface, better accessibility, and cleaner flows for a table that was at the center of everything.
   </p>
 
   <p>
-    Due to confidentiality constraints, this case study focuses on process, decisions,
-    and outcomes rather than final UI visuals.
+    Due to confidentiality, this case study focuses on process and decisions rather than final screens.
   </p>
 </section>
 
 <!-- CONTEXT -->
 <section class="case-section">
-  <h2>Context</h2>
+  <h2>The challenge</h2>
 
   <p>
-    The platform supports healthcare systems by centralizing workforce operations,
-    including provider management, compliance, and time tracking.
+    When a doctor checks in at a hospital, that information lands in a table. Simple enough. But the table had to handle a lot of variation at the same time: different hospitals with different rules, shifts that changed length or location, emergency coverage, approval states, and automatic hour calculations tied directly to payroll.
   </p>
-
-  <p>
-    One of its core workflows allows doctors to log worked hours across highly variable
-    schedules, often involving different roles, locations, and approval states.
-  </p>
-</section>
-
-<!-- CHALLENGE -->
-<section class="case-section">
-  <h2>The Challenge</h2>
-
-  <p>
-    Time tracking in healthcare is uniquely complex. Physicians do not follow fixed
-    schedules, and errors in reporting can directly affect compensation and operational
-    decisions.
-  </p>
-
-  <ul>
-    <li>Highly complex, data-dense tables with multiple states and time categories</li>
-    <li>High cognitive load for users operating under time pressure</li>
-    <li>Risk of errors impacting payroll accuracy and hospital budgets</li>
-    <li>Strict business and data constraints typical of enterprise healthcare systems</li>
-  </ul>
 
   <blockquote>
-    How might we reduce cognitive overload and error risk in a critical,
-    high-stakes time reporting workflow?
+    How do you make a data-dense table usable for someone who is already under pressure, when every input error has a real financial consequence?
   </blockquote>
+
+  <p>
+    The existing interface had grown over time and it showed. Users had to hold a lot of context in their head just to understand what they were looking at, and it was easy to make mistakes without realizing it.
+  </p>
 </section>
 
 <!-- ROLE -->
@@ -105,55 +81,52 @@
   <h2>My Role</h2>
 
   <p>
-    I worked as a <strong>Product / UX Designer</strong>, focusing on improving usability,
-    clarity, and accessibility within an existing enterprise system.
+    I joined when the research was already done. My focus was on translating those findings into a better interface and validating that it actually worked.
   </p>
 
   <p>
-    My scope centered on analyzing and redesigning a complex table-based workflow used
-    by healthcare professionals to log, review, and validate worked hours.
+    In practice that meant redesigning the table flows and key interactions, reviewing and improving accessibility against WCAG standards, and building interactive prototypes in Axure to test the solutions with real users before anything went to development.
+  </p>
+
+  <p>
+    The Axure prototypes were especially important here because the logic was complex. A static mockup could not show how the table behaved when hours changed, or when a shift overlapped with another hospital. People needed to interact with it to find the real problems.
   </p>
 </section>
 
 <!-- UX APPROACH -->
 <section class="case-section">
-  <h2>UX Approach</h2>
+  <h2>Key decisions</h2>
 
   <p>
-    Given the constraints of an enterprise environment, the approach prioritized
-    incremental improvements with high impact.
+    Most of the work was about reducing what users had to process at once without removing the information they actually needed.
   </p>
 
   <ul>
-    <li>Audited existing workflows to identify friction and error-prone interactions</li>
-    <li>Analyzed information hierarchy within dense tables</li>
-    <li>Reviewed accessibility gaps against WCAG standards</li>
-    <li>Worked closely with product and engineering to validate feasibility</li>
+    <li>Progressive disclosure</li>
+    <p>The table showed a summary view by default. Doctors could see their total hours at a glance, and expand rows only when they needed to review or edit details. Less noise, same data.</p>
+    <li>Editable vs locked states</li>
+    <p>One of the main sources of errors was that users could not tell which fields they could edit and which were locked by an approval. Making that distinction visually clear reduced accidental changes significantly during testing.</p>
+    <li>Accessibility throughout</li>
+    <p>The platform needed to work for a wide range of users, including older staff and people using assistive technology. We reviewed contrast, focus states, and keyboard navigation as part of the design process, not as a final checklist.</p>
   </ul>
 </section>
 
 <!-- DESIGN DECISIONS -->
 <section class="case-section">
-  <h2>Key Design Decisions</h2>
-
+  <h2>What testing revealed</h2>
+  <p>The Axure prototypes helped surface things that would have been invisible in a static design. A few examples:</p>
   <ul class="insights-list">
     <li>
-      <strong>Progressive disclosure:</strong> Reduced cognitive load by surfacing
-      summaries first, with detailed data available on demand.
+      Users did not notice validation errors when they appeared inline next to a field. Moving them to a summary at the top of the table made them much harder to miss.
     </li>
     <li>
-      <strong>Visual grouping:</strong> Improved scanability of tables through clearer
-      grouping, spacing, and hierarchy.
+      The grouping logic for multi-hospital shifts was confusing when hours crossed midnight. We needed a clearer visual separation between days.
     </li>
     <li>
-      <strong>Error prevention:</strong> Clarified editable vs locked states to reduce
-      accidental input errors.
-    </li>
-    <li>
-      <strong>Accessibility-first:</strong> Ensured contrast, focus states, and keyboard
-      navigation supported diverse user needs.
+      Some interactions that felt obvious to the team were not obvious at all to users who checked in at multiple hospitals in the same day.
     </li>
   </ul>
+  <p>Testing with realistic data, not placeholder content, made a big difference in what we caught.</p>
 </section>
 
 <!-- OUTCOME -->
@@ -199,39 +172,19 @@ Accessibility requirements for a wide range of users
 <p>Each design decision had downstream impact on finance, operations, and compliance, making precision and clarity critical.</p>
 </section>
 
-<!-- CONSTRAINTS -->
-<section class="case-section case-reflection">
-  <h2>Working within constraints</h2>
-
-  <p>
-    The product relied on an existing design system and legacy technical constraints.
-  </p>
-
-  <p>
-    My role focused on translating operational and business requirements into a usable interface without increasing cognitive load for users who interacted with the system daily.
-  </p>
-
-    <p>
-    This required close collaboration with product, engineering, and operational stakeholders to ensure the solution was both usable and technically viable.
-  </p>
-</section>
 
 <!-- REFLECTION -->
 <section class="case-section case-reflection">
   <h2>Reflection</h2>
 
   <p>
-    Designing complex operational tools reinforced the importance of clarity over aesthetics.
+Healthcare enterprise work taught me that good UX here is not about making things beautiful or delightful. It is about making sure people do not make mistakes that cost them money or create compliance problems. That changes how you think about every decision.
   </p>
 
   <p>
-    In healthcare environments, good UX is not about delight.
-    It is about trust, accuracy, and reducing the risk of human error.
+The Axure prototyping phase was one of the most valuable parts of the project. Complex table logic does not translate well to static designs, and there is no substitute for letting users actually interact with something before you build it.
   </p>
 
-    <p>
-    This project strengthened my ability to design for systems where usability directly impacts financial and operational outcomes.
-  </p>
 </section>
 
 <!-- FOOTER -->
