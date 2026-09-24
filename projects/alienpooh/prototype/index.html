@@ -810,9 +810,11 @@
     if (name === 'search') renderSearch('');
     if (name === 'shop') renderShop();
     if (name === 'companion') renderCompanion();
+    voiceMoment(name);
   };
 
   window.closePanel = function(){
+    stopBreatheGuide();
     panelNames.forEach(function(p){ document.getElementById('panel-'+p).hidden = true; });
     document.getElementById('backdrop').hidden = true;
     updateDockActive(null);
@@ -836,13 +838,25 @@
 
   /* ---------- breathing label cycle ---------- */
   var breatheEl = document.getElementById('breathe-label');
+  var breatheCore = document.querySelector('.breathe-core');
   var phase = 0;
   var phases = ['in...', 'hold...', 'out...', 'hold...'];
-  if (!reduceMotion){
-    setInterval(function(){
+  var breatheTimer = null;
+  function startBreatheCycle(){
+    clearInterval(breatheTimer);
+    phase = 0;
+    breatheEl.textContent = phases[0];
+    // restart the ring so the label, the animation and the voice start together
+    breatheCore.style.animation = 'none';
+    void breatheCore.offsetWidth;
+    breatheCore.style.animation = '';
+    breatheTimer = setInterval(function(){
       phase = (phase+1) % phases.length;
       breatheEl.textContent = phases[phase];
     }, 2000);
+  }
+  if (!reduceMotion){
+    startBreatheCycle();
   } else {
     breatheEl.textContent = 'breathe at your own pace';
   }
@@ -876,6 +890,7 @@
       writeStore(REFLECTIONS_KEY, list);
       input.value = '';
       status.textContent = 'Held safely here — just for you.';
+      speakCalm(['Held safely. Just for you.']);
       btn.disabled = false;
       renderMoments();
       setTimeout(function(){ status.textContent = ''; }, 4000);
@@ -885,6 +900,7 @@
   window.releaseMoment = function(ts){
     writeStore(REFLECTIONS_KEY, readStore(REFLECTIONS_KEY).filter(function(m){ return m.ts !== ts; }));
     renderMoments();
+    speakCalm(['Let it go.']);
   };
 
   function renderMoments(){
@@ -956,6 +972,7 @@
       list.unshift({ to: selectedContact, signal: selectedSignal, ts: Date.now() });
       writeStore(SIGNALS_KEY, list);
       status.textContent = 'A quiet signal reached ' + selectedContact + '.';
+      speakCalm(['A quiet signal is on its way to ' + selectedContact + '.']);
       selectedContact = null; selectedSignal = null;
       document.querySelectorAll('.signal-chip').forEach(function(c){ c.classList.remove('selected'); });
       renderContacts();
@@ -1023,6 +1040,7 @@
     if (idx === -1) joined.push(id); else joined.splice(idx,1);
     writeStore(EVENTS_KEY, joined);
     renderEvents();
+    if (idx === -1) speakCalm(['Noted. There\'s no pressure to go.']);
   });
 
   /* ---------- notifications ---------- */
@@ -1221,6 +1239,55 @@
       function(){ btn.classList.remove('speaking'); });
   });
 
+  /* ---------- the voice accompanies certain moments ---------- */
+  var greetingSpeaking = false;
+  var pendingMoment = null;
+  var guideTimers = [];
+  var saidThisSession = {};
+
+  // Said once per visit when a space opens, so it never nags.
+  var OPENING_LINES = {
+    reflect: 'Take your time. Half a sentence is enough.',
+    messages: 'Who\'s been on your mind?',
+    event: 'Here\'s what\'s happening nearby, whenever you feel like it.',
+    notifications: 'Nothing urgent. Just a quiet log.'
+  };
+
+  function stopBreatheGuide(){
+    guideTimers.forEach(clearTimeout);
+    guideTimers = [];
+  }
+
+  // Two slow cycles spoken in time with the ring, then the voice steps back.
+  function startBreatheGuide(){
+    stopBreatheGuide();
+    if (reduceMotion){ speakCalm(['Breathe at your own pace. I\'m here.']); return; }
+    startBreatheCycle();
+    if (!synth || !voiceOn) return;
+    var cues = ['Breathe in', 'Hold', 'Breathe out', 'Hold', 'Breathe in', 'Hold', 'Breathe out', 'Hold'];
+    cues.forEach(function(cue, i){
+      guideTimers.push(setTimeout(function(){ speakCalm([cue]); }, i * 2000));
+    });
+    guideTimers.push(setTimeout(function(){
+      speakCalm(['I\'ll stay quiet now.', 'Keep going as long as it helps.']);
+    }, cues.length * 2000 + 300));
+  }
+
+  function voiceMoment(name){
+    if (!synth || !voiceOn) { if (name === 'breathe') startBreatheGuide(); return; }
+    if (greetingSpeaking){ pendingMoment = name; return; }
+    if (name === 'breathe') return startBreatheGuide();
+    if (name === 'companion'){
+      return speakCalm([document.getElementById('ai-bubble-text').textContent],
+        function(){ listenBtn.classList.add('speaking'); },
+        function(){ listenBtn.classList.remove('speaking'); });
+    }
+    if (OPENING_LINES[name] && !saidThisSession[name]){
+      saidThisSession[name] = true;
+      speakCalm([OPENING_LINES[name]]);
+    }
+  }
+
   /* ---------- welcome: written right away, spoken on the first tap ---------- */
   var greetEl = document.getElementById('greeting');
   var VISITED_KEY = 'alienpooh_visited';
@@ -1250,9 +1317,18 @@
       if (e && e.target && e.target.closest && e.target.closest('#voice-toggle, #greeting-close')) return;
       spoken = true;
       clearTimeout(greetTimer);
+      if (!synth || !voiceOn) return;
+      greetingSpeaking = true;
       speakCalm([hiLine, 'How are you feeling today?'],
         function(){ greetEl.classList.add('speaking'); },
-        function(){ greetEl.classList.remove('speaking'); greetTimer = setTimeout(hideGreeting, 5000); });
+        function(){
+          greetingSpeaking = false;
+          greetEl.classList.remove('speaking');
+          greetTimer = setTimeout(hideGreeting, 5000);
+          // if the first tap opened a space, its voice follows the welcome
+          var waiting = pendingMoment; pendingMoment = null;
+          if (waiting && !document.getElementById('panel-' + waiting).hidden) voiceMoment(waiting);
+        });
     }
     document.addEventListener('pointerdown', greetAloud, true);
     document.addEventListener('keydown', greetAloud, true);
