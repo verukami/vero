@@ -1,5 +1,7 @@
 gsap.registerPlugin(ScrollTrigger);
 
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 /* =========================
    SHAPES → SCROLL ALIGN
 ========================= */
@@ -28,15 +30,17 @@ document.querySelectorAll(".shape").forEach(shape => {
    SHAPES → FLOATING MOTION
 ========================= */
 
-gsap.to(".shape", {
-  y: "+=18",
-  rotation: 8,
-  duration: 4,
-  ease: "sine.inOut",
-  repeat: -1,
-  yoyo: true,
-  stagger: 0.3
-});
+if (!reduceMotion) {
+  gsap.to(".shape", {
+    y: "+=18",
+    rotation: 8,
+    duration: 4,
+    ease: "sine.inOut",
+    repeat: -1,
+    yoyo: true,
+    stagger: 0.3
+  });
+}
 
 /* =========================
    PROJECT CARDS (MOBILE TAP)
@@ -90,31 +94,18 @@ bgSections.forEach(section => {
 });
 
 
-document.getElementById("enter").addEventListener("click", () => {
-  const pwd = document.getElementById("password").value;
-
-  if (pwd === "CAMBIAESTO") {
-    document.getElementById("password-gate").style.display = "none";
-    document.getElementById("eaad-project").style.display = "block";
-    document.body.style.overflow = "auto";
-  } else {
-    document.getElementById("error").style.display = "block";
-  }
-});
-
-
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.to(".project-hero-image", {
-  y: -80,
-  ease: "none",
-  scrollTrigger: {
-    trigger: ".project-hero",
-    start: "top top",
-    end: "bottom top",
-    scrub: true
-  }
-});
+if (!reduceMotion && document.querySelector(".project-hero-image")) {
+  gsap.to(".project-hero-image", {
+    y: -80,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".project-hero",
+      start: "top top",
+      end: "bottom top",
+      scrub: true
+    }
+  });
+}
 
 gsap.to(".reveal", {
   opacity: 1,

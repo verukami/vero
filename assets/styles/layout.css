@@ -83,8 +83,16 @@
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 5;
-  
+  z-index: 0;
+}
+
+/* Content sits above the floating shapes */
+.intro-text,
+.intro-sub,
+.projects-grid,
+.about-piece {
+  position: relative;
+  z-index: 1;
 }
 
 /* Base shape */
@@ -225,16 +233,9 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background: rgba(0, 0, 0, 0.20);
+  /* Gradient keeps titles legible over any image */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 35%, rgba(0, 0, 0, 0) 65%);
   color: white;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-
-  padding: 2rem;
-  opacity: 0;
-  transition: opacity 0.4s ease;
 }
 
 .project-overlay h2 {
@@ -248,12 +249,9 @@
 }
 
 /* hover magic */
-.project-link:hover .project-image {
+.project-link:hover .project-image,
+.project-link:focus-visible .project-image {
   transform: scale(1.05);
-}
-
-.project-link:hover .project-overlay {
-  opacity: 1;
 }
 
 
@@ -316,6 +314,8 @@
    }
 
 .ghost-footer {
+  position: relative;
+  z-index: 2; /* covers the fixed shapes */
   width: 100%;
   background-color: var(--color-bg-dark);
   padding: 80px 0 60px;
