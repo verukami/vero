@@ -300,3 +300,59 @@
 }
 
 .obj .movie.f-poster { font-size: clamp(20px, 2.2vw, 32px); }
+
+/* ======================================================
+   THE LAB — personal experiments, kept apart from client work
+====================================================== */
+.lab-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: clamp(16px, 2.5vw, 28px);
+}
+.lab-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 36px);
+  align-items: center;
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 24px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+}
+.lab-card .tarot { width: clamp(120px, 14vw, 170px); }
+.lab-card .tarot-inner { transform: none; transition: transform 0.6s cubic-bezier(.3,.9,.3,1.05); }
+.lab-card:hover .tarot-inner { transform: rotate(-3deg) translateY(-4px); }
+.lab-card h3 {
+  margin: 12px 0 6px;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.lab-card .line { margin: 0; color: var(--ink-soft); }
+.lab-card .ctas { margin-top: 20px; }
+
+.lab-soon {
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  padding: 28px;
+  border-radius: 24px;
+  border: 1.5px dashed var(--line);
+  text-align: center;
+  color: var(--ink-soft);
+}
+.lab-soon .brew { font-size: 34px; animation: brew 3.2s ease-in-out infinite alternate; }
+.lab-soon strong { color: var(--ink); font-weight: 600; }
+@keyframes brew { to { transform: translateY(-6px) rotate(8deg); } }
+
+@media (max-width: 900px) {
+  .lab-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .lab-card { grid-template-columns: 1fr; justify-items: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-soon .brew { animation: none; }
+}

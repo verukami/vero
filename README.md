@@ -23,8 +23,9 @@ Cada proyecto se presenta como un objeto de colección, uno a la vez:
 | Objeto | Proyectos |
 |---|---|
 | 📼 **VHS** | Citibanamex · Scalable Banking |
-| 🔮 **Tarot** | Healthcare Operations · Alienpooh |
+| 🔮 **Tarot** | Healthcare Operations |
 | 🎞️ **3-D Reel** | University Redesign · Melifloz |
+
 
 En el home, el objeto cambia con el scroll o desde un mini menú. Cada caso de estudio abre con su objeto, un resumen rápido para reclutadores (rol, empresa, año, resultado) y la historia contada en capítulos.
 
