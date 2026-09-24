@@ -485,3 +485,47 @@
 .glance { display: flex; flex-wrap: wrap; }
 .glance div { flex: 1 1 180px; }
 .glance .scope { flex-basis: 100%; }
+
+/* 3-D reel hero, v2: black & white rays, like an old viewer test card */
+.cs-object.lightbox .lb {
+  background: #0b0a0e;
+  border: 1.5px solid var(--line);
+}
+.cs-object.lightbox .lb::before {
+  inset: -60%;
+  background: repeating-conic-gradient(from 0deg, #f4efe4 0 7.5deg, #0b0a0e 7.5deg 15deg);
+  animation: rays 60s linear infinite;
+}
+.cs-object.lightbox .lb::after { /* soft vignette so the reel stays the hero */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(11, 10, 14, 0.55) 75%);
+}
+
+/* audit numbers */
+.audit {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5px;
+  margin: 24px 0 10px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  background: var(--line);
+}
+.audit div { padding: 18px 20px; background: var(--surface); }
+.audit strong {
+  display: block;
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: var(--holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.audit span { display: block; margin-top: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+.audit-note { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+@media (max-width: 560px) { .audit { grid-template-columns: 1fr; } }
