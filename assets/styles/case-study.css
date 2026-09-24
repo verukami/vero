@@ -529,3 +529,12 @@
 .audit span { display: block; margin-top: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
 .audit-note { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
 @media (max-width: 560px) { .audit { grid-template-columns: 1fr; } }
+
+/* 3-D reel hero, v3: no edge vignette; the shadow lives on the disc instead */
+.cs-object.lightbox .lb::after { content: none; }
+.cs-object.lightbox .reel-disk {
+  box-shadow:
+    0 0 0 10px rgba(11, 10, 14, 0.45),
+    0 40px 80px -18px rgba(0, 0, 0, 0.85),
+    inset 0 0 0 6px #e8479f;
+}

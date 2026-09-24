@@ -356,3 +356,12 @@
 @media (prefers-reduced-motion: reduce) {
   .lab-soon .brew { animation: none; }
 }
+
+/* Stereo reel, v2: pink disc so it pops on any background */
+.reel-disk {
+  background:
+    radial-gradient(circle, transparent 11%, #ff6fc0 11.5%, #ff6fc0 30%, #e8479f 30.5%, #ff6fc0 31.5%),
+    #ff6fc0;
+  box-shadow: 0 30px 60px -24px rgba(40, 10, 90, 0.55), inset 0 0 0 6px #e8479f;
+}
+.reel-tag { color: rgba(255, 255, 255, 0.9); }
