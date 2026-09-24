@@ -2,318 +2,333 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Private University - Arts & Design Faculty — Verónica Mtz.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>University Redesign — Verónica Martínez</title>
+  <meta name="description" content="University website redesign: designing clarity, accessibility, and belonging across a complex academic ecosystem." />
 
   <script defer src="https://cloud.umami.is/script.js" data-website-id="6849f1a9-3081-4167-981d-b2495c49043b"></script>
 
-  <link rel="stylesheet" href="../../assets/styles/case.css" />
-  <link rel="stylesheet" href="../../assets/styles/base.css" />
+  <meta property="og:title" content="University Redesign — Verónica Martínez" />
+  <meta property="og:description" content="Designing clarity, accessibility, and belonging across a complex academic ecosystem." />
+  <meta property="og:image" content="https://verukami.github.io/vero/assets/images/eaad-hero.png" />
+  <meta property="og:type" content="article" />
+
+  <link rel="canonical" href="https://verukami.github.io/vero/projects/private_university/" />
+  <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+  <link rel="apple-touch-icon" href="../../assets/images/apple-touch-icon.png" />
+  <meta property="og:url" content="https://verukami.github.io/vero/projects/private_university/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="University Redesign — Verónica Martínez" />
+  <meta name="twitter:description" content="Designing clarity, accessibility, and belonging across a complex academic ecosystem." />
+  <meta name="twitter:image" content="https://verukami.github.io/vero/assets/images/eaad-hero.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet" />
+
+  <script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+
+  <link rel="stylesheet" href="../../assets/styles/site.css" />
+  <link rel="stylesheet" href="../../assets/styles/collection.css" />
+  <link rel="stylesheet" href="../../assets/styles/case-study.css" />
 </head>
 
-<body class="project">
+<body>
 
   <!-- PASSWORD GATE -->
   <div id="password-gate">
     <div class="gate-box">
-      <h3>Protected project</h3>
-      <p>This project contains academic work.<br>Enter password to continue.</p>
-
-      <input type="password" id="passwordInput" placeholder="Password">
-      <button onclick="checkPassword()">Enter</button>
-
-      <a href="../../index.html" class="gate-back">
-        ← Return to home
-      </a>
-
-      <div id="error">Wrong password</div>
+      <span class="mono">✦ PROTECTED REEL</span>
+      <h3>Academic work inside</h3>
+      <p>This project contains academic work.<br />Enter the password to continue.</p>
+      <form>
+        <label for="passwordInput" class="mono" style="display:block; text-align:left; margin: 0 0 6px 4px">Password</label>
+        <input type="password" id="passwordInput" autocomplete="off" />
+        <button type="submit" class="btn primary">Enter</button>
+      </form>
+      <div id="error" role="alert">Wrong password</div>
+      <a href="../../index.html#work" class="gate-back">← Return to the collection</a>
     </div>
   </div>
 
   <div id="protected-content">
 
-    <!-- HEADER -->
-    <header class="project-header">
-      <span class="logo">
-        <img src="../../assets/images/miranda.gif" alt=""/>
-      </span>
+  <header class="nav">
+    <a href="../../index.html" class="brand" aria-label="Verónica Martínez, home">
+      <img src="../../assets/images/miranda.gif" alt="" width="1054" height="188" />
+    </a>
+    <div class="nav-right">
+    <nav aria-label="Main">
+      <a href="../../index.html#work">Work</a>
+      <a href="../../about.html">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing" target="_blank" rel="noopener" class="hide-sm">Resume</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode"><span aria-hidden="true">☾</span></button>
+    </div>
+  </header>
 
-      <div class="nav-actions">
-        <a href="../../index.html" class="nav-link">← Back</a>
-        <a href="../alienpooh/index.html" class="nav-link">Next →</a>
-      </div>
-    </header>
-
+  <main>
     <!-- HERO -->
-    <section class="project-hero">
+    <section class="cs-hero">
+      <div>
+        <a href="../../index.html#work" class="cs-back">← The collection</a>
+        <div class="kicker" style="display:flex; gap:10px; align-items:center">
+          <span class="format">3-D REEL</span><span class="mono">REEL 04 · Education · Accessibility</span>
+        </div>
+        <h1>University Redesign</h1>
+        <p class="subtitle">
+          Transforming a university's digital experience: designing clarity, accessibility,
+          and belonging across a complex academic ecosystem.
+        </p>
+        <div class="cs-tags">
+          <span class="tag t-pill pink">UX Design</span>
+          <span class="tag t-rect blue">Education</span>
+          <span class="tag t-hybrid green">Accessibility</span>
+          <span class="tag t-pill neutral">Drupal</span>
+        </div>
+      </div>
+
+      <div class="cs-object lightbox" aria-hidden="true">
+        <div class="lb"><span class="badge">3-D</span></div>
+        <div class="obj is-active">
+          <div class="reel-disk" style="--accent: var(--lime)">
+            <span class="frame" style="--i:0; --pos: 10% 20%"><img src="../../assets/images/eaad-hero.png" alt="" /></span>
+            <span class="frame" style="--i:1; --pos: 40% 10%"><img src="../../assets/images/eaad-hero.png" alt="" /></span>
+            <span class="frame" style="--i:2; --pos: 80% 30%"><img src="../../assets/images/eaad-hero.png" alt="" /></span>
+            <span class="frame" style="--i:3; --pos: 20% 60%"><img src="../../assets/images/eaad-hero.png" alt="" /></span>
+            <span class="frame" style="--i:4; --pos: 60% 70%"><img src="../../assets/images/eaad-hero.png" alt="" /></span>
+            <span class="frame" style="--i:5; --pos: 90% 90%"><img src="../../assets/images/eaad-hero.png" alt="" /></span>
+            <span class="frame" style="--i:6; --pos: 35% 95%"><img src="../../assets/images/eaad-hero.png" alt="" /></span>
+            <span class="hub"></span>
+            <span class="reel-tag">3-D REEL · 04</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AT A GLANCE -->
+    <dl class="glance">
+      <div><dt>Role</dt><dd>UI/UX Designer</dd></div>
+      <div><dt>Company · Year</dt><dd>Playful · 2025</dd></div>
+      <div><dt>Client</dt><dd>Private university, School of Arts &amp; Design · Drupal website</dd></div>
+      <div class="impact"><dt>Result</dt><dd>★ Faster search · Clearer user flows · New IA &amp; sitemap</dd></div>
+      <div class="scope"><dt>What I worked on</dt><dd>UX strategy · Information architecture · User flows &amp; wireframes · Design system · UI per sprint · Accessibility</dd></div>
+    </dl>
+
+    <figure class="cs-cover">
       <video
-        src="../private_university/assests/images/university_header.mp4"
-        poster="../private_university/assests/images/university_header-poster.jpg"
-        class="project-hero-image"
+        src="assests/images/university_header.mp4"
+        poster="assests/images/university_header-poster.jpg"
         autoplay muted loop playsinline
-        aria-label="Private University - Arts & Design Faculty website redesign"
+        aria-label="Motion header of the School of Arts &amp; Design website redesign"
       ></video>
-    </section>
-
-    <section class="project-hero-info reveal">
-      <h1 class="project-title">Transforming University Digital Experience</h1>
-
-      <p class="project-subtitle">
-        Designing clarity, accessibility, and belonging across a complex academic ecosystem
-      </p>
-
-      <div class="project-tags">
-        <span class="tag pill pink">UX Design</span>
-        <span class="tag rect blue">Education</span>
-        <span class="tag hybrid green">Accessibility</span>
-        <span class="tag pill neutral">Drupal</span>
-      </div>
-    </section>
-
-    <!-- META -->
-    <section class="project-meta">
-      <div class="meta-block">
-        <h3>Role</h3>
-        <p>
-          UI / UX Designer<br><br>
-          The initial visual direction was defined by the marketing team. <br><br>
-My responsibility was translating that vision into a functional, accessible, and scalable UI system, aligning brand expression with real user needs, technical constraints, and long-term maintainability.
-        </p>
-      </div>
-
-      <div class="meta-block">
-        <h3>Scope</h3>
-        <p>
-          University website<br>
-          Multi-stakeholder platform
-        </p>
-      </div>
-    </section>
+    </figure>
 
     <!-- OVERVIEW -->
-    <section class="case-section">
-      <h2>Overview</h2>
-      <p>
-        The Escuela de Artes y Diseño redesigned its website to better serve a diverse academic
-        community — prospective students, faculty, alumni, press, and industry partners.
-      </p>
-      <p>
-        While the institution had a strong conceptual and artistic identity, its digital
-        experience had become difficult to navigate, especially for users outside the
-        internal ecosystem.
-      </p>
-      <p>
-        I led the UX effort to transform an initial homepage concept into a clear,
-        inclusive, and scalable digital experience across the full site.
-      </p>
-
-      <div class="image-block">
-  <img
-    src="../private_university/assests/images/overview_img.png"
-    alt="EAAD previous website structure"
-  />
-  <span class="caption">
-    Previous EAAD website structure — fragmented navigation and mixed audiences
-  </span>
-</div>
+    <section class="chapter">
+      <div class="chapter-label"><span class="mono ch">FRAME 01</span><span class="mono">Overview</span></div>
+      <div>
+        <h2>Overview</h2>
+        <p>
+          The Escuela de Artes y Diseño redesigned its website to better serve a diverse academic
+          community: prospective students, faculty, alumni, press, and industry partners.
+        </p>
+        <p>
+          While the institution had a strong conceptual and artistic identity, its digital
+          experience had become difficult to navigate, especially for users outside the
+          internal ecosystem.
+        </p>
+        <p>
+          I led the UX effort to transform an initial homepage concept into a clear,
+          inclusive, and scalable digital experience across the full site.
+        </p>
+        <p>
+          The initial visual direction was defined by the marketing team. My responsibility was
+          translating that vision into a functional, accessible, and scalable UI system, aligning
+          brand expression with real user needs, technical constraints, and long-term maintainability.
+        </p>
+        <figure class="cs-figure">
+          <img src="assests/images/overview_img.png" alt="EAAD previous website structure" loading="lazy" />
+          <figcaption>Previous EAAD website structure: fragmented navigation and mixed audiences.</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- CHALLENGE -->
-    <section class="case-section">
-      <h2>The Challenge</h2>
-      <ul>
-        <li>Fragmented and overwhelming navigation</li>
-        <li>No clear entry points for different user groups</li>
-        <li>Key academic information buried across sections</li>
-        <li>Low accessibility and discoverability</li>
-      </ul>
-      <p>
-        As a result, users often felt disoriented and unsure where they belonged or how to
-        complete even basic tasks.
-      </p>
-      <div class="image-block">
-  <img
-    src="../private_university/assests/images/challenge_img.png"
-    alt="EAAD navigation issues"
-  />
-  <span class="caption">
-    Overloaded navigation with no clear hierarchy or user-based entry points
-  </span>
-</div>
-
+    <section class="chapter">
+      <div class="chapter-label"><span class="mono ch">FRAME 02</span><span class="mono">The challenge</span></div>
+      <div>
+        <h2>The challenge</h2>
+        <ul>
+          <li>Fragmented and overwhelming navigation</li>
+          <li>No clear entry points for different user groups</li>
+          <li>Key academic information buried across sections</li>
+          <li>Low accessibility and discoverability</li>
+        </ul>
+        <p>
+          As a result, users often felt disoriented and unsure where they belonged or how to
+          complete even basic tasks.
+        </p>
+        <figure class="cs-figure">
+          <img src="assests/images/challenge_img.png" alt="EAAD navigation issues" loading="lazy" />
+          <figcaption>Overloaded navigation with no clear hierarchy or user-based entry points.</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- ROLE -->
-    <section class="case-section">
-      <h2>My Role</h2>
-      <ul>
-        <li>UX strategy and product thinking</li>
-        <li>Information architecture</li>
-        <li>User flows and wireframes</li>
-        <li>Design system definition</li>
-        <li>UI design per sprint</li>
-        <li>Accessibility considerations</li>
-      </ul>
-      <p>
-        I collaborated closely with creative, development, and academic stakeholders
-        throughout the process.
-      </p>
+    <section class="chapter">
+      <div class="chapter-label"><span class="mono ch">FRAME 03</span><span class="mono">My role</span></div>
+      <div>
+        <h2>My role</h2>
+        <ul>
+          <li>UX strategy and product thinking</li>
+          <li>Information architecture</li>
+          <li>User flows and wireframes</li>
+          <li>Design system definition</li>
+          <li>UI design per sprint</li>
+          <li>Accessibility considerations</li>
+        </ul>
+        <p>
+          I collaborated closely with creative, development, and academic stakeholders
+          throughout the process.
+        </p>
+      </div>
     </section>
 
     <!-- USERS -->
-    <section class="case-section">
-      <h2>Users & Needs</h2>
-      <ul>
-        <li><strong>Prospective students</strong> — Clear program information and admissions paths</li>
-        <li><strong>Faculty & staff</strong> — Fast access to internal resources</li>
-        <li><strong>Press & media</strong> — News, events, official information</li>
-        <li><strong>Industry partners</strong> — Research and collaboration opportunities</li>
-        <li><strong>Alumni</strong> — Ongoing connection with the institution</li>
-      </ul>
-      <p>
-        These needs directly informed the site structure, navigation logic,
-        and content hierarchy.
-      </p>
+    <section class="chapter">
+      <div class="chapter-label"><span class="mono ch">FRAME 04</span><span class="mono">Users &amp; needs</span></div>
+      <div>
+        <h2>Users &amp; needs</h2>
+        <ul>
+          <li><strong>Prospective students:</strong> clear program information and admissions paths</li>
+          <li><strong>Faculty &amp; staff:</strong> fast access to internal resources</li>
+          <li><strong>Press &amp; media:</strong> news, events, official information</li>
+          <li><strong>Industry partners:</strong> research and collaboration opportunities</li>
+          <li><strong>Alumni:</strong> ongoing connection with the institution</li>
+        </ul>
+        <p>
+          These needs directly informed the site structure, navigation logic,
+          and content hierarchy.
+        </p>
+      </div>
     </section>
 
     <!-- UX APPROACH -->
-    <section class="case-section">
-      <h2>UX Approach</h2>
+    <section class="chapter">
+      <div class="chapter-label"><span class="mono ch">FRAME 05</span><span class="mono">UX approach</span></div>
+      <div>
+        <h2>UX approach</h2>
 
-      <h4>Audit & Research</h4>
-      <p>
-        I audited the existing website to evaluate content structure, navigation patterns,
-        and accessibility gaps, complemented by qualitative feedback from users.
-      </p>
+        <h4>Audit &amp; research</h4>
+        <p>
+          I audited the existing website to evaluate content structure, navigation patterns,
+          and accessibility gaps, complemented by qualitative feedback from users.
+        </p>
 
-      <h4>Information Architecture</h4>
-      <ul>
-        <li>Clear entry points by user type</li>
-        <li>Reduced cognitive load</li>
-        <li>Improved content discoverability</li>
-        <li>Logical relationships between sections</li>
-      </ul>
+        <h4>Information architecture</h4>
+        <ul>
+          <li>Clear entry points by user type</li>
+          <li>Reduced cognitive load</li>
+          <li>Improved content discoverability</li>
+          <li>Logical relationships between sections</li>
+        </ul>
+        <figure class="cs-figure">
+          <img src="assests/images/architecture_img.png" alt="Reworked information architecture" loading="lazy" />
+          <figcaption>Reframed information architecture structured by user intent.</figcaption>
+        </figure>
 
-<div class="image-block">
-  <img
-    src="../private_university/assests/images/architecture_img.png"
-    alt="Reworked information architecture"
-  />
-  <span class="caption">
-    Reframed information architecture structured by user intent
-  </span>
-</div>
+        <h4>Wireframes &amp; user flows</h4>
+        <p>
+          The new structure was translated into wireframes and user flows to validate
+          hierarchy and navigation before moving into UI design.
+        </p>
+        <figure class="cs-figure">
+          <img src="assests/images/wireframes_img.png" alt="EAAD wireframes and user flows" loading="lazy" />
+          <figcaption>Early wireframes validating hierarchy and navigation paths.</figcaption>
+        </figure>
 
-      <h4>Wireframes & User Flows</h4>
-      <p>
-        The new structure was translated into wireframes and user flows to validate
-        hierarchy and navigation before moving into UI design.
-      </p>
+        <h4>Design system</h4>
+        <p>
+          I defined a lightweight, scalable design system covering components, typography,
+          spacing, interaction states, and accessibility, optimized for Drupal implementation.
+        </p>
 
-      <h4>Design System</h4>
-      <p>
-        I defined a lightweight, scalable design system covering components, typography,
-        spacing, interaction states, and accessibility — optimized for Drupal implementation.
-      </p>
-
-      <div class="image-block">
-  <img
-    src="../private_university/assests/images/wireframes_img.png"
-    alt="EAAD wireframes and user flows"
-  />
-  <span class="caption">
-    Early wireframes validating hierarchy and navigation paths
-  </span>
-</div>
-
-
-      <h4>UI Design</h4>
-      <p>
-        UI templates were designed iteratively per sprint, maintaining brand alignment
-        while significantly improving clarity, usability, and accessibility.
-      </p>
-
-      <div class="image-block">
-  <img
-    src="../private_university/assests/images/final_img.png"
-    alt="Final UI implementation"
-  />
-  <span class="caption">
-    Final UI balancing artistic identity with clarity and accessibility
-  </span>
-</div>
-
+        <h4>UI design</h4>
+        <p>
+          UI templates were designed iteratively per sprint, maintaining brand alignment
+          while significantly improving clarity, usability, and accessibility.
+        </p>
+        <figure class="cs-figure">
+          <img src="assests/images/final_img.png" alt="Final UI implementation" loading="lazy" />
+          <figcaption>Final UI balancing artistic identity with clarity and accessibility.</figcaption>
+        </figure>
+      </div>
     </section>
 
-    <section class="case-section">
-  <h2>Micro Impact & Outcomes</h2>
-
-  <ul>
-    <li>
-      Clearer entry points reduced user disorientation during internal reviews
-      and stakeholder walkthroughs
-    </li>
-    <li>
-      Navigation structure enabled faster access to academic information
-      for prospective students and external audiences
-    </li>
-    <li>
-      Content ownership and hierarchy simplified future updates within Drupal
-    </li>
-    <li>
-      Accessibility considerations improved readability and contrast
-      across key academic pages
-    </li>
-  </ul>
-
-  <p>
-    While quantitative analytics were limited, qualitative feedback from
-    stakeholders and internal users confirmed improved clarity,
-    orientation, and maintainability.
-  </p>
-</section>
+    <!-- OUTCOMES -->
+    <section class="chapter">
+      <div class="chapter-label"><span class="mono ch">FRAME 06</span><span class="mono">Impact</span></div>
+      <div>
+        <h2>Micro impact &amp; outcomes</h2>
+        <ul>
+          <li>Faster search: users found key elements and academic information in less time</li>
+          <li>Improved user flows for each audience, from prospective students to faculty</li>
+          <li>A rebuilt information architecture and sitemap</li>
+          <li>Clearer entry points reduced user disorientation during internal reviews and stakeholder walkthroughs</li>
+          <li>Navigation structure enabled faster access to academic information for prospective students and external audiences</li>
+          <li>Content ownership and hierarchy simplified future updates within Drupal</li>
+          <li>Accessibility considerations improved readability and contrast across key academic pages</li>
+        </ul>
+        <p>
+          While quantitative analytics were limited, qualitative feedback from
+          stakeholders and internal users confirmed improved clarity,
+          orientation, and maintainability.
+        </p>
+      </div>
+    </section>
 
     <!-- REFLECTION -->
-    <section class="case-section case-reflection">
-      <h2>Reflection</h2>
+    <section class="reflection" aria-labelledby="reflection-title">
+      <span class="mono" id="reflection-title">✦ REFLECTION</span>
       <p>
         This project reinforced the importance of designing for diverse audiences within
         a single platform and aligning UX decisions with long-term maintainability.
       </p>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="ghost-footer">
-      <div class="footer-marquee-wrapper">
-        <div class="footer-marquee-content">
-          <span>© Verónica, 2026</span>
-          <span>© Verónica, 2026</span>
-          <span>© Verónica, 2026</span>
-          <span>© Verónica, 2026</span>
-          <span>© Verónica, 2026</span>
-        </div>
-      </div>
+    <!-- UP NEXT -->
+    <a class="up-next" href="../melifloz/index.html">
+      <span class="next-bg" style="background-image: url('../../assets/images/melifloz-hero.png')" aria-hidden="true"></span>
+      <span>
+        <span class="mono">UP NEXT · 3-D REEL 05</span>
+        <strong>Melifloz</strong>
+      </span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  </main>
 
-      <div class="socials">
-        <a href="https://www.linkedin.com/in/veromtz" target="_blank" class="footer-link">LinkedIn</a>
-        <a href="https://www.behance.net/verukami" target="_blank" class="footer-link">Behance</a>
-        <a href="https://www.instagram.com/verukami" target="_blank" class="footer-link">Instagram</a>
-        <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view" target="_blank" class="footer-link">Resume</a>
-      </div>
+  <footer id="contact">
+    <div class="blob sparkle" aria-hidden="true"></div>
+    <span class="mono">✦ CONTACT</span>
+    <p class="say">Let's make something <em>weird</em> &amp; useful.</p>
+    <a class="mail" href="mailto:veru.kami@gmail.com">veru.kami@gmail.com</a>
 
-      <p class="footer-note">
-        Let's chat hi at <a href="mailto:veru.kami@gmail.com">veru.kami@gmail.com</a><br>
-        Made with ❤
-      </p>
-    </footer>
-
-    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-    <script src="../../assets/js/app.js"></script>
-    <script src="../../assets/js/reveal.js"></script>
-    <script src="../../assets/js/menu.js"></script>
-    <script src="../../assets/js/eaad-gate.js"></script>
+    <div class="foot-row mono">
+      <span>© Verónica Martínez, 2026 — made with ❤</span>
+      <nav aria-label="Social">
+        <a href="https://www.linkedin.com/in/veromtz" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.behance.net/verukami" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.instagram.com/verukami" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+  </footer>
 
   </div>
+
+  <script src="../../assets/js/site.js"></script>
+  <script src="../../assets/js/eaad-gate.js"></script>
 </body>
 </html>

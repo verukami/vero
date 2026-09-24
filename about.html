@@ -18,6 +18,10 @@
   <meta name="twitter:description" content="Senior Product Designer. Product design across systems, interfaces, and complex digital products." />
   <meta name="twitter:image" content="https://verukami.github.io/vero/assets/images/preview.jpg" />
 
+  <link rel="canonical" href="https://verukami.github.io/vero/about.html" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet" />
@@ -94,7 +98,15 @@
       background: radial-gradient(circle at 50% 40%, #b18cf0, #7446c4);
       overflow: hidden;
     }
-    .player-screen img { width: 78%; margin: 12px auto 0; }
+    .player-screen img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      object-position: 20% 42%;
+      filter: grayscale(1) contrast(1.25) brightness(1.05);
+      mix-blend-mode: luminosity;
+    }
     .stats { margin: 0; display: grid; gap: 8px; }
     .stats div {
       display: grid;
@@ -277,7 +289,7 @@
           <span class="battery"><i></i><i></i><i></i><i></i></span>
         </div>
         <div class="player-screen">
-          <img src="assets/images/avatar.png" alt="3D avatar of Verónica: purple hair, round pink glasses, holding a phone" />
+          <img src="assets/images/vero-portrait.webp" alt="Black and white portrait of Verónica Martínez, long dark hair across her face" width="853" height="1280" />
         </div>
         <dl class="stats">
           <div><dt>PLAYER</dt><dd>Verónica Martínez</dd></div>
@@ -322,6 +334,10 @@
             I work closely with product and engineering to find the best solutions together. I think about the
             long-term impact of our decisions, so we build something scalable, not just a quick fix.
           </p>
+          <p>
+            AI is part of how I work: I use it to prototype, explore more directions faster and ship real things,
+            like this site. The judgment, the taste and the final call stay human.
+          </p>
         </article>
 
         <article class="scene">
@@ -343,10 +359,12 @@
       <h2 id="credits-title">Cast &amp; crew</h2>
       <dl>
         <div><dt>Starring</dt><dd><strong>Verónica Martínez</strong> as Senior Product Designer</dd></div>
-        <div><dt>Roles</dt><dd>UX strategy · Interaction design · Design systems · Visual design</dd></div>
+        <div><dt>Roles</dt><dd>UX strategy · Interaction design · Design systems · Visual design · AI-assisted design &amp; prototyping</dd></div>
         <div><dt>Industries</dt><dd>Fintech · Enterprise · Healthcare · Education · E-commerce</dd></div>
+        <div><dt>Studios &amp; companies</dt><dd>Backbase · Playful · Concentrix · Globant</dd></div>
         <div><dt>Featuring</dt><dd>Citibanamex · Banking clients in Peru &amp; the US · Hospital teams · Startups · Creative agencies</dd></div>
         <div><dt>In collaboration with</dt><dd>Product managers, engineers, and every user who tested a prototype</dd></div>
+        <div><dt>Built with</dt><dd>HTML, CSS &amp; JavaScript · designed by me, coded together with AI</dd></div>
         <div><dt>Filmed on location in</dt><dd>México</dd></div>
       </dl>
       <p class="fin">No quick fixes were harmed in the making of these products.</p>
@@ -363,7 +381,7 @@
         <div class="ctas">
           <a href="mailto:veru.kami@gmail.com" class="btn primary">Let's talk ✉</a>
           <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing" target="_blank" rel="noopener" class="btn ghost">Resume ↗</a>
-          <a href="index.html#work" class="btn link">See the video club</a>
+          <a href="index.html#work" class="btn link">See the collection</a>
         </div>
       </div>
     </section>

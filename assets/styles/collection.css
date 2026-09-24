@@ -1,0 +1,302 @@
+/* ======================================================
+   THE COLLECTION — one object at a time
+   Left: a step per project (scroll). Right: sticky stage.
+====================================================== */
+.collection {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  grid-template-areas: "steps stage";
+  gap: 0 clamp(24px, 5vw, 80px);
+}
+.steps { grid-area: steps; }
+.stage {
+  grid-area: stage;
+  position: sticky;
+  top: 72px;
+  height: calc(100svh - 96px);
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+.stage-view { position: relative; }
+
+/* mini menu under the stage */
+.mini-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  padding: 12px 0 8px;
+}
+.mini-menu button {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 10px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.mini-menu button:hover { color: var(--ink); border-color: var(--ink-soft); }
+.mini-menu button[aria-current="true"] {
+  color: #fff;
+  background: var(--select);
+  border-color: var(--select);
+}
+
+/* steps */
+.step {
+  min-height: 78svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 0;
+  opacity: 0.35;
+  transition: opacity 0.4s;
+}
+.step.is-active { opacity: 1; }
+.step .kicker { display: flex; gap: 10px; align-items: center; }
+.format {
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.1em;
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--canvas);
+}
+.step h3 {
+  margin: 18px 0 10px;
+  font-size: clamp(34px, 4.4vw, 64px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.step .line { margin: 0; font-size: clamp(17px, 1.5vw, 21px); color: var(--ink-soft); font-style: italic; }
+.step .chip {
+  align-self: flex-start;
+  margin-top: 22px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1.5px solid var(--select);
+  color: var(--accent-text);
+  font: 500 12px/1.2 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.step .tags { margin-top: 14px; }
+.step .ctas { margin-top: 26px; }
+
+/* objects: stacked in the stage, one visible */
+.obj {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(24px) scale(0.94);
+  transition: opacity 0.45s ease, transform 0.6s cubic-bezier(.2,.8,.2,1), visibility 0s linear 0.45s;
+}
+.obj.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+.obj-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  text-align: center;
+}
+
+/* ----- VHS object (reuses .tape / .box / .cassette) ----- */
+.obj .tape { width: min(64%, 300px); }
+.obj.is-active .tape .cassette { transform: translateY(-46%) rotate(3deg); transition-delay: 0.45s; }
+.obj.is-active .tape .reel { animation-play-state: running; }
+.obj.is-active .tape .box { animation: box-in 0.7s cubic-bezier(.2,.8,.2,1.2); }
+@keyframes box-in { from { transform: rotate(-8deg) translateY(30px); } to { transform: none; } }
+
+/* ----- Stereo reel (View-Master style) ----- */
+.reel-disk {
+  --n: 7;
+  position: relative;
+  width: min(84%, 420px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 11%, #f4efe4 11.5%, #f4efe4 30%, #ebe4d4 30.5%, #f4efe4 31.5%),
+    #f4efe4;
+  box-shadow: 0 30px 60px -24px rgba(40, 10, 90, 0.55), inset 0 0 0 6px #e7dfcc;
+}
+.obj.is-active .reel-disk { animation: reel-in 0.8s cubic-bezier(.2,.8,.2,1), reel-click 8.4s steps(7, end) 0.8s infinite; }
+@keyframes reel-in { from { transform: rotate(-120deg) scale(0.7); } to { transform: rotate(0) scale(1); } }
+@keyframes reel-click { to { transform: rotate(360deg); } }
+.reel-disk .frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 21%;
+  height: 16%;
+  margin: -8% 0 0 -10.5%;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 0 3px #1b1822;
+  transform: rotate(calc(var(--i) * 360deg / var(--n))) translateY(-212%);
+}
+.reel-disk .frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--pos);
+  transform: scale(2.4);
+  transform-origin: var(--pos);
+}
+.reel-disk .hub {
+  position: absolute;
+  inset: 39%;
+  border-radius: 50%;
+  background: var(--accent, var(--pink));
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 5px rgba(0,0,0,.15);
+}
+.reel-disk .hub::after {
+  content: "";
+  width: 34%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--canvas);
+}
+.reel-tag {
+  position: absolute;
+  left: 50%;
+  top: 64%;
+  transform: translateX(-50%);
+  font: 600 9px/1 var(--mono);
+  letter-spacing: 0.25em;
+  color: #6b6358;
+  white-space: nowrap;
+}
+
+/* ----- Tarot card ----- */
+.tarot {
+  width: min(56%, 270px);
+  aspect-ratio: 7 / 12;
+  perspective: 1200px;
+}
+.tarot-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateY(180deg);
+  transition: transform 0.9s cubic-bezier(.3,.9,.3,1.05) 0.15s;
+}
+.obj.is-active .tarot-inner { transform: rotateY(0deg); }
+.tarot-face, .tarot-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -24px rgba(40, 10, 90, 0.6);
+}
+.tarot-back {
+  transform: rotateY(180deg);
+  background:
+    radial-gradient(rgba(255,255,255,.18) 1px, transparent 1.5px) 0 0 / 14px 14px,
+    linear-gradient(160deg, #3b1d7a, #1a0f33);
+  display: grid;
+  place-items: center;
+  color: var(--pink);
+  font-size: 56px;
+}
+.tarot-face {
+  background: #18112b;
+  color: #f3eee0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 16px;
+  gap: 10px;
+}
+.tarot-face::before { /* double ornamental border */
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(243, 238, 224, 0.55);
+  border-radius: 11px;
+  box-shadow: inset 0 0 0 3px #18112b, inset 0 0 0 4px rgba(243, 238, 224, 0.3);
+  pointer-events: none;
+}
+.tarot-num {
+  text-align: center;
+  font-family: var(--poster);
+  font-size: 22px;
+  letter-spacing: 0.1em;
+  color: var(--accent, var(--pink));
+}
+.tarot-art {
+  position: relative;
+  border-radius: 999px 999px 10px 10px;
+  overflow: hidden;
+  border: 1px solid rgba(243, 238, 224, 0.4);
+}
+.tarot-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tarot-art::after {
+  content: "✦";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 18px;
+  text-shadow: 0 0 10px var(--accent, var(--pink));
+}
+.tarot-name {
+  text-align: center;
+  font-family: var(--poster);
+  font-size: 24px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.tarot-name small {
+  display: block;
+  margin-top: 6px;
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.2em;
+  color: rgba(243, 238, 224, 0.65);
+}
+
+/* ----- Mobile: stage sticks on top, steps scroll beneath ----- */
+@media (max-width: 900px) {
+  .collection {
+    grid-template-columns: 1fr;
+    grid-template-areas: "stage" "steps";
+  }
+  .stage {
+    top: 56px;
+    z-index: 5;
+    height: 50svh;
+    background: var(--canvas);
+    border-bottom: 1px solid var(--line);
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 0 var(--gutter);
+  }
+  .step { min-height: 62svh; scroll-margin-top: calc(50svh + 64px); justify-content: flex-start; padding-top: 28px; }
+  .obj .tape { width: min(46%, 190px); }
+  .tarot { width: min(38%, 170px); }
+  .reel-disk { width: min(62%, 280px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obj, .tarot-inner, .step { transition: none; }
+  .obj.is-active .reel-disk, .obj.is-active .tape .box { animation: none; }
+  .obj.is-active .tape .reel { animation-play-state: paused; }
+}
+
+.obj .movie.f-poster { font-size: clamp(20px, 2.2vw, 32px); }

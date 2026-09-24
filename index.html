@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Verónica Martínez — Senior Product Designer</title>
-  <meta name="description" content="Portfolio of Verónica Martínez. Product design across systems, interfaces, and complex digital products." />
+  <meta name="description" content="Verónica Martínez, Senior Product Designer based in México. 10+ years designing clear, scalable products in fintech, enterprise, healthcare and education." />
 
   <script defer src="https://cloud.umami.is/script.js" data-website-id="6849f1a9-3081-4167-981d-b2495c49043b"></script>
 
@@ -18,6 +18,26 @@
   <meta name="twitter:description" content="Senior Product Designer. Product design across systems, interfaces, and complex digital products." />
   <meta name="twitter:image" content="https://verukami.github.io/vero/assets/images/preview.jpg" />
 
+  <link rel="canonical" href="https://verukami.github.io/vero/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Verónica Martínez",
+    "jobTitle": "Senior Product Designer",
+    "url": "https://verukami.github.io/vero/",
+    "email": "mailto:veru.kami@gmail.com",
+    "address": { "@type": "PostalAddress", "addressCountry": "MX" },
+    "sameAs": [
+      "https://www.linkedin.com/in/veromtz",
+      "https://www.behance.net/verukami",
+      "https://www.instagram.com/verukami"
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet" />
@@ -25,6 +45,7 @@
   <script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 
   <link rel="stylesheet" href="assets/styles/site.css" />
+  <link rel="stylesheet" href="assets/styles/collection.css" />
 </head>
 
 <body>
@@ -90,118 +111,173 @@
 
     <section class="section" id="work" aria-labelledby="work-title">
       <div class="section-head">
-        <h2 id="work-title">The <em>video club</em></h2>
-        <span class="mono">06 tapes · be kind, rewind</span>
+        <h2 id="work-title">The <em>collection</em></h2>
+        <span class="mono">2 tapes · 2 cards · 2 reels</span>
       </div>
 
-      <div class="shelf">
-        <a class="tape" href="projects/citibanamex/index.html" style="--accent: var(--pink)">
-          <div class="cassette" aria-hidden="true"><span class="label">Citibanamex — SP</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
-          <div class="box">
-            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">hi-fi</span></div>
-            <div class="cover">
-              <img src="assets/images/bank-hero.png" alt="Citibanamex digital banking interface" loading="lazy" />
-              <div class="cover-top" aria-hidden="true"><span>TAPE 01</span><span>BANKING</span></div>
-              <span class="sticker" aria-hidden="true">New<br>release</span>
-              <div class="cover-text">
-                <span class="stat">★ Used daily by millions</span>
-                <h3 class="movie f-poster">Citibanamex</h3>
-                <p class="tagline">Millions of users. One design system. No way out.</p>
-              </div>
-            </div>
-          </div>
-          <div class="tape-meta"><span class="mono">UI strategy · Design system</span><span class="mono" aria-hidden="true">▶</span></div>
-        </a>
+      <div class="collection">
+        <!-- STAGE: one object visible at a time -->
+        <div class="stage">
+          <div class="stage-view" aria-hidden="true">
 
-        <a class="tape" href="projects/private_university/index.html" style="--accent: var(--lime)">
-          <div class="cassette" aria-hidden="true"><span class="label">University redesign</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
-          <div class="box">
-            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">stereo</span></div>
-            <div class="cover">
-              <img src="assets/images/eaad-hero.png" alt="Arts &amp; Design faculty website redesign" loading="lazy" />
-              <div class="cover-top" aria-hidden="true"><span>TAPE 02</span><span>EDUCATION</span></div>
-              <span class="sticker" aria-hidden="true">Staff<br>pick</span>
-              <div class="cover-text">
-                <span class="stat">★ New information architecture</span>
-                <h3 class="movie f-poster">University Redesign</h3>
-                <p class="tagline">The website was a maze. Somebody had to find the exit.</p>
+            <!-- 01 VHS · Citibanamex -->
+            <div class="obj is-active" data-obj="0">
+              <div class="tape" style="--accent: var(--pink)">
+                <div class="cassette"><span class="label">Citibanamex — SP</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
+                <div class="box">
+                  <div class="spine"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">hi-fi</span></div>
+                  <div class="cover">
+                    <img src="assets/images/bank-hero.png" alt="" />
+                    <div class="cover-top"><span>TAPE 01</span><span>BANKING</span></div>
+                    <span class="sticker">New<br>release</span>
+                    <div class="cover-text"><h4 class="movie f-poster">Citibanamex</h4></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="tape-meta"><span class="mono">UI/UX · UI kit</span><span class="mono" aria-hidden="true">▶</span></div>
-        </a>
 
-        <a class="tape" href="projects/alienpooh/index.html" style="--accent: var(--violet)">
-          <div class="cassette" aria-hidden="true"><span class="label">Alienpooh</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
-          <div class="box">
-            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">hi-fi</span></div>
-            <div class="cover">
-              <img src="assets/images/alien-hero.png" alt="Alienpooh emotional well-being app" loading="lazy" />
-              <div class="cover-top" aria-hidden="true"><span>TAPE 03</span><span>WELL-BEING</span></div>
-              <span class="sticker" aria-hidden="true">Cult<br>classic</span>
-              <div class="cover-text">
-                <span class="stat">★ Validated with real users</span>
-                <h3 class="movie f-poster">Alienpooh</h3>
-                <p class="tagline">Feelings from another planet.</p>
+            <!-- 02 VHS · Scalable Banking -->
+            <div class="obj" data-obj="1">
+              <div class="tape" style="--accent: var(--lime)">
+                <div class="cassette"><span class="label">Scalable banking</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
+                <div class="box">
+                  <div class="spine"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">stereo</span></div>
+                  <div class="cover">
+                    <img src="assets/images/fintech-hero.png" alt="" />
+                    <div class="cover-top"><span>TAPE 02</span><span>FINTECH</span></div>
+                    <span class="sticker">Director's<br>cut</span>
+                    <div class="cover-text"><h4 class="movie f-poster">Scalable Banking</h4></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="tape-meta"><span class="mono">Product design · Art direction</span><span class="mono" aria-hidden="true">▶</span></div>
-        </a>
 
-        <a class="tape" href="projects/melifloz/index.html" style="--accent: var(--pink)">
-          <div class="cassette" aria-hidden="true"><span class="label">Melifloz</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
-          <div class="box">
-            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">stereo</span></div>
-            <div class="cover">
-              <img src="assets/images/melifloz-hero.png" alt="Melifloz saree shopping app" loading="lazy" />
-              <div class="cover-top" aria-hidden="true"><span>TAPE 04</span><span>E-COMMERCE</span></div>
-              <span class="sticker" aria-hidden="true">Now on<br>tape</span>
-              <div class="cover-text">
-                <span class="stat">★ Body scan in the shopping flow</span>
-                <h3 class="movie f-poster">Melifloz</h3>
-                <p class="tagline">Try it on… if you dare.</p>
+            <!-- 03 Tarot · Healthcare -->
+            <div class="obj" data-obj="2">
+              <div class="tarot" style="--accent: #7fe3ff">
+                <div class="tarot-inner">
+                  <div class="tarot-back">✦</div>
+                  <div class="tarot-face">
+                    <div class="tarot-num">XI</div>
+                    <div class="tarot-art"><img src="assets/images/healthcare-hero.png" alt="" /></div>
+                    <div class="tarot-name">Justice<small>HEALTHCARE OPS</small></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="tape-meta"><span class="mono">UI strategy · Art direction</span><span class="mono" aria-hidden="true">▶</span></div>
-        </a>
 
-        <a class="tape" href="projects/healthcare/index.html" style="--accent: #7fe3ff">
-          <div class="cassette" aria-hidden="true"><span class="label">Healthcare ops</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
-          <div class="box">
-            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">hi-fi</span></div>
-            <div class="cover">
-              <img src="assets/images/healthcare-hero.png" alt="Healthcare operations and workforce management platform" loading="lazy" />
-              <div class="cover-top" aria-hidden="true"><span>TAPE 05</span><span>HEALTH</span></div>
-              <span class="sticker" aria-hidden="true">Based on<br>real data</span>
-              <div class="cover-text">
-                <span class="stat">★ Multiple hospitals · WCAG</span>
-                <h3 class="movie f-poster">Healthcare Ops</h3>
-                <p class="tagline">The data never sleeps.</p>
+            <!-- 04 Stereo reel · University -->
+            <div class="obj" data-obj="3">
+              <div class="reel-disk" style="--accent: var(--lime)">
+                <span class="frame" style="--i:0; --pos: 10% 20%"><img src="assets/images/eaad-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:1; --pos: 40% 10%"><img src="assets/images/eaad-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:2; --pos: 80% 30%"><img src="assets/images/eaad-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:3; --pos: 20% 60%"><img src="assets/images/eaad-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:4; --pos: 60% 70%"><img src="assets/images/eaad-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:5; --pos: 90% 90%"><img src="assets/images/eaad-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:6; --pos: 35% 95%"><img src="assets/images/eaad-hero.png" alt="" loading="lazy" /></span>
+                <span class="hub"></span>
+                <span class="reel-tag">3-D REEL · 04</span>
               </div>
             </div>
-          </div>
-          <div class="tape-meta"><span class="mono">Enterprise UX · Complex data</span><span class="mono" aria-hidden="true">▶</span></div>
-        </a>
 
-        <a class="tape" href="projects/fintech/index.html" style="--accent: var(--lime)">
-          <div class="cassette" aria-hidden="true"><span class="label">Scalable banking</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
-          <div class="box">
-            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">stereo</span></div>
-            <div class="cover">
-              <img src="assets/images/fintech-hero.png" alt="Scalable B2B and B2C banking experiences" loading="lazy" />
-              <div class="cover-top" aria-hidden="true"><span>TAPE 06</span><span>FINTECH</span></div>
-              <span class="sticker" aria-hidden="true">Director's<br>cut</span>
-              <div class="cover-text">
-                <span class="stat">★ 1 platform · Peru &amp; US</span>
-                <h3 class="movie f-poster">Scalable Banking</h3>
-                <p class="tagline">B2B. B2C. It grows… and it can't be stopped.</p>
+            <!-- 05 Stereo reel · Melifloz -->
+            <div class="obj" data-obj="4">
+              <div class="reel-disk" style="--accent: var(--pink)">
+                <span class="frame" style="--i:0; --pos: 50% 15%"><img src="assets/images/melifloz-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:1; --pos: 70% 35%"><img src="assets/images/melifloz-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:2; --pos: 30% 45%"><img src="assets/images/melifloz-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:3; --pos: 85% 60%"><img src="assets/images/melifloz-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:4; --pos: 15% 75%"><img src="assets/images/melifloz-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:5; --pos: 55% 90%"><img src="assets/images/melifloz-hero.png" alt="" loading="lazy" /></span>
+                <span class="frame" style="--i:6; --pos: 40% 25%"><img src="assets/images/melifloz-hero.png" alt="" loading="lazy" /></span>
+                <span class="hub"></span>
+                <span class="reel-tag">3-D REEL · 05</span>
               </div>
             </div>
+
+            <!-- 06 Tarot · Alienpooh -->
+            <div class="obj" data-obj="5">
+              <div class="tarot" style="--accent: var(--violet)">
+                <div class="tarot-inner">
+                  <div class="tarot-back">✦</div>
+                  <div class="tarot-face">
+                    <div class="tarot-num">XVIII</div>
+                    <div class="tarot-art"><img src="assets/images/alien-hero.png" alt="" /></div>
+                    <div class="tarot-name">The Moon<small>ALIENPOOH</small></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
-          <div class="tape-meta"><span class="mono">B2B &amp; B2C banking · UX strategy</span><span class="mono" aria-hidden="true">▶</span></div>
-        </a>
+
+          <nav class="mini-menu" aria-label="Jump to project">
+            <button type="button" data-go="0">01 Citibanamex</button>
+            <button type="button" data-go="1">02 Banking</button>
+            <button type="button" data-go="2">03 Healthcare</button>
+            <button type="button" data-go="3">04 University</button>
+            <button type="button" data-go="4">05 Melifloz</button>
+            <button type="button" data-go="5">06 Alienpooh</button>
+          </nav>
+        </div>
+
+        <!-- STEPS: the readable content, one per project -->
+        <div class="steps">
+          <article class="step is-active" data-step="0">
+            <div class="kicker"><span class="format">VHS</span><span class="mono">01 · Banking · Globant 2020</span></div>
+            <h3>Citibanamex</h3>
+            <p class="line">Millions of users. One design system. No way out.</p>
+            <span class="chip">★ Millions of users nationwide</span>
+            <p class="tags mono">UI strategy · Design system</p>
+            <div class="ctas"><a href="projects/citibanamex/index.html" class="btn primary">Play the tape →</a></div>
+          </article>
+
+          <article class="step" data-step="1">
+            <div class="kicker"><span class="format">VHS</span><span class="mono">02 · Fintech · Backbase 2024–2025</span></div>
+            <h3>Scalable Banking</h3>
+            <p class="line">B2B. B2C. It grows… and it can't be stopped.</p>
+            <span class="chip">★ 1 platform · Peru &amp; US</span>
+            <p class="tags mono">B2B &amp; B2C banking · UX strategy</p>
+            <div class="ctas"><a href="projects/fintech/index.html" class="btn primary">Play the tape →</a></div>
+          </article>
+
+          <article class="step" data-step="2">
+            <div class="kicker"><span class="format">TAROT</span><span class="mono">03 · Health · Concentrix 2021–2023</span></div>
+            <h3>Healthcare Operations</h3>
+            <p class="line">The data never sleeps.</p>
+            <span class="chip">★ Multiple hospitals · Linked to payroll</span>
+            <p class="tags mono">Enterprise UX · Complex data</p>
+            <div class="ctas"><a href="projects/healthcare/index.html" class="btn primary">Read the card →</a></div>
+          </article>
+
+          <article class="step" data-step="3">
+            <div class="kicker"><span class="format">3-D REEL</span><span class="mono">04 · Education · Playful 2025</span></div>
+            <h3>University Redesign</h3>
+            <p class="line">The website was a maze. Somebody had to find the exit.</p>
+            <span class="chip">★ Faster search · New sitemap</span>
+            <p class="tags mono">UI/UX · UI kit</p>
+            <div class="ctas"><a href="projects/private_university/index.html" class="btn primary">View the reel →</a></div>
+          </article>
+
+          <article class="step" data-step="4">
+            <div class="kicker"><span class="format">3-D REEL</span><span class="mono">05 · E-commerce · Startup 2020</span></div>
+            <h3>Melifloz</h3>
+            <p class="line">Try it on… if you dare.</p>
+            <span class="chip">★ Body scan in the shopping flow</span>
+            <p class="tags mono">UI strategy · Art direction</p>
+            <div class="ctas"><a href="projects/melifloz/index.html" class="btn primary">View the reel →</a></div>
+          </article>
+
+          <article class="step" data-step="5">
+            <div class="kicker"><span class="format">TAROT</span><span class="mono">06 · Well-being · Personal project</span></div>
+            <h3>Alienpooh</h3>
+            <p class="line">Feelings from another planet.</p>
+            <span class="chip">★ Validated with real users</span>
+            <p class="tags mono">Product design · Art direction</p>
+            <div class="ctas"><a href="projects/alienpooh/index.html" class="btn primary">Read the card →</a></div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -209,14 +285,12 @@
       <h2 class="mono" id="about-title">✦ ABOUT</h2>
       <div>
         <p class="big">
-          Half systems thinker, half horror fan. I take messy, complex products apart and
+          Half systems thinker, half pixels. I take messy, complex products apart and
           stitch them back together until they feel clear, and come <em>alive.</em>
         </p>
-        <p class="small">
-          10+ years across banking, education, health and e-commerce, from UX strategy to interface design,
-          always with multidisciplinary teams. Outside of product work I make 3D in Blender and keep an eye
-          on where XR and AI are taking interfaces next.
-        </p>
+        <div class="ctas">
+          <a href="about.html" class="btn ghost">Meet the player →</a>
+        </div>
       </div>
     </section>
   </main>
@@ -239,6 +313,31 @@
 
   <script src="assets/js/site.js"></script>
   <script>
+    /* The collection: the step in the middle of the screen picks the object on stage */
+    const steps = [...document.querySelectorAll(".step")];
+    const objs = [...document.querySelectorAll(".obj")];
+    const menu = [...document.querySelectorAll(".mini-menu button")];
+
+    const show = i => {
+      steps.forEach((s, n) => s.classList.toggle("is-active", n === i));
+      objs.forEach((o, n) => o.classList.toggle("is-active", n === i));
+      menu.forEach((b, n) => b.setAttribute("aria-current", n === i ? "true" : "false"));
+    };
+
+    const stepObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) show(steps.indexOf(e.target)); });
+    }, { rootMargin: "-55% 0px -35% 0px" });
+    steps.forEach(s => stepObserver.observe(s));
+
+    menu.forEach((b, i) => b.addEventListener("click", () => {
+      steps[i].scrollIntoView({
+        behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: matchMedia("(max-width: 900px)").matches ? "start" : "center"
+      });
+      show(i);
+    }));
+    show(0);
+
     /* Draggable shapes with a live x/y readout, like a design tool */
     document.querySelectorAll(".shape").forEach(shape => {
       const xy = shape.querySelector(".xy");
