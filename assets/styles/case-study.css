@@ -538,3 +538,12 @@
     0 40px 80px -18px rgba(0, 0, 0, 0.85),
     inset 0 0 0 6px #e8479f;
 }
+
+/* 3-D reel hero, v4: a soft, gradual shadow instead of a dark ring */
+.cs-object.lightbox .reel-disk {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.18),
+    0 18px 40px -12px rgba(0, 0, 0, 0.45),
+    0 50px 90px -30px rgba(40, 10, 90, 0.55),
+    inset 0 0 0 6px #e8479f;
+}
