@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verónica Martínez — Product Designer</title>
+  <meta name="description" content="Portfolio of Verónica Martínez. Product design across systems, interfaces, and complex digital products." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Pirata+One&family=VT323&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #0b0a09;
+      --ink-2: #16130f;
+      --bone: #ece5d3;
+      --bone-dim: #9d967f;
+      --blood: #e0101e;
+      --phosphor: #3dff6e;
+
+      --display: "Anton", "Impact", sans-serif;
+      --gothic: "Pirata One", serif;
+      --osd: "VT323", ui-monospace, monospace;
+      --body: "Space Grotesk", system-ui, sans-serif;
+
+      --gutter: clamp(16px, 4vw, 56px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: var(--ink);
+      color: var(--bone);
+      font-family: var(--body);
+      line-height: 1.5;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ::selection { background: var(--blood); color: var(--bone); }
+
+    a:focus-visible {
+      outline: 2px solid var(--phosphor);
+      outline-offset: 4px;
+    }
+
+    /* ============ SCREEN LAYERS ============ */
+    .grain, .scanlines, .vignette, .tracking {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+    .grain {
+      width: 100%;
+      height: 100%;
+      opacity: 0.07;
+      mix-blend-mode: screen;
+    }
+    .scanlines {
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, 0.28) 3px
+      );
+    }
+    .vignette {
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.75) 100%);
+    }
+    /* rolling tracking band */
+    .tracking {
+      inset: auto 0 auto 0;
+      top: -20vh;
+      height: 14vh;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(236, 229, 211, 0.05) 40%,
+        rgba(236, 229, 211, 0.12) 50%,
+        rgba(236, 229, 211, 0.05) 60%,
+        transparent
+      );
+      backdrop-filter: blur(1px) saturate(1.6);
+      animation: track 9s linear infinite;
+      animation-delay: 3s;
+    }
+    @keyframes track {
+      0%   { transform: translateY(0); }
+      18%  { transform: translateY(140vh); }
+      100% { transform: translateY(140vh); }
+    }
+
+    /* ============ VHS OSD ============ */
+    .osd {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 18px var(--gutter);
+      font-family: var(--osd);
+      font-size: clamp(20px, 2.2vw, 28px);
+      letter-spacing: 0.04em;
+      color: var(--bone);
+      text-shadow: 0 0 6px rgba(236, 229, 211, 0.5);
+      background: linear-gradient(to bottom, rgba(11, 10, 9, 0.92) 40%, rgba(11, 10, 9, 0));
+      padding-bottom: 36px;
+    }
+    .osd nav { display: flex; gap: clamp(14px, 2.5vw, 36px); }
+    .osd nav a:hover { color: var(--phosphor); }
+    .osd .rec { display: inline-flex; align-items: center; gap: 8px; }
+    .osd .rec::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--blood);
+      animation: blink 1.1s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .osd-right { text-align: right; }
+
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-content: end;
+      padding: 120px var(--gutter) clamp(32px, 6vh, 64px);
+      overflow: hidden;
+    }
+    .hero-kicker {
+      font-family: var(--osd);
+      font-size: clamp(20px, 2vw, 26px);
+      color: var(--phosphor);
+      margin: 0 0 1vh;
+    }
+    .hero-name {
+      margin: 0;
+      padding-top: 0.14em; /* room for the Ó accent */
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(80px, 25.5vw, 500px);
+      line-height: 0.82;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--bone);
+      text-shadow: -0.035em 0 rgba(224, 16, 30, 0.85), 0.03em 0 rgba(0, 220, 255, 0.45);
+      animation: jitter 5s infinite;
+    }
+    .hero-name .sur {
+      display: block;
+      font-family: var(--gothic);
+      text-transform: none;
+      color: var(--blood);
+      font-size: 0.42em;
+      line-height: 1;
+      text-shadow: none;
+      margin-top: 0.12em;
+      margin-left: 0.04em;
+    }
+    @keyframes jitter {
+      0%, 91%, 100% { transform: translate(0, 0); clip-path: inset(-40% -5% -40% -5%); }
+      92% { transform: translate(-6px, 1px); clip-path: inset(10% 0 55% 0); }
+      93% { transform: translate(8px, -2px); clip-path: inset(48% 0 20% 0); }
+      94% { transform: translate(-3px, 0);  clip-path: inset(-40% -5% -40% -5%); }
+      95% { transform: translate(4px, 1px); clip-path: inset(70% 0 5% 0); }
+    }
+    .hero-foot {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 24px var(--gutter);
+      align-items: end;
+      margin-top: clamp(24px, 5vh, 56px);
+      padding-top: 18px;
+      border-top: 1px solid rgba(236, 229, 211, 0.25);
+    }
+    .hero-foot p { margin: 0; }
+    .lede {
+      font-size: clamp(18px, 1.7vw, 24px);
+      max-width: 34ch;
+    }
+    .lede em { font-style: normal; color: var(--blood); }
+    .meta {
+      font-family: var(--osd);
+      font-size: clamp(18px, 1.6vw, 22px);
+      color: var(--bone-dim);
+      text-align: right;
+    }
+
+    /* ============ TAPES / PROJECTS ============ */
+    .tapes { padding: clamp(80px, 14vh, 160px) var(--gutter) 40px; }
+    .section-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--osd);
+      font-size: clamp(18px, 1.6vw, 22px);
+      color: var(--bone-dim);
+      border-bottom: 1px solid rgba(236, 229, 211, 0.25);
+      padding-bottom: 12px;
+      margin: 0;
+    }
+    .tape-list { list-style: none; margin: 0; padding: 0; }
+    .tape a {
+      position: relative;
+      display: grid;
+      grid-template-columns: 4ch minmax(0, 1fr) auto;
+      gap: 0 clamp(12px, 2vw, 32px);
+      align-items: baseline;
+      padding: clamp(14px, 2.4vh, 26px) 0;
+      border-bottom: 1px solid rgba(236, 229, 211, 0.12);
+      transition: color 0.2s, padding-left 0.35s cubic-bezier(.2,.8,.2,1);
+    }
+    .tape-no {
+      font-family: var(--osd);
+      font-size: clamp(18px, 1.6vw, 24px);
+      color: var(--bone-dim);
+    }
+    .tape-title {
+      font-family: var(--display);
+      text-transform: uppercase;
+      font-size: clamp(40px, 7.4vw, 124px);
+      line-height: 0.95;
+      letter-spacing: -0.005em;
+      overflow-wrap: anywhere;
+    }
+    .tape-tags {
+      font-family: var(--osd);
+      font-size: clamp(16px, 1.4vw, 22px);
+      color: var(--bone-dim);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .tape-thumb { display: none; }
+
+    @media (hover: hover) {
+      .tape a:hover,
+      .tape a:focus-visible { color: var(--blood); padding-left: 1.2vw; }
+      .tape a:hover .tape-no,
+      .tape a:focus-visible .tape-no { color: var(--phosphor); }
+      .tape a:hover .tape-no::before { content: "▶ "; }
+    }
+
+    /* Floating preview following the cursor */
+    .preview {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 30;
+      width: clamp(260px, 28vw, 440px);
+      aspect-ratio: 4 / 3;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.92);
+      transition: opacity 0.2s;
+    }
+    .preview.is-on { opacity: 1; }
+    .preview img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.15) saturate(1.25)
+        drop-shadow(-6px 0 rgba(224, 16, 30, 0.75))
+        drop-shadow(6px 0 rgba(0, 220, 255, 0.4));
+    }
+    .preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0,0,0,.35) 3px);
+    }
+    .preview .osd-tag {
+      position: absolute;
+      left: 10px;
+      bottom: 6px;
+      z-index: 1;
+      font-family: var(--osd);
+      font-size: 20px;
+      color: var(--bone);
+      text-shadow: 0 0 4px #000;
+    }
+
+    /* ============ ABOUT / MANIFESTO ============ */
+    .manifesto {
+      padding: clamp(100px, 18vh, 200px) var(--gutter);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr);
+      gap: 24px var(--gutter);
+    }
+    .manifesto .section-label { border: 0; padding: 0; display: block; }
+    .manifesto p.big {
+      margin: 0;
+      font-size: clamp(28px, 3.6vw, 56px);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    .manifesto .big .g {
+      font-family: var(--gothic);
+      color: var(--blood);
+      font-size: 1.15em;
+    }
+    .manifesto .small {
+      margin: 28px 0 0;
+      color: var(--bone-dim);
+      max-width: 52ch;
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      position: relative;
+      padding: clamp(60px, 12vh, 120px) var(--gutter) 28px;
+      background: var(--ink-2);
+      overflow: hidden;
+    }
+    .rewind {
+      display: inline-block;
+      font-family: var(--osd);
+      font-size: clamp(18px, 1.6vw, 22px);
+      color: var(--ink);
+      background: var(--bone);
+      padding: 2px 12px;
+      transform: rotate(-3deg);
+      margin-bottom: 28px;
+    }
+    .contact {
+      display: block;
+      font-family: var(--display);
+      text-transform: uppercase;
+      font-size: clamp(44px, 9.5vw, 160px);
+      line-height: 0.9;
+      overflow-wrap: anywhere;
+      transition: color 0.2s;
+    }
+    .contact:hover { color: var(--blood); }
+    .contact small {
+      display: block;
+      font-family: var(--osd);
+      text-transform: none;
+      font-size: clamp(18px, 1.6vw, 24px);
+      color: var(--bone-dim);
+      margin-top: 12px;
+    }
+    .foot-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: clamp(48px, 10vh, 100px);
+      font-family: var(--osd);
+      font-size: clamp(18px, 1.5vw, 22px);
+      color: var(--bone-dim);
+    }
+    .foot-row nav { display: flex; flex-wrap: wrap; gap: 24px; }
+    .foot-row nav a:hover { color: var(--phosphor); }
+
+    /* ============ BOOT (static intro) ============ */
+    .boot {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      background: #1030c8;
+      font-family: var(--osd);
+      font-size: clamp(32px, 5vw, 64px);
+      color: #fff;
+      transition: opacity 0.25s;
+    }
+    .boot.is-static { background: #111; }
+    .boot.is-gone { opacity: 0; pointer-events: none; }
+    .boot canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+    .boot.is-static canvas { opacity: 0.9; }
+    .boot span { position: relative; }
+
+    /* ============ MOBILE ============ */
+    @media (max-width: 760px) {
+      .osd .hide-sm { display: none; }
+      .hero-foot { grid-template-columns: 1fr; }
+      .meta { text-align: left; }
+      .tape a { grid-template-columns: 3ch minmax(0, 1fr); }
+      .tape-tags { grid-column: 2; text-align: left; white-space: normal; }
+      .manifesto { grid-template-columns: 1fr; }
+    }
+    @media (hover: none), (max-width: 760px) {
+      .preview { display: none; }
+      .tape-thumb {
+        display: block;
+        grid-column: 1 / -1;
+        margin-top: 14px;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        width: 100%;
+        filter: contrast(1.1) saturate(1.2);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tracking, .boot { display: none; }
+      .hero-name, .osd .rec::before { animation: none; }
+      .tape a { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Intro: blue screen → static → site. Once per session. -->
+  <div class="boot" aria-hidden="true">
+    <canvas></canvas>
+    <span>▶ PLAY</span>
+  </div>
+
+  <canvas class="grain" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="tracking" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="osd">
+    <nav aria-label="Main">
+      <a href="#tapes">Work</a>
+      <a href="../about.html">About</a>
+      <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+    </nav>
+    <div class="osd-right">
+      <span class="rec hide-sm">REC</span>&nbsp;
+      SP <span class="timecode" aria-hidden="true">0:00:00</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="hero-kicker">▶ PLAY — MÉXICO</p>
+      <h1 class="hero-name">
+        Verónica
+        <span class="sur">Martínez</span>
+      </h1>
+
+      <div class="hero-foot">
+        <p class="lede">
+          Product designer. For 10+ years I've been going into <em>messy, complex systems</em>
+          and coming back out with clear, scalable products.
+        </p>
+        <p class="meta">
+          Product / UX ✦ Design systems<br />
+          Fintech ✦ Education ✦ Health
+        </p>
+      </div>
+    </section>
+
+    <section class="tapes" id="tapes" aria-labelledby="tapes-label">
+      <h2 class="section-label" id="tapes-label"><span>SELECTED TAPES</span><span>06</span></h2>
+
+      <ol class="tape-list">
+        <li class="tape">
+          <a href="../projects/citibanamex/index.html" data-img="../assets/images/bank-hero.png">
+            <span class="tape-no">01</span>
+            <span class="tape-title">Citibanamex</span>
+            <span class="tape-tags">UI strategy · Design system</span>
+            <img class="tape-thumb" src="../assets/images/bank-hero.png" alt="" loading="lazy" />
+          </a>
+        </li>
+        <li class="tape">
+          <a href="../projects/private_university/index.html" data-img="../assets/images/eaad-hero.png">
+            <span class="tape-no">02</span>
+            <span class="tape-title">University Redesign</span>
+            <span class="tape-tags">UI/UX · UI kit</span>
+            <img class="tape-thumb" src="../assets/images/eaad-hero.png" alt="" loading="lazy" />
+          </a>
+        </li>
+        <li class="tape">
+          <a href="../projects/alienpooh/index.html" data-img="../assets/images/alien-hero.png">
+            <span class="tape-no">03</span>
+            <span class="tape-title">Alienpooh</span>
+            <span class="tape-tags">Product design · Art direction</span>
+            <img class="tape-thumb" src="../assets/images/alien-hero.png" alt="" loading="lazy" />
+          </a>
+        </li>
+        <li class="tape">
+          <a href="../projects/melifloz/index.html" data-img="../assets/images/melifloz-hero.png">
+            <span class="tape-no">04</span>
+            <span class="tape-title">Melifloz</span>
+            <span class="tape-tags">UI strategy · Art direction</span>
+            <img class="tape-thumb" src="../assets/images/melifloz-hero.png" alt="" loading="lazy" />
+          </a>
+        </li>
+        <li class="tape">
+          <a href="../projects/healthcare/index.html" data-img="../assets/images/healthcare-hero.png">
+            <span class="tape-no">05</span>
+            <span class="tape-title">Healthcare Ops</span>
+            <span class="tape-tags">Enterprise UX · Complex data</span>
+            <img class="tape-thumb" src="../assets/images/healthcare-hero.png" alt="" loading="lazy" />
+          </a>
+        </li>
+        <li class="tape">
+          <a href="../projects/fintech/index.html" data-img="../assets/images/fintech-hero.png">
+            <span class="tape-no">06</span>
+            <span class="tape-title">Scalable Banking</span>
+            <span class="tape-tags">B2B &amp; B2C · UX strategy</span>
+            <img class="tape-thumb" src="../assets/images/fintech-hero.png" alt="" loading="lazy" />
+          </a>
+        </li>
+      </ol>
+    </section>
+
+    <section class="manifesto" aria-labelledby="about-label">
+      <h2 class="section-label" id="about-label">▶ ABOUT</h2>
+      <div>
+        <p class="big">
+          This site is <span class="g">alive.</span> It isn't perfect or finished, and it isn't
+          trying to be. It's an honest record of how I think.
+        </p>
+        <p class="small">
+          I work where structure matters: banking platforms, enterprise tools, academic ecosystems.
+          From UX strategy to interface design, I help teams turn complexity into systems people can actually use.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="rewind">BE KIND ✦ REWIND</span>
+    <a class="contact" href="mailto:veru.kami@gmail.com">
+      Let's talk
+      <small>veru.kami@gmail.com</small>
+    </a>
+
+    <div class="foot-row">
+      <span>© Verónica Martínez, 2026</span>
+      <nav aria-label="Social">
+        <a href="https://www.linkedin.com/in/veromtz" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.behance.net/verukami" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.instagram.com/verukami" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+  </footer>
+
+  <div class="preview" aria-hidden="true">
+    <img alt="" />
+    <span class="osd-tag"></span>
+  </div>
+
+  <script>
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---------- Noise (grain + boot static) ---------- */
+    function noise(canvas, w, h) {
+      const ctx = canvas.getContext("2d");
+      canvas.width = w;
+      canvas.height = h;
+      const img = ctx.createImageData(w, h);
+      return () => {
+        const d = img.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const v = Math.random() * 255;
+          d[i] = d[i + 1] = d[i + 2] = v;
+          d[i + 3] = 255;
+        }
+        ctx.putImageData(img, 0, 0);
+      };
+    }
+
+    const drawGrain = noise(document.querySelector(".grain"), Math.ceil(innerWidth / 2), Math.ceil(innerHeight / 2));
+    drawGrain();
+    if (!reduceMotion) {
+      let last = 0;
+      (function loop(t) {
+        if (t - last > 60) { drawGrain(); last = t; }
+        requestAnimationFrame(loop);
+      })(0);
+    }
+
+    /* ---------- Boot sequence ---------- */
+    const boot = document.querySelector(".boot");
+    let seen = false;
+    try { seen = sessionStorage.getItem("vhs-boot") === "1"; } catch (e) {}
+
+    if (reduceMotion || seen) {
+      boot.remove();
+    } else {
+      try { sessionStorage.setItem("vhs-boot", "1"); } catch (e) {}
+      const drawStatic = noise(boot.querySelector("canvas"), 160, 120);
+      setTimeout(() => {
+        boot.classList.add("is-static");
+        boot.querySelector("span").textContent = "";
+        const iv = setInterval(drawStatic, 40);
+        setTimeout(() => {
+          clearInterval(iv);
+          boot.classList.add("is-gone");
+          setTimeout(() => boot.remove(), 300);
+        }, 450);
+      }, 700);
+      boot.addEventListener("click", () => boot.remove());
+    }
+
+    /* ---------- Timecode = tape position (scroll) ---------- */
+    const tc = document.querySelector(".timecode");
+    const pad = n => String(n).padStart(2, "0");
+    function updateTimecode() {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const p = max > 0 ? scrollY / max : 0;
+      const secs = Math.round(p * 5400); // a 90-minute tape
+      tc.textContent = `${Math.floor(secs / 3600)}:${pad(Math.floor(secs / 60) % 60)}:${pad(secs % 60)}`;
+    }
+    addEventListener("scroll", updateTimecode, { passive: true });
+    updateTimecode();
+
+    /* ---------- Cursor-following preview ---------- */
+    const preview = document.querySelector(".preview");
+    const pImg = preview.querySelector("img");
+    const pTag = preview.querySelector(".osd-tag");
+    let mx = innerWidth / 2, my = innerHeight / 2, px = mx, py = my;
+
+    if (matchMedia("(hover: hover)").matches) {
+      addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
+
+      document.querySelectorAll(".tape a").forEach(link => {
+        link.addEventListener("mouseenter", () => {
+          pImg.src = link.dataset.img;
+          pTag.textContent = "▶ " + link.querySelector(".tape-no").textContent;
+          preview.classList.add("is-on");
+        });
+        link.addEventListener("mouseleave", () => preview.classList.remove("is-on"));
+      });
+
+      (function follow() {
+        const k = reduceMotion ? 1 : 0.14;
+        px += (mx - px) * k;
+        py += (my - py) * k;
+        const tilt = reduceMotion ? 0 : Math.max(-8, Math.min(8, (mx - px) * 0.05));
+        preview.style.transform = `translate(${px}px, ${py}px) translate(-50%, -50%) rotate(${tilt}deg)`;
+        requestAnimationFrame(follow);
+      })();
+    }
+  </script>
+</body>
+</html>

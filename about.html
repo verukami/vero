@@ -2,109 +2,389 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>About — Verónica Martínez</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Verónica Martínez</title>
+  <meta name="description" content="About Verónica Martínez — Senior Product Designer focused on systems, clarity, and human-centered digital experiences." />
 
-  <meta
-    name="description"
-    content="About Verónica Martínez — Product and UX designer focused on systems, clarity, and human-centered digital experiences."
-  />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="6849f1a9-3081-4167-981d-b2495c49043b"></script>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="assets/styles/base.css" />
-  <link rel="stylesheet" href="assets/styles/about.css" />
+  <meta property="og:title" content="About — Verónica Martínez" />
+  <meta property="og:description" content="Senior Product Designer. Product design across systems, interfaces, and complex digital products." />
+  <meta property="og:image" content="https://verukami.github.io/vero/assets/images/preview.jpg" />
+  <meta property="og:url" content="https://verukami.github.io/vero/about.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="About — Verónica Martínez" />
+  <meta name="twitter:description" content="Senior Product Designer. Product design across systems, interfaces, and complex digital products." />
+  <meta name="twitter:image" content="https://verukami.github.io/vero/assets/images/preview.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet" />
+
+  <script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+
+  <link rel="stylesheet" href="assets/styles/site.css" />
+
+  <style>
+    .holo {
+      background: var(--holo);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* ============ HERO ============ */
+    .about-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 56px var(--gutter);
+      align-items: center;
+      padding: clamp(56px, 10vh, 110px) var(--gutter) clamp(56px, 10vh, 100px);
+    }
+    .about-hero h1 {
+      margin: 16px 0 0;
+      font-size: clamp(40px, 5.6vw, 84px);
+      font-weight: 600;
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+    }
+    .about-hero .lede {
+      margin: 28px 0 0;
+      font-size: clamp(17px, 1.5vw, 21px);
+      color: var(--ink-soft);
+      max-width: 46ch;
+    }
+
+    /* ----- Player card (tamagotchi-ish) ----- */
+    .player {
+      position: relative;
+      justify-self: center;
+      width: min(100%, 400px);
+      padding: 18px;
+      border-radius: 22px;
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      box-shadow: 0 30px 60px -30px rgba(109, 60, 255, 0.45);
+      transform: rotate(2deg);
+    }
+    .player-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "Pixelify Sans", var(--mono);
+      font-size: 16px;
+      color: var(--accent-text);
+      padding-bottom: 12px;
+      border-bottom: 2px dotted var(--line);
+    }
+    .hearts { color: var(--pink); letter-spacing: 2px; }
+    .battery {
+      display: inline-flex;
+      gap: 2px;
+      padding: 2px;
+      border: 2px solid currentColor;
+      border-radius: 3px;
+    }
+    .battery i { width: 6px; height: 10px; background: var(--lime); }
+    .battery i:last-child { background: transparent; }
+    .player-screen {
+      margin: 16px 0;
+      border-radius: 14px;
+      background: radial-gradient(circle at 50% 40%, #b18cf0, #7446c4);
+      overflow: hidden;
+    }
+    .player-screen img { width: 78%; margin: 12px auto 0; }
+    .stats { margin: 0; display: grid; gap: 8px; }
+    .stats div {
+      display: grid;
+      grid-template-columns: 9ch minmax(0, 1fr);
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+    .stats dt {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--ink-soft);
+      padding-top: 2px;
+    }
+    .stats dd { margin: 0; font-weight: 500; }
+    .player .sticker-note {
+      position: absolute;
+      top: -16px;
+      right: -14px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--lime);
+      color: #15121c;
+      font-family: var(--poster);
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transform: rotate(8deg);
+    }
+
+    /* ============ SCENES ============ */
+    .scenes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(20px, 3vw, 36px);
+    }
+    .scene {
+      position: relative;
+      padding: clamp(24px, 3vw, 36px);
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      overflow: hidden;
+    }
+    .scene::before { /* thin holo strip, like the edge of a tape label */
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--holo);
+    }
+    .scene .tc {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+    }
+    .scene .tc .rec { color: var(--pink); }
+    .scene h3 {
+      margin: 22px 0 10px;
+      font-family: var(--poster);
+      font-weight: 400;
+      font-size: clamp(26px, 2.6vw, 36px);
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    .scene p { margin: 0; color: var(--ink-soft); }
+    .scene p + p { margin-top: 12px; }
+
+    /* ============ END CREDITS ============ */
+    .credits {
+      margin: 0 var(--gutter);
+      padding: clamp(64px, 10vh, 110px) clamp(20px, 5vw, 64px);
+      border-radius: 28px;
+      background: #0b0a0e;
+      color: #efeaf7;
+      border: 1.5px solid var(--line);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .credits::after { /* scanlines */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, 0.25) 3px);
+      pointer-events: none;
+    }
+    .credits .mono { color: #8f88a6; }
+    .credits h2 {
+      margin: 10px 0 48px;
+      font-family: var(--poster);
+      font-weight: 400;
+      font-size: clamp(40px, 6vw, 88px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .credits dl { margin: 0 auto; max-width: 720px; display: grid; gap: 30px; }
+    .credits dt {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8f88a6;
+      margin-bottom: 6px;
+    }
+    .credits dd { margin: 0; font-size: clamp(18px, 1.8vw, 24px); line-height: 1.35; }
+    .credits dd strong { color: var(--lime); font-weight: 600; }
+    .credits .fin {
+      margin: 56px 0 0;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #8f88a6;
+    }
+
+    /* ============ NOW CASTING ============ */
+    .casting {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+      gap: 24px var(--gutter);
+      align-items: start;
+    }
+    .casting .big {
+      margin: 0;
+      font-size: clamp(24px, 2.8vw, 40px);
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+    }
+    .casting .ctas { margin-top: 32px; }
+
+    @media (max-width: 820px) {
+      .about-hero, .casting { grid-template-columns: 1fr; }
+      .scenes { grid-template-columns: 1fr; }
+      .player { transform: none; }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- HEADER (intacto) -->
-  <header class="ghost-header">
-    <nav class="micro-nav">
-      <span class="logo">
-        <img src="assets/images/miranda.gif" alt="" />
-      </span>
-
-      <a href="index.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing">Resume</a>
-
-      <button class="menu-toggle" aria-label="Open menu">☰</button>
+  <header class="nav">
+    <a href="index.html" class="brand" aria-label="Verónica Martínez, home">
+      <img src="assets/images/miranda.gif" alt="" width="1054" height="188" />
+    </a>
+    <div class="nav-right">
+    <nav aria-label="Main">
+      <a href="index.html#work">Work</a>
+      <a href="about.html" aria-current="page">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing" target="_blank" rel="noopener" class="hide-sm">Resume</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode"><span aria-hidden="true">☾</span></button>
+    </div>
   </header>
 
-  <!-- MAIN -->
-  <main class="about-page">
-      <div class="about-image">
-    <img
-      src="assets/images/about-img.png"
-      alt="About"
-    />
-  </div>
-    <section class="about-hero" reveal>
-      
-      <p class="about-subtitle">
-        I design products by making sense of complexity.
-      </p>
+  <main>
+    <!-- HERO -->
+    <section class="about-hero">
+      <div>
+        <span class="mono">✦ ABOUT — PLAYER 01</span>
+        <h1>I design products by making <span class="holo">sense of complexity.</span></h1>
+        <p class="lede">
+          Senior Product Designer with 10+ years across fintech, enterprise, healthcare and education.
+          I started in advertising and visual design. These days I care most about how the whole system
+          works, and how products grow over time.
+        </p>
+      </div>
+
+      <aside class="player" aria-label="Player card">
+        <span class="sticker-note" aria-hidden="true">Ready ▶</span>
+        <div class="player-bar" aria-hidden="true">
+          <span>LV.10+</span>
+          <span class="hearts">♥♥♥</span>
+          <span class="battery"><i></i><i></i><i></i><i></i></span>
+        </div>
+        <div class="player-screen">
+          <img src="assets/images/avatar.png" alt="3D avatar of Verónica: purple hair, round pink glasses, holding a phone" />
+        </div>
+        <dl class="stats">
+          <div><dt>PLAYER</dt><dd>Verónica Martínez</dd></div>
+          <div><dt>CLASS</dt><dd>Senior Product Designer</dd></div>
+          <div><dt>BASE</dt><dd>México</dd></div>
+          <div><dt>SPECIAL</dt><dd>Turning messy requirements into clear flows</dd></div>
+          <div><dt>WEAKNESS</dt><dd>Quick fixes that don't scale</dd></div>
+        </dl>
+      </aside>
     </section>
 
-    <section class="about-section" reveal>
-      <p>
-        I’m a product and UX designer with over ten years of experience. My background in advertising and visual design really shaped how I work today. It taught me that while the details matter, I’m much more interested in how the whole system works and how products grow over time.
-      </p>
+    <!-- SCENES -->
+    <section class="section" aria-labelledby="story-title" style="padding-top: 0">
+      <div class="section-head">
+        <h2 id="story-title">The <em>story</em> so far</h2>
+        <span class="mono">4 scenes · no spoilers</span>
+      </div>
 
-      <p>
-        I enjoy stepping in when things aren't fully defined yet. I like taking messy requirements or complex ideas and turning them into clear flows and structures that make sense for the user and the business.
-      </p>
-      <p>  
-        Outside of product work, I'm drawn to emerging technologies and 3D design. I use Blender to explore spatial concepts—which directly informs how I think about user experiences in spatial and immersive interfaces. I'm genuinely curious about where XR and AI are taking product experiences next, and how design systems need to evolve to support them.
-      </p>
+      <div class="scenes">
+        <article class="scene">
+          <div class="tc"><span>SCENE 01</span><span><span class="rec">●</span> 00:00:00</span></div>
+          <h3>Origin story</h3>
+          <p>
+            My background in advertising and visual design shaped how I work today. It taught me that details
+            matter, but I'm much more interested in how the whole system works and how products grow over time.
+          </p>
+        </article>
 
-      <p>
-        For me, design is a team sport. I love working closely with product and engineering to figure out the best solutions together. I try to think about the long-term impact of our decisions, making sure we’re building something scalable and not just a quick fix.
-      </p>
+        <article class="scene">
+          <div class="tc"><span>SCENE 02</span><span><span class="rec">●</span> 00:24:13</span></div>
+          <h3>My thing</h3>
+          <p>
+            I enjoy stepping in when things aren't fully defined yet: taking messy requirements or complex ideas
+            and turning them into clear flows and structures that make sense for users and for the business.
+          </p>
+        </article>
 
-      <p>I’m naturally drawn to products that solve real needs, like fintech or tools that people rely on every day. I really value honest communication and working with teams that prioritize clarity and quality.</p>
+        <article class="scene">
+          <div class="tc"><span>SCENE 03</span><span><span class="rec">●</span> 00:51:40</span></div>
+          <h3>Design is a team sport</h3>
+          <p>
+            I work closely with product and engineering to find the best solutions together. I think about the
+            long-term impact of our decisions, so we build something scalable, not just a quick fix.
+          </p>
+        </article>
 
-      <p>Always happy to connect: <a href="mailto:veru.kami@gmail.com">veru.kami@gmail.com</a></p>
+        <article class="scene">
+          <div class="tc"><span>SCENE 04</span><span><span class="rec">●</span> 01:13:08</span></div>
+          <h3>After hours</h3>
+          <p>
+            I use Blender to explore spatial concepts, which shapes how I think about immersive interfaces.
+            I'm curious about where XR and AI are taking product experiences, and how design systems need
+            to evolve to support them.
+          </p>
+          <p>Also: a lot of horror movies.</p>
+        </article>
+      </div>
     </section>
 
+    <!-- END CREDITS -->
+    <section class="credits" aria-labelledby="credits-title">
+      <span class="mono">▶ END CREDITS</span>
+      <h2 id="credits-title">Cast &amp; crew</h2>
+      <dl>
+        <div><dt>Starring</dt><dd><strong>Verónica Martínez</strong> as Senior Product Designer</dd></div>
+        <div><dt>Roles</dt><dd>UX strategy · Interaction design · Design systems · Visual design</dd></div>
+        <div><dt>Industries</dt><dd>Fintech · Enterprise · Healthcare · Education · E-commerce</dd></div>
+        <div><dt>Featuring</dt><dd>Citibanamex · Banking clients in Peru &amp; the US · Hospital teams · Startups · Creative agencies</dd></div>
+        <div><dt>In collaboration with</dt><dd>Product managers, engineers, and every user who tested a prototype</dd></div>
+        <div><dt>Filmed on location in</dt><dd>México</dd></div>
+      </dl>
+      <p class="fin">No quick fixes were harmed in the making of these products.</p>
+    </section>
 
-
-
+    <!-- NOW CASTING -->
+    <section class="section casting" aria-labelledby="casting-title">
+      <h2 class="mono" id="casting-title">✦ NOW CASTING</h2>
+      <div>
+        <p class="big">
+          I'm drawn to products that solve real needs, like fintech or tools people rely on every day,
+          and to teams that value <span class="holo">honest communication, clarity and quality.</span>
+        </p>
+        <div class="ctas">
+          <a href="mailto:veru.kami@gmail.com" class="btn primary">Let's talk ✉</a>
+          <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing" target="_blank" rel="noopener" class="btn ghost">Resume ↗</a>
+          <a href="index.html#work" class="btn link">See the video club</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- FOOTER (intacto) -->
-  <footer class="ghost-footer">
-    <div class="footer-marquee-wrapper">
-      <div class="footer-marquee-content">
-        <span>© Verónica, 2026</span>
-        <span>© Verónica, 2026</span>
-        <span>© Verónica, 2026</span>
-        <span>© Verónica, 2026</span>
-        <span>© Verónica, 2026</span>
-      </div>
-    </div>
+  <footer id="contact">
+    <div class="blob sparkle" aria-hidden="true"></div>
+    <span class="mono">✦ CONTACT</span>
+    <p class="say">Let's make something <em>weird</em> &amp; useful.</p>
+    <a class="mail" href="mailto:veru.kami@gmail.com">veru.kami@gmail.com</a>
 
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/veromtz" target="_blank" class="footer-link">LinkedIn</a>
-      <a href="https://www.behance.net/verukami" target="_blank" class="footer-link">Behance</a>
-      <a href="https://www.instagram.com/verukami" target="_blank" class="footer-link">Instagram</a>
-      <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view" target="_blank" class="footer-link">Resume</a>
+    <div class="foot-row mono">
+      <span>© Verónica Martínez, 2026 — made with ❤</span>
+      <nav aria-label="Social">
+        <a href="https://www.linkedin.com/in/veromtz" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.behance.net/verukami" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.instagram.com/verukami" target="_blank" rel="noopener">Instagram</a>
+      </nav>
     </div>
-
-    <p class="footer-note">
-      Let's chat hi at <a href="mailto:veru.kami@gmail.com">veru.kami@gmail.com</a><br />
-      Made with ❤
-    </p>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-
-  <script src="assets/js/app.js"></script>
-  <script src="assets/js/reveal.js"></script>
-  <script src="assets/js/menu.js"></script>
-
+  <script src="assets/js/site.js"></script>
 </body>
 </html>

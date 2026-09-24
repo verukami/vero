@@ -2,248 +2,272 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Verónica Martínez</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verónica Martínez — Senior Product Designer</title>
+  <meta name="description" content="Portfolio of Verónica Martínez. Product design across systems, interfaces, and complex digital products." />
 
   <script defer src="https://cloud.umami.is/script.js" data-website-id="6849f1a9-3081-4167-981d-b2495c49043b"></script>
-  <meta
-    name="description"
-    content="Portfolio of Verónica Martínez. Product design across systems, interfaces, and complex digital products."
-  />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="assets/styles/base.css" />
-  <link rel="stylesheet" href="assets/styles/layout.css" />
-  <link rel="stylesheet" href="assets/styles/animation.css" />
+  <meta property="og:title" content="Verónica Martínez — Senior Product Designer" />
+  <meta property="og:description" content="Senior Product Designer. Product design across systems, interfaces, and complex digital products." />
+  <meta property="og:image" content="https://verukami.github.io/vero/assets/images/preview.jpg" />
+  <meta property="og:url" content="https://verukami.github.io/vero/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Verónica Martínez — Senior Product Designer" />
+  <meta name="twitter:description" content="Senior Product Designer. Product design across systems, interfaces, and complex digital products." />
+  <meta name="twitter:image" content="https://verukami.github.io/vero/assets/images/preview.jpg" />
 
-<!-- Open Graph -->
-<meta property="og:title" content="Verónica Martínez — Product Designer" />
-<meta property="og:description" content="Product design across systems, interfaces, and complex digital products." />
-<meta property="og:image" content="https://verukami.github.io/vero/assets/images/preview.jpg" />
-<meta property="og:url" content="https://verukami.github.io/vero/" />
-<meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet" />
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Verónica Martínez — Product Designer" />
-<meta name="twitter:description" content="Product design across systems, interfaces, and complex digital products." />
-<meta name="twitter:image" content="https://verukami.github.io/vero/assets/images/preview.jpg" />
-  
+  <script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 
+  <link rel="stylesheet" href="assets/styles/site.css" />
 </head>
 
 <body>
 
-  <!-- Minimal header -->
-  <header class="ghost-header">
-    <nav class="micro-nav">
-    <span class="logo">
-      <img src="assets/images/miranda.gif" alt=""/>
-    </span>
-
-    <a href="index.html" class="glitch-hover">Projects</a>
-    <a href="about.html" class="glitch-hover">About</a>
-
-    <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing" class="glitch-hover">Resume</a>
-    <button class="menu-toggle" aria-label="Open menu">
-       ☰
-    </button>
+  <header class="nav">
+    <a href="#top" class="brand" aria-label="Verónica Martínez, home">
+      <img src="assets/images/miranda.gif" alt="" width="1054" height="188" />
+    </a>
+    <div class="nav-right">
+    <nav aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="about.html">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing" target="_blank" rel="noopener" class="hide-sm">Resume</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode"><span aria-hidden="true">☾</span></button>
+    </div>
   </header>
 
-  <main class="stage">
+  <main id="top">
+    <section class="hero">
+      <!-- Guide lines, like a design canvas -->
+      <svg class="guides" aria-hidden="true" preserveAspectRatio="none">
+        <line x1="8%" y1="100%" x2="46%" y2="0" />
+        <line x1="58%" y1="100%" x2="98%" y2="6%" />
+        <line x1="0" y1="86%" x2="100%" y2="86%" />
+        <rect x="45.3%" y="0" width="10" height="10" />
+        <text x="46.5%" y="22">UX</text>
+        <text x="88%" y="22">SYSTEMS</text>
+        <text x="2%" y="84%">UI / 10+ YRS</text>
+      </svg>
 
-    <!-- HERO / INTRO -->
-    <section class="intro-piece">
+      <div class="hero-copy">
+        <span class="hola">¡Hola!</span>
+        <h1>I'm <strong>Verónica</strong>, a Senior Product Designer who turns complex systems into clear, scalable products.</h1>
+        <p class="hero-meta mono">10+ years ✦ Fintech · Enterprise · Education ✦ Design systems ✦ Based in México</p>
+        <div class="ctas">
+          <a href="#work" class="btn primary">See my work ↓</a>
+          <a href="mailto:veru.kami@gmail.com" class="btn ghost">Let's talk ✉</a>
+          <a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing" target="_blank" rel="noopener" class="btn link">Resume ↗</a>
+        </div>
+      </div>
 
+      <figure class="portrait selected" style="margin:0">
+        <img src="assets/images/avatar.png" alt="3D avatar of Verónica: purple hair, round pink glasses, holding a phone" />
+        <span class="handle tl"></span><span class="handle tr"></span>
+        <span class="handle bl"></span><span class="handle br"></span>
+        <span class="dims">LV.10+ <span class="px-heart">♥</span> senior designer</span>
+      </figure>
 
-      <p class="intro-text">
-        ¡Hola! I'm Verónica Martínez, I work on digital products where structure matters.<br>
-From UX strategy to interface design, I help teams turn complexity into clear, scalable systems.
-      </p>
+      <div class="shapes" aria-hidden="true">
+        <div class="shape" style="--x:34%; --y:5%;  --s:64px;  --fill:var(--pink);   --t:5s;  --r:18deg"><div class="body star8"></div><span class="xy"></span></div>
+        <div class="shape" style="--x:40%; --y:64%; --s:110px; --fill:var(--blue);   --t:7s;  --r:-8deg"><div class="body flower"></div><span class="xy"></span></div>
+        <div class="shape" style="--x:52%; --y:12%; --s:90px;  --fill:var(--purple); --t:6s;  --r:22deg"><div class="body sparkle"></div><span class="xy"></span></div>
+        <div class="shape" style="--x:88%; --y:70%; --s:70px;  --fill:var(--holo);   --t:8s;  --r:0deg"><div class="body orb"></div><span class="xy"></span></div>
+        <div class="shape" style="--x:26%; --y:84%; --s:84px;  --fill:var(--pink);   --t:6.5s; --r:-14deg"><div class="body pill"></div><span class="xy"></span></div>
+        <div class="shape" style="--x:6%;  --y:66%; --s:48px;  --fill:var(--pink);   --t:4.5s; --r:-10deg"><div class="body pixel-heart"></div><span class="xy"></span></div>
+        <div class="shape" style="--x:91%; --y:12%; --s:64px;  --fill:var(--lime);   --t:5.5s; --r:12deg"><div class="body bolt"></div><span class="xy"></span></div>
+      </div>
 
-      <p class="intro-sub">
-        México ✦ Product / UX ✦ Design systems ✦ 10+ years
-      </p>
+      <p class="hint mono">↖ psst, you can drag the shapes</p>
+    </section>
 
-      <div class="hero-shapes">
-        <div class="shape slice" data-target="piece-citi"></div>
-        <div class="shape circle" data-target="piece-eaad"></div>
-        <div class="shape orb" data-target="piece-melifloz"></div>
-        <div class="shape stack" data-target="piece-alien"></div>
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="section-head">
+        <h2 id="work-title">The <em>video club</em></h2>
+        <span class="mono">06 tapes · be kind, rewind</span>
+      </div>
+
+      <div class="shelf">
+        <a class="tape" href="projects/citibanamex/index.html" style="--accent: var(--pink)">
+          <div class="cassette" aria-hidden="true"><span class="label">Citibanamex — SP</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
+          <div class="box">
+            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">hi-fi</span></div>
+            <div class="cover">
+              <img src="assets/images/bank-hero.png" alt="Citibanamex digital banking interface" loading="lazy" />
+              <div class="cover-top" aria-hidden="true"><span>TAPE 01</span><span>BANKING</span></div>
+              <span class="sticker" aria-hidden="true">New<br>release</span>
+              <div class="cover-text">
+                <span class="stat">★ Used daily by millions</span>
+                <h3 class="movie f-poster">Citibanamex</h3>
+                <p class="tagline">Millions of users. One design system. No way out.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tape-meta"><span class="mono">UI strategy · Design system</span><span class="mono" aria-hidden="true">▶</span></div>
+        </a>
+
+        <a class="tape" href="projects/private_university/index.html" style="--accent: var(--lime)">
+          <div class="cassette" aria-hidden="true"><span class="label">University redesign</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
+          <div class="box">
+            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">stereo</span></div>
+            <div class="cover">
+              <img src="assets/images/eaad-hero.png" alt="Arts &amp; Design faculty website redesign" loading="lazy" />
+              <div class="cover-top" aria-hidden="true"><span>TAPE 02</span><span>EDUCATION</span></div>
+              <span class="sticker" aria-hidden="true">Staff<br>pick</span>
+              <div class="cover-text">
+                <span class="stat">★ New information architecture</span>
+                <h3 class="movie f-poster">University Redesign</h3>
+                <p class="tagline">The website was a maze. Somebody had to find the exit.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tape-meta"><span class="mono">UI/UX · UI kit</span><span class="mono" aria-hidden="true">▶</span></div>
+        </a>
+
+        <a class="tape" href="projects/alienpooh/index.html" style="--accent: var(--violet)">
+          <div class="cassette" aria-hidden="true"><span class="label">Alienpooh</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
+          <div class="box">
+            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">hi-fi</span></div>
+            <div class="cover">
+              <img src="assets/images/alien-hero.png" alt="Alienpooh emotional well-being app" loading="lazy" />
+              <div class="cover-top" aria-hidden="true"><span>TAPE 03</span><span>WELL-BEING</span></div>
+              <span class="sticker" aria-hidden="true">Cult<br>classic</span>
+              <div class="cover-text">
+                <span class="stat">★ Validated with real users</span>
+                <h3 class="movie f-poster">Alienpooh</h3>
+                <p class="tagline">Feelings from another planet.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tape-meta"><span class="mono">Product design · Art direction</span><span class="mono" aria-hidden="true">▶</span></div>
+        </a>
+
+        <a class="tape" href="projects/melifloz/index.html" style="--accent: var(--pink)">
+          <div class="cassette" aria-hidden="true"><span class="label">Melifloz</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
+          <div class="box">
+            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">stereo</span></div>
+            <div class="cover">
+              <img src="assets/images/melifloz-hero.png" alt="Melifloz saree shopping app" loading="lazy" />
+              <div class="cover-top" aria-hidden="true"><span>TAPE 04</span><span>E-COMMERCE</span></div>
+              <span class="sticker" aria-hidden="true">Now on<br>tape</span>
+              <div class="cover-text">
+                <span class="stat">★ Body scan in the shopping flow</span>
+                <h3 class="movie f-poster">Melifloz</h3>
+                <p class="tagline">Try it on… if you dare.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tape-meta"><span class="mono">UI strategy · Art direction</span><span class="mono" aria-hidden="true">▶</span></div>
+        </a>
+
+        <a class="tape" href="projects/healthcare/index.html" style="--accent: #7fe3ff">
+          <div class="cassette" aria-hidden="true"><span class="label">Healthcare ops</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
+          <div class="box">
+            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">hi-fi</span></div>
+            <div class="cover">
+              <img src="assets/images/healthcare-hero.png" alt="Healthcare operations and workforce management platform" loading="lazy" />
+              <div class="cover-top" aria-hidden="true"><span>TAPE 05</span><span>HEALTH</span></div>
+              <span class="sticker" aria-hidden="true">Based on<br>real data</span>
+              <div class="cover-text">
+                <span class="stat">★ Multiple hospitals · WCAG</span>
+                <h3 class="movie f-poster">Healthcare Ops</h3>
+                <p class="tagline">The data never sleeps.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tape-meta"><span class="mono">Enterprise UX · Complex data</span><span class="mono" aria-hidden="true">▶</span></div>
+        </a>
+
+        <a class="tape" href="projects/fintech/index.html" style="--accent: var(--lime)">
+          <div class="cassette" aria-hidden="true"><span class="label">Scalable banking</span><div class="window"><span class="reel"></span><span class="reel"></span></div></div>
+          <div class="box">
+            <div class="spine" aria-hidden="true"><span class="vhs-logo">VHS</span><span class="vert">VERUKAMI HOME VIDEO</span><span class="hifi">stereo</span></div>
+            <div class="cover">
+              <img src="assets/images/fintech-hero.png" alt="Scalable B2B and B2C banking experiences" loading="lazy" />
+              <div class="cover-top" aria-hidden="true"><span>TAPE 06</span><span>FINTECH</span></div>
+              <span class="sticker" aria-hidden="true">Director's<br>cut</span>
+              <div class="cover-text">
+                <span class="stat">★ 1 platform · Peru &amp; US</span>
+                <h3 class="movie f-poster">Scalable Banking</h3>
+                <p class="tagline">B2B. B2C. It grows… and it can't be stopped.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tape-meta"><span class="mono">B2B &amp; B2C banking · UX strategy</span><span class="mono" aria-hidden="true">▶</span></div>
+        </a>
       </div>
     </section>
 
-    <!-- PROJECTS -->
-<section class="projects-grid">
-
-  <article class="project-card">
-    <a href="projects/citibanamex/index.html" class="project-link">
-
-      <img
-        src="assets/images/bank-hero.png"
-        alt="Citibanamex digital banking interface"
-        class="project-image"
-      />
-
-      <div class="project-overlay">
-        <h2>Citibanamex</h2>
-        <p>UI strategy · Design System</p>
+    <section class="section about" aria-labelledby="about-title">
+      <h2 class="mono" id="about-title">✦ ABOUT</h2>
+      <div>
+        <p class="big">
+          Half systems thinker, half horror fan. I take messy, complex products apart and
+          stitch them back together until they feel clear, and come <em>alive.</em>
+        </p>
+        <p class="small">
+          10+ years across banking, education, health and e-commerce, from UX strategy to interface design,
+          always with multidisciplinary teams. Outside of product work I make 3D in Blender and keep an eye
+          on where XR and AI are taking interfaces next.
+        </p>
       </div>
-
-    </a>
-  </article>
- 
-
-  <article class="project-card">
-    <a href="projects/private_university/index.html" class="project-link">
-
-      <img
-        src="assets/images/eaad-hero.png"
-        alt="Arts &amp; Design faculty website redesign"
-        class="project-image"
-      />
-
-      <div class="project-overlay">
-        <h2>Website Redesign</h2>
-        <p>UI/UX · UI Kit</p>
-      </div>
-
-    </a>
-  </article>
-
-  <article class="project-card">
-    <a href="projects/alienpooh/index.html" class="project-link">
-
-      <img
-        src="assets/images/alien-hero.png"
-        alt="Alienpooh emotional well-being app"
-        class="project-image"
-      />
-
-      <div class="project-overlay">
-        <h2>Alienpooh</h2>
-        <p>Product design · Art direction</p>
-      </div>
-
-    </a>
-  </article>
-
-  <article class="project-card">
-    <a href="projects/melifloz/index.html" class="project-link">
-
-      <img
-        src="assets/images/melifloz-hero.png"
-        alt="Melifloz saree shopping app"
-        class="project-image"
-      />
-
-      <div class="project-overlay">
-        <h2>Melifloz</h2>
-        <p>UI strategy · Art direction</p>
-      </div>
-
-    </a>
-  </article>
-
-    <article class="project-card">
-    <a href="projects/healthcare/index.html" class="project-link">
-
-      <img
-        src="assets/images/healthcare-hero.png"
-        alt="Healthcare operations and workforce management platform"
-        class="project-image"
-      />
-
-      <div class="project-overlay">
-        <h2>Healthcare Operations Platform & Workforce Management</h2>
-        <p>Enterprise UX · Complex Data System</p>
-      </div>
-
-    </a>
-  </article>
-
-    <article class="project-card">
-    <a href="projects/fintech/index.html" class="project-link">
-
-      <img
-        src="assets/images/fintech-hero.png"
-        alt="Scalable B2B and B2C banking experiences"
-        class="project-image"
-      />
-
-      <div class="project-overlay">
-        <h2>Scalable Banking Experiences</h2>
-        <p>B2B & B2C Banking · UX Strategy</p>
-      </div>
-
-    </a>
-  </article>
-
-</section>
-
-    <!-- ABOUT -->
-    <section id="about" class="about-piece">
-      <p>
-        I design digital products with a strong focus on structure,
-        clarity, and long-term scalability.
-      </p>
-
-      <p>
-        Experience across fintech, education, and product platforms,
-        collaborating with multidisciplinary teams.
-      </p>
     </section>
-
   </main>
 
-  <!-- FOOTER -->
-  <footer class="ghost-footer">
-    <div class="footer-marquee-wrapper">
-        <div class="footer-marquee-content">
-            <span>© Verónica, 2026</span>
-            <span>© Verónica, 2026</span>
-            <span>© Verónica, 2026</span>
-            <span>© Verónica, 2026</span>
-            <span>© Verónica, 2026</span>
+  <footer id="contact">
+    <div class="blob sparkle" aria-hidden="true"></div>
+    <span class="mono">✦ CONTACT</span>
+    <p class="say">Let's make something <em>weird</em> &amp; useful.</p>
+    <a class="mail" href="mailto:veru.kami@gmail.com">veru.kami@gmail.com</a>
 
-            <span>© Verónica, 2026</span>
-            <span>© Verónica, 2026</span>
-            <span>© Verónica, 2026</span>
-            <span>© Verónica, 2026</span>
-            <span>© Verónica, 2026</span>
-            </div>
+    <div class="foot-row mono">
+      <span>© Verónica Martínez, 2026 — made with ❤</span>
+      <nav aria-label="Social">
+        <a href="https://www.linkedin.com/in/veromtz" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.behance.net/verukami" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.instagram.com/verukami" target="_blank" rel="noopener">Instagram</a>
+      </nav>
     </div>
-
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/veromtz" target="_blank" class="footer-link">LinkedIn</a>
-      <svg width="10" height="10" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 0L8.38593 5.61407L14 7L8.38593 8.38593L7 14L5.61407 8.38593L0 7L5.61407 5.61407L7 0Z" fill="currentColor"></path>
-</svg>
-      <a href="https://www.behance.net/verukami" target="_blank" class="footer-link">Behance</a>
-      <svg width="10" height="10" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 0L8.38593 5.61407L14 7L8.38593 8.38593L7 14L5.61407 8.38593L0 7L5.61407 5.61407L7 0Z" fill="currentColor"></path>
-</svg>
-      <a href="https://www.instagram.com/verukami" target="_blank" class="footer-link">Instagram</a>
-      <svg width="10" height="10" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 0L8.38593 5.61407L14 7L8.38593 8.38593L7 14L5.61407 8.38593L0 7L5.61407 5.61407L7 0Z" fill="currentColor"></path>
-</svg>
-<a href="https://drive.google.com/file/d/11ctNjCQjosqtgt6yojABmmJl8R4RQbWd/view?usp=sharing" target="_blank" class="footer-link">Resume</a>
-    </div>
-
-    <p class="footer-note">
-      Let's chat hi at <a href="mailto:veru.kami@gmail.com">veru.kami@gmail.com</a><br>
-      Made with ❤
-    </p>
   </footer>
 
-  <!-- Scripts -->
+  <script src="assets/js/site.js"></script>
+  <script>
+    /* Draggable shapes with a live x/y readout, like a design tool */
+    document.querySelectorAll(".shape").forEach(shape => {
+      const xy = shape.querySelector(".xy");
+      let dx = 0, dy = 0, startX = 0, startY = 0;
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+      const readout = () => {
+        const r = shape.getBoundingClientRect();
+        xy.textContent = `${Math.round(r.left)}, ${Math.round(r.top + scrollY)}`;
+      };
+      shape.addEventListener("pointerenter", readout);
 
-  <script src="assets/js/app.js"></script>
-  <script src="assets/js/reveal.js"></script>
-  <script src="assets/js/menu.js"></script>
+      shape.addEventListener("pointerdown", e => {
+        shape.setPointerCapture(e.pointerId);
+        shape.classList.add("is-dragging");
+        startX = e.clientX - dx;
+        startY = e.clientY - dy;
+      });
+      shape.addEventListener("pointermove", e => {
+        if (!shape.classList.contains("is-dragging")) return;
+        dx = e.clientX - startX;
+        dy = e.clientY - startY;
+        shape.style.setProperty("--dx", dx + "px");
+        shape.style.setProperty("--dy", dy + "px");
+        readout();
+      });
+      const drop = () => shape.classList.remove("is-dragging");
+      shape.addEventListener("pointerup", drop);
+      shape.addEventListener("pointercancel", drop);
+    });
+  </script>
 </body>
 </html>
