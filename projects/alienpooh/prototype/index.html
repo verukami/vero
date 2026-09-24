@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alienpooh Sanctuary — Interactive Prototype</title>
+<meta name="description" content="Interactive desktop prototype of Alienpooh's VR emotional well-being sanctuary, by Verónica Martínez.">
+<link rel="canonical" href="https://verukami.github.io/vero/projects/alienpooh/prototype/">
+<link rel="icon" type="image/png" href="../../../assets/images/favicon.png">
+<meta property="og:title" content="Alienpooh Sanctuary — Interactive Prototype">
+<meta property="og:description" content="Try the Alienpooh sanctuary: breathe, reflect, send presence, and meet the AI companion concept.">
+<meta property="og:image" content="https://verukami.github.io/vero/projects/alienpooh/prototype/assets/room.webp">
+<meta property="og:url" content="https://verukami.github.io/vero/projects/alienpooh/prototype/">
+<meta name="twitter:card" content="summary_large_image">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="6849f1a9-3081-4167-981d-b2495c49043b"></script>
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{ font-family:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#150F22; }
+  h1,h2,h3{ font-family:'Fredoka', 'Manrope', sans-serif; font-weight:600; text-wrap:balance; margin:0; }
+  p{ margin:0; line-height:1.55; }
+  button{ font-family:inherit; }
+  img{ max-width:100%; }
+  [hidden]{ display:none !important; }
+
+  /* ---------------- theme tokens ---------------- */
+  #app{
+    --wall-a:#8C7EC5; --wall-b:#C6B6E3; --wall-c:#EEDCED; --floor:#F7EFFA;
+    --sofa:#2FA79C; --sofa-dark:#268A81;
+    --art-yellow:#F2C34E; --art-pink:#E8637E; --art-blue:#6E86E6;
+    --glow-cyan:#63D9FF; --sunset-a:#F6A45E; --sunset-b:#E06C8C; --sky-lav:#B7A3E0;
+    --chrome-dark:rgba(28,20,46,0.55); --chrome-dark-strong:rgba(20,14,34,0.72); --chrome-line:rgba(255,255,255,0.18);
+    --ink-onroom:#FFFFFF; --ink-onroom-soft:rgba(255,255,255,0.8);
+    --ink-card:#3A2E52; --ink-card-soft:rgba(58,46,82,0.64); --ink-card-faint:rgba(58,46,82,0.44);
+    --card-fill:rgba(255,255,255,0.72); --card-fill-strong:rgba(255,255,255,0.92);
+    --card-line:rgba(255,255,255,0.9); --card-shadow:rgba(90,60,130,0.3);
+    --accent:#EF6FA2; --accent-2:#3FAE97;
+    --surface:#F7EFFA; --backdrop:rgba(30,20,45,0.38);
+    background:var(--surface);
+    min-height:100svh;
+    position:relative;
+  }
+  #app[data-mode="dark"]{
+    --wall-a:#241C3B; --wall-b:#2E2448; --wall-c:#3A2C4E; --floor:#211A32;
+    --sofa:#1F6E68; --sofa-dark:#175650;
+    --art-yellow:#C99A3A; --art-pink:#B84D68; --art-blue:#5164B0;
+    --glow-cyan:#4FC7EE; --sunset-a:#7A5060; --sunset-b:#5A3C5C; --sky-lav:#453A66;
+    --chrome-dark:rgba(10,7,18,0.6); --chrome-dark-strong:rgba(6,4,12,0.78); --chrome-line:rgba(255,255,255,0.1);
+    --ink-onroom:#F4EEFB; --ink-onroom-soft:rgba(244,238,251,0.8);
+    --ink-card:#EFE7FA; --ink-card-soft:rgba(239,231,250,0.64); --ink-card-faint:rgba(239,231,250,0.42);
+    --card-fill:rgba(40,32,58,0.62); --card-fill-strong:rgba(40,32,58,0.85);
+    --card-line:rgba(255,255,255,0.14); --card-shadow:rgba(0,0,0,0.55);
+    --accent:#F793C0; --accent-2:#5FD9C0;
+    --surface:#150F22; --backdrop:rgba(8,5,14,0.62);
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* ---------------- topbar ---------------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 20px; padding-top:calc(16px + env(safe-area-inset-top,0px));
+    background:linear-gradient(180deg, var(--wall-a) 0%, transparent 100%);
+    background:linear-gradient(180deg, color-mix(in srgb, var(--wall-a) 88%, transparent) 0%, transparent 100%);
+    backdrop-filter:blur(4px);
+  }
+  .brand{ display:flex; align-items:center; }
+  .brand svg{ height:24px; width:auto; display:block; }
+
+  .topbar-right{ display:flex; align-items:center; gap:10px; }
+  .case-link{ padding:9px 14px; font-size:.8rem; font-weight:700; white-space:nowrap; transition:background .2s ease; }
+  .case-link:hover{ background:var(--chrome-dark-strong); }
+  .case-link:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+  .chrome-pill{
+    background:var(--chrome-dark);
+    border:1px solid var(--chrome-line);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-radius:999px;
+    color:var(--ink-onroom);
+  }
+
+  .theme-toggle{
+    appearance:none; cursor:pointer;
+    display:flex; align-items:center; gap:4px;
+    padding:5px; border:1px solid var(--chrome-line);
+  }
+  .theme-toggle button{
+    appearance:none; border:none; background:transparent; cursor:pointer;
+    width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:rgba(255,255,255,0.55);
+    transition:background .2s ease, color .2s ease;
+  }
+  .theme-toggle button svg{ width:15px; height:15px; }
+  .theme-toggle button.on{ background:rgba(255,255,255,0.92); color:#3A2E52; }
+
+  .user-chip{
+    display:flex; align-items:center; gap:8px;
+    padding:5px 12px 5px 5px;
+    font-size:.85rem; font-weight:600;
+    cursor:default;
+  }
+  .user-chip .avatar{
+    width:26px; height:26px; border-radius:50%;
+    background:linear-gradient(135deg, var(--accent-2), var(--sky-lav));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fredoka', sans-serif; font-size:.78rem; color:#1c2a3a;
+  }
+  .user-chip svg{ width:12px; height:12px; opacity:.7; }
+  @media (max-width:560px){ .user-chip span.name{ display:none; } .user-chip{ padding:5px; } }
+
+  /* ---------------- dock ---------------- */
+  .dock{
+    position:fixed; z-index:30;
+    left:18px; top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:6px;
+    padding:10px;
+    box-shadow:0 16px 34px -14px rgba(20,10,35,.5);
+  }
+  .dock-btn{
+    appearance:none; border:none; cursor:pointer; background:transparent;
+    width:46px; height:46px; border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    color:rgba(255,255,255,0.6);
+    transition:background .25s ease, color .25s ease;
+  }
+  .dock-btn svg{ width:20px; height:20px; }
+  .dock-btn:hover{ background:rgba(255,255,255,0.1); color:#fff; }
+  .dock-btn.active{
+    background:linear-gradient(135deg, var(--accent), #f2a8c8);
+    color:#3a1330;
+  }
+
+  @media (max-width:760px){
+    .dock{
+      left:12px; right:12px; top:auto; bottom:calc(12px + env(safe-area-inset-bottom,0px)); transform:none;
+      flex-direction:row; justify-content:center; gap:4px;
+      border-radius:22px; padding:8px;
+    }
+  }
+
+  /* ---------------- room ---------------- */
+  .room{
+    position:relative;
+    min-height:100svh;
+    padding-top:100px; padding-bottom:40px;
+    padding-left:104px; padding-right:24px;
+    display:flex; align-items:stretch;
+    overflow:hidden;
+  }
+  @media (max-width:760px){
+    .room{ padding-left:20px; padding-right:20px; padding-bottom:120px; }
+  }
+
+  .room-illustration{ position:absolute; inset:0; z-index:0; overflow:hidden; background:var(--wall-b); }
+  .room-photo{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:38% 46%;
+    transition:filter .3s ease;
+  }
+  #app[data-mode="dark"] .room-photo{ filter:brightness(.5) saturate(1.05) contrast(1.05); }
+  .room-glow{
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 78% 42%, rgba(99,217,255,.35), transparent 45%);
+    mix-blend-mode:screen; opacity:.7; pointer-events:none;
+  }
+
+  .room-content{
+    position:relative; z-index:2;
+    width:100%;
+    display:flex; flex-direction:column; gap:26px;
+    padding-block:14px;
+  }
+
+  .headline{
+    font-family:'Manrope', sans-serif; font-weight:800;
+    text-transform:uppercase; letter-spacing:.01em;
+    font-size:clamp(1.5rem, 3.6vw, 2.3rem);
+    max-width:18ch; color:var(--ink-onroom);
+    text-shadow:0 4px 20px rgba(20,10,35,.35);
+  }
+  .subline{ font-size:.92rem; color:var(--ink-onroom-soft); max-width:40ch; text-shadow:0 2px 12px rgba(20,10,35,.3); margin-top:8px; }
+
+  .cards{ position:relative; flex:1; min-height:420px; }
+  @media (max-width:760px){
+    .cards{ position:static; display:flex; flex-direction:column; gap:16px; min-height:0; }
+  }
+
+  .card{
+    appearance:none; text-align:left; cursor:pointer;
+    border:1px solid var(--card-line);
+    background:var(--card-fill);
+    backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);
+    border-radius:24px;
+    box-shadow:0 20px 44px -18px var(--card-shadow);
+    color:var(--ink-card);
+    padding:20px;
+    display:flex; flex-direction:column; gap:10px;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 26px 54px -16px var(--card-shadow); }
+  .card:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  .card h3{ font-size:1.1rem; }
+  .card p{ font-size:.82rem; color:var(--ink-card-soft); }
+
+  .card-relax{ position:absolute; left:0; top:10%; width:min(300px, 90%); }
+  .card-reflect{ position:absolute; left:28%; top:44%; width:min(250px, 88%); }
+  .card-event{ position:absolute; right:0; top:0%; width:min(200px, 80%); }
+  @media (max-width:760px){
+    .card-relax, .card-reflect, .card-event{ position:static; width:100%; }
+  }
+
+  .card-media{
+    width:100%; aspect-ratio:16/10; border-radius:16px; overflow:hidden;
+    background:#dcd3ef center/cover no-repeat url('assets/companion-character.png');
+    display:flex; align-items:center; justify-content:center;
+  }
+  .card-media .play{ width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.88); color:#39304f; display:flex; align-items:center; justify-content:center; }
+  .card-media .play svg{ width:17px; height:17px; margin-left:2px; }
+
+  .card-icon{ width:36px; height:36px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--art-pink), var(--sky-lav)); color:#3a1330; }
+  .card-icon svg{ width:17px; height:17px; }
+
+  .moon-card-visual{ width:100%; aspect-ratio:1/1; border-radius:16px; background:#8d81b8 center/cover no-repeat url('assets/orbs.png'); }
+
+  /* ---------------- backdrop + panels ---------------- */
+  .backdrop{ position:fixed; inset:0; z-index:39; background:var(--backdrop); }
+  .panel{
+    position:fixed; z-index:40; top:0; right:0; bottom:0;
+    width:min(440px, 100vw);
+    background:var(--card-fill-strong);
+    backdrop-filter:blur(24px) saturate(140%); -webkit-backdrop-filter:blur(24px) saturate(140%);
+    border-left:1px solid var(--card-line);
+    box-shadow:-20px 0 50px -20px var(--card-shadow);
+    padding:24px; padding-top:calc(24px + env(safe-area-inset-top,0px));
+    padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));
+    overflow-y:auto;
+    display:flex; flex-direction:column; gap:22px;
+    color:var(--ink-card);
+    animation:panelIn .35s cubic-bezier(.2,.7,.2,1);
+  }
+  @keyframes panelIn{ from{ transform:translateX(24px); opacity:0; } to{ transform:translateX(0); opacity:1; } }
+
+  .panel-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+  .panel-close{
+    appearance:none; border:1px solid var(--card-line); background:rgba(255,255,255,.4);
+    width:36px; height:36px; border-radius:50%; cursor:pointer; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; color:var(--ink-card);
+  }
+  #app[data-mode="dark"] .panel-close{ background:rgba(255,255,255,.08); }
+  .panel-close svg{ width:16px; height:16px; }
+
+  .panel-eyebrow{ font-size:.7rem; text-transform:uppercase; letter-spacing:.16em; color:var(--accent); font-weight:700; }
+  .panel h2{ font-size:1.4rem; margin-top:4px; }
+  .panel-hint{ font-size:.84rem; color:var(--ink-card-soft); }
+
+  .btn{
+    appearance:none; border:none; cursor:pointer; border-radius:999px;
+    padding:12px 22px; font-size:.9rem; font-weight:700;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+  }
+  .btn:active{ transform:scale(.97); }
+  .btn-primary{ background:linear-gradient(135deg, var(--accent), var(--sky-lav)); color:#2f1428; box-shadow:0 10px 24px -10px rgba(239,111,162,.6); }
+  .btn-ghost{ background:rgba(255,255,255,.4); color:var(--ink-card); border:1px solid var(--card-line); }
+  #app[data-mode="dark"] .btn-ghost{ background:rgba(255,255,255,.08); }
+  .btn[disabled]{ opacity:.45; cursor:default; }
+  .btn:focus-visible, .dock-btn:focus-visible, [role="button"]:focus-visible, textarea:focus-visible, .contact:focus-visible, .signal-chip:focus-visible, .theme-toggle button:focus-visible{
+    outline:2px solid var(--accent); outline-offset:3px;
+  }
+
+  .breathe-stage{ display:flex; flex-direction:column; align-items:center; gap:22px; padding-block:10px; }
+  .breathe-ring{ width:170px; height:170px; border-radius:50%; border:1px solid var(--card-line); display:flex; align-items:center; justify-content:center; }
+  .breathe-core{
+    width:104px; height:104px; border-radius:50%;
+    background:radial-gradient(circle at 38% 32%, #fff, var(--accent) 55%, var(--sky-lav) 100%);
+    animation:breatheCycle 8s ease-in-out infinite;
+    box-shadow:0 0 40px 6px rgba(239,111,162,.35);
+  }
+  @keyframes breatheCycle{ 0%,100%{ transform:scale(.72);} 45%{ transform:scale(1.12);} 55%{ transform:scale(1.12);} }
+  #breathe-label{ font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-card-soft); min-height:1.2em; }
+
+  .panel textarea{
+    width:100%; min-height:120px; resize:vertical;
+    background:rgba(255,255,255,.4); border:1px solid var(--card-line);
+    border-radius:14px; color:var(--ink-card); font-family:inherit; font-size:.92rem;
+    padding:14px; line-height:1.6;
+  }
+  #app[data-mode="dark"] .panel textarea{ background:rgba(0,0,0,.25); }
+  .journal-status{ font-size:.82rem; color:var(--ink-card-soft); min-height:1.3em; }
+  .moments{ display:flex; flex-direction:column; gap:10px; }
+  .moment{ padding:12px 14px; border-radius:14px; background:rgba(255,255,255,.3); border:1px solid var(--card-line); display:flex; flex-direction:column; gap:6px; }
+  #app[data-mode="dark"] .moment{ background:rgba(255,255,255,.06); }
+  .moment .when{ font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-card-faint); }
+  .moment .text{ font-size:.86rem; }
+  .moment .release{ align-self:flex-end; background:none; border:none; color:var(--ink-card-faint); font-size:.72rem; cursor:pointer; }
+  .moment .release:hover{ color:var(--ink-card); }
+  .empty-note{ font-size:.82rem; color:var(--ink-card-faint); }
+
+  .contacts{ display:flex; flex-wrap:wrap; gap:10px; }
+  .contact{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    padding:10px 6px; width:78px; border-radius:14px; cursor:pointer;
+    border:1px solid transparent; background:transparent;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .contact:hover{ background:rgba(255,255,255,.3); }
+  #app[data-mode="dark"] .contact:hover{ background:rgba(255,255,255,.08); }
+  .contact.selected{ border-color:var(--accent); background:rgba(239,111,162,.14); }
+  .avatar-lg{ width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Fredoka', sans-serif; font-size:.9rem; color:#2f1428; }
+  .contact .cname{ font-size:.72rem; color:var(--ink-card-soft); text-align:center; }
+
+  .signals{ display:flex; flex-wrap:wrap; gap:8px; }
+  .signal-chip{
+    padding:9px 14px; border-radius:999px; cursor:pointer;
+    background:rgba(255,255,255,.4); border:1px solid var(--card-line);
+    font-size:.8rem; transition:background .2s ease, border-color .2s ease;
+  }
+  #app[data-mode="dark"] .signal-chip{ background:rgba(255,255,255,.08); }
+  .signal-chip.selected{ border-color:var(--accent); background:rgba(239,111,162,.16); }
+
+  .signal-log{ display:flex; flex-direction:column; gap:6px; }
+  .signal-entry{ font-size:.8rem; color:var(--ink-card-soft); display:flex; gap:8px; align-items:baseline; }
+  .signal-entry .when{ font-size:.66rem; color:var(--ink-card-faint); letter-spacing:.05em; text-transform:uppercase; }
+
+  .field-label{ font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-card-faint); margin-bottom:8px; display:block; }
+
+  .events{ display:flex; flex-direction:column; gap:10px; }
+  .event-item{ display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:16px; background:rgba(255,255,255,.3); border:1px solid var(--card-line); }
+  #app[data-mode="dark"] .event-item{ background:rgba(255,255,255,.06); }
+  .event-icon{ width:38px; height:38px; border-radius:12px; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--art-blue), var(--sky-lav)); color:#20204a; }
+  .event-icon svg{ width:18px; height:18px; }
+  .event-body{ flex:1; min-width:0; }
+  .event-body .etitle{ font-size:.9rem; font-weight:700; }
+  .event-body .ewhen{ font-size:.76rem; color:var(--ink-card-faint); margin-top:2px; }
+  .event-join{
+    appearance:none; border:1px solid var(--card-line); background:rgba(255,255,255,.5); cursor:pointer;
+    border-radius:999px; padding:7px 14px; font-size:.76rem; font-weight:700; color:var(--ink-card); flex-shrink:0;
+    transition:background .2s ease, border-color .2s ease, color .2s ease;
+  }
+  #app[data-mode="dark"] .event-join{ background:rgba(255,255,255,.08); }
+  .event-join.joined{ background:linear-gradient(135deg, var(--accent), var(--sky-lav)); color:#2f1428; border-color:transparent; }
+
+  .shop-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:420px){ .shop-grid{ grid-template-columns:1fr; } }
+  .shop-item{ padding:14px; border-radius:16px; background:rgba(255,255,255,.3); border:1px solid var(--card-line); display:flex; flex-direction:column; gap:8px; }
+  #app[data-mode="dark"] .shop-item{ background:rgba(255,255,255,.06); }
+  .shop-item .sicon{ font-size:1.4rem; }
+  .shop-item .sname{ font-size:.86rem; font-weight:700; }
+  .shop-item .sprice{ font-size:.76rem; color:var(--ink-card-faint); }
+  .shop-save{
+    appearance:none; border:1px solid var(--card-line); background:rgba(255,255,255,.5); cursor:pointer;
+    border-radius:999px; padding:7px 12px; font-size:.74rem; font-weight:700; color:var(--ink-card); align-self:flex-start;
+    transition:background .2s ease, color .2s ease;
+  }
+  #app[data-mode="dark"] .shop-save{ background:rgba(255,255,255,.08); }
+  .shop-save.saved{ background:linear-gradient(135deg, var(--accent-2), var(--sky-lav)); color:#12312c; border-color:transparent; }
+
+  /* ---------- AI companion ---------- */
+  .companion-trigger{
+    position:fixed; z-index:31; right:22px; bottom:22px;
+    width:58px; height:58px; border-radius:50%;
+    background:linear-gradient(135deg, var(--accent), var(--glow-cyan));
+    border:1px solid rgba(255,255,255,.4);
+    display:flex; align-items:center; justify-content:center; color:#2a1330; cursor:pointer;
+    animation:companionPulse 3.2s ease-in-out infinite;
+  }
+  .companion-trigger svg{ width:22px; height:22px; }
+  @keyframes companionPulse{
+    0%,100%{ box-shadow:0 14px 30px -10px rgba(99,217,255,.5), 0 0 0 0 rgba(239,111,162,.35); }
+    50%{ box-shadow:0 14px 34px -8px rgba(99,217,255,.6), 0 0 0 10px rgba(239,111,162,0); }
+  }
+  @media (max-width:760px){ .companion-trigger{ right:16px; bottom:96px; width:52px; height:52px; } }
+
+  .signal-card{ padding:16px; border-radius:16px; background:rgba(255,255,255,.35); border:1px solid var(--card-line); display:flex; flex-direction:column; gap:6px; }
+  #app[data-mode="dark"] .signal-card{ background:rgba(255,255,255,.06); }
+  .signal-level{ font-family:'Fredoka', sans-serif; font-size:1.05rem; font-weight:600; }
+  .signal-detail{ font-size:.82rem; color:var(--ink-card-soft); }
+
+  .ai-bubble{ padding:14px 16px; border-radius:16px 16px 16px 4px; background:linear-gradient(135deg, rgba(239,111,162,.16), rgba(183,163,224,.2)); border:1px solid var(--card-line); font-size:.88rem; line-height:1.5; display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .ai-bubble p{ flex:1; }
+
+  .listen-btn{
+    appearance:none; border:1px solid var(--card-line); background:rgba(255,255,255,.5); cursor:pointer;
+    width:34px; height:34px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    color:var(--ink-card); transition:background .2s ease, color .2s ease;
+  }
+  #app[data-mode="dark"] .listen-btn{ background:rgba(255,255,255,.1); }
+  .listen-btn.speaking{ background:linear-gradient(135deg, var(--accent), var(--sky-lav)); color:#2f1428; border-color:transparent; }
+  .listen-btn svg{ width:15px; height:15px; }
+
+  .companion-row{ display:flex; align-items:center; justify-content:space-between; gap:14px; }
+  .companion-row-title{ font-size:.86rem; font-weight:700; }
+  .companion-row-sub{ font-size:.76rem; color:var(--ink-card-faint); margin-top:2px; max-width:34ch; }
+
+  .switch{ appearance:none; border:1px solid var(--card-line); background:rgba(255,255,255,.4); width:46px; height:26px; border-radius:999px; cursor:pointer; position:relative; flex-shrink:0; padding:2px; }
+  #app[data-mode="dark"] .switch{ background:rgba(255,255,255,.08); }
+  .switch .knob{ display:block; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.25); transition:transform .2s ease; }
+  .switch[aria-checked="true"]{ background:linear-gradient(135deg, var(--accent), var(--sky-lav)); border-color:transparent; }
+  .switch[aria-checked="true"] .knob{ transform:translateX(20px); }
+
+  .mic-row{ display:flex; align-items:flex-start; gap:12px; }
+  .mic-btn{ appearance:none; border:1px solid var(--card-line); background:rgba(255,255,255,.4); width:40px; height:40px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink-card); flex-shrink:0; }
+  #app[data-mode="dark"] .mic-btn{ background:rgba(255,255,255,.08); }
+  .mic-btn svg{ width:18px; height:18px; }
+
+  @media (prefers-reduced-motion: reduce){
+    .breathe-core, .panel, .companion-trigger{ animation:none !important; }
+    .card{ transition:none !important; }
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app" id="app">
+
+  <header class="topbar">
+    <a class="brand" href="#" onclick="return false;" aria-label="alienpooh">
+      <svg width="206" height="38" viewBox="0 0 206 38" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="alienpooh">
+        <path d="M200.343 16.1272C201.261 16.1272 202.15 16.3198 203.01 16.7048C203.883 17.0899 204.596 17.7015 205.151 18.5396C205.717 19.3663 206 20.4479 206 21.7843V30.4824H203.01V22.3619C203.01 20.9802 202.693 19.9779 202.059 19.355C201.436 18.7208 200.615 18.4037 199.596 18.4037C198.916 18.4037 198.265 18.5962 197.642 18.9813C197.019 19.355 196.504 19.876 196.096 20.5442C195.7 21.2011 195.502 21.9486 195.502 22.7867V30.4824H192.512V7.10645H195.502V19.0152C195.604 18.6302 195.875 18.2111 196.317 17.7581C196.77 17.3051 197.348 16.92 198.05 16.6029C198.752 16.2858 199.517 16.1272 200.343 16.1272Z" fill="white"/>
+        <path d="M181.844 30.8898C180.406 30.8898 179.126 30.567 178.005 29.9215C176.895 29.2759 176.023 28.4038 175.389 27.3053C174.755 26.1954 174.438 24.9439 174.438 23.5508C174.438 22.1578 174.755 20.9007 175.389 19.7794C176.023 18.6582 176.895 17.7692 178.005 17.1123C179.126 16.4554 180.406 16.127 181.844 16.127C183.271 16.127 184.534 16.4554 185.633 17.1123C186.743 17.7692 187.609 18.6582 188.232 19.7794C188.855 20.9007 189.166 22.1578 189.166 23.5508C189.166 24.9439 188.855 26.1954 188.232 27.3053C187.609 28.4038 186.743 29.2759 185.633 29.9215C184.534 30.567 183.271 30.8898 181.844 30.8898ZM181.844 28.3585C182.75 28.3585 183.538 28.149 184.206 27.73C184.885 27.3109 185.412 26.739 185.786 26.0141C186.159 25.278 186.346 24.4512 186.346 23.5339C186.346 22.6165 186.159 21.7897 185.786 21.0536C185.412 20.3174 184.885 19.7341 184.206 19.3038C183.538 18.8734 182.75 18.6582 181.844 18.6582C180.927 18.6582 180.129 18.8734 179.449 19.3038C178.77 19.7341 178.237 20.3174 177.852 21.0536C177.478 21.7897 177.292 22.6165 177.292 23.5339C177.292 24.4512 177.478 25.278 177.852 26.0141C178.237 26.739 178.77 27.3109 179.449 27.73C180.129 28.149 180.927 28.3585 181.844 28.3585Z" fill="white"/>
+        <path d="M164.79 30.8898C163.351 30.8898 162.072 30.567 160.95 29.9215C159.84 29.2759 158.968 28.4038 158.334 27.3053C157.7 26.1954 157.383 24.9439 157.383 23.5508C157.383 22.1578 157.7 20.9007 158.334 19.7794C158.968 18.6582 159.84 17.7692 160.95 17.1123C162.072 16.4554 163.351 16.127 164.79 16.127C166.217 16.127 167.48 16.4554 168.578 17.1123C169.688 17.7692 170.554 18.6582 171.177 19.7794C171.8 20.9007 172.112 22.1578 172.112 23.5508C172.112 24.9439 171.8 26.1954 171.177 27.3053C170.554 28.4038 169.688 29.2759 168.578 29.9215C167.48 30.567 166.217 30.8898 164.79 30.8898ZM164.79 28.3585C165.696 28.3585 166.483 28.149 167.151 27.73C167.831 27.3109 168.357 26.739 168.731 26.0141C169.105 25.278 169.292 24.4512 169.292 23.5339C169.292 22.6165 169.105 21.7897 168.731 21.0536C168.357 20.3174 167.831 19.7341 167.151 19.3038C166.483 18.8734 165.696 18.6582 164.79 18.6582C163.872 18.6582 163.074 18.8734 162.394 19.3038C161.715 19.7341 161.183 20.3174 160.797 21.0536C160.424 21.7897 160.237 22.6165 160.237 23.5339C160.237 24.4512 160.424 25.278 160.797 26.0141C161.183 26.739 161.715 27.3109 162.394 27.73C163.074 28.149 163.872 28.3585 164.79 28.3585Z" fill="white"/>
+        <path d="M143.108 37.5492H140.169V16.5347H143.159V19.1509C143.261 18.7998 143.544 18.3864 144.009 17.9107C144.473 17.4351 145.096 17.0217 145.878 16.6706C146.67 16.3082 147.576 16.127 148.596 16.127C149.887 16.127 151.031 16.4384 152.027 17.0613C153.035 17.6729 153.822 18.5336 154.389 19.6435C154.966 20.7421 155.255 22.0332 155.255 23.5169C155.255 25.0005 154.961 26.2973 154.372 27.4072C153.783 28.5058 152.979 29.3608 151.959 29.9724C150.951 30.584 149.796 30.8898 148.494 30.8898C147.44 30.8898 146.517 30.6916 145.725 30.2952C144.943 29.8988 144.326 29.4514 143.873 28.9531C143.431 28.4548 143.176 28.0584 143.108 27.7639V37.5492ZM152.333 23.5169C152.333 22.5089 152.124 21.6368 151.704 20.9007C151.297 20.1645 150.753 19.5926 150.074 19.1848C149.394 18.7771 148.658 18.5733 147.865 18.5733C146.993 18.5733 146.2 18.7828 145.487 19.2018C144.773 19.6096 144.207 20.1872 143.788 20.9346C143.369 21.6708 143.159 22.5315 143.159 23.5169C143.159 24.5022 143.369 25.3686 143.788 26.1161C144.207 26.8522 144.773 27.4242 145.487 27.8319C146.2 28.2396 146.993 28.4435 147.865 28.4435C148.658 28.4435 149.394 28.2453 150.074 27.8489C150.753 27.4412 151.297 26.8692 151.704 26.1331C152.124 25.3969 152.333 24.5248 152.333 23.5169Z" fill="white"/>
+        <path d="M130.595 16.127C131.513 16.127 132.402 16.3195 133.263 16.7046C134.135 17.0896 134.848 17.7012 135.403 18.5393C135.969 19.3661 136.253 20.4476 136.253 21.7841V30.4821H133.263V22.3617C133.263 20.9799 132.94 19.9776 132.294 19.3547C131.649 18.7205 130.816 18.4034 129.797 18.4034C129.129 18.4034 128.483 18.5959 127.86 18.981C127.249 19.3547 126.745 19.8757 126.348 20.5439C125.952 21.2008 125.754 21.9483 125.754 22.7864V30.4821H122.798V16.5347H125.754V19.015C125.856 18.6299 126.133 18.2109 126.586 17.7578C127.039 17.3048 127.617 16.9197 128.319 16.6026C129.021 16.2855 129.78 16.127 130.595 16.127Z" fill="white"/>
+        <path d="M108.458 24.1115C108.469 24.9495 108.65 25.714 109.002 26.4049C109.353 27.0957 109.874 27.645 110.565 28.0527C111.267 28.4605 112.127 28.6643 113.147 28.6643C114.007 28.6643 114.738 28.5397 115.338 28.2906C115.95 28.0301 116.448 27.7243 116.833 27.3732C117.218 27.0108 117.496 26.688 117.666 26.4049L119.11 28.1887C118.736 28.7323 118.277 29.208 117.734 29.6157C117.201 30.0234 116.55 30.3348 115.78 30.55C115.01 30.7765 114.07 30.8898 112.96 30.8898C111.465 30.8898 110.168 30.5727 109.07 29.9384C107.982 29.2929 107.144 28.4038 106.555 27.2713C105.966 26.1274 105.672 24.8193 105.672 23.347C105.672 21.9879 105.949 20.7648 106.504 19.6775C107.059 18.5789 107.863 17.7125 108.917 17.0783C109.981 16.4441 111.261 16.127 112.756 16.127C114.126 16.127 115.316 16.4158 116.324 16.9934C117.343 17.5596 118.13 18.3637 118.685 19.4057C119.251 20.4476 119.534 21.6935 119.534 23.1431C119.534 23.2337 119.529 23.3979 119.517 23.6358C119.506 23.8623 119.495 24.0209 119.483 24.1115H108.458ZM116.714 21.886C116.703 21.4216 116.567 20.912 116.307 20.357C116.057 19.8021 115.65 19.3264 115.083 18.93C114.517 18.5336 113.753 18.3354 112.79 18.3354C111.793 18.3354 110.989 18.528 110.378 18.913C109.777 19.2981 109.336 19.7681 109.053 20.3231C108.769 20.8667 108.605 21.3877 108.56 21.886H116.714Z" fill="white"/>
+        <path d="M99.1313 30.4825V16.5351H102.087V30.4825H99.1313ZM100.643 11.7614C100.111 11.7614 99.6522 11.5745 99.2672 11.2008C98.8934 10.8157 98.7065 10.357 98.7065 9.82475C98.7065 9.29245 98.8934 8.83377 99.2672 8.4487C99.6522 8.06363 100.111 7.87109 100.643 7.87109C100.994 7.87109 101.317 7.9617 101.612 8.14291C101.917 8.32412 102.161 8.56195 102.342 8.85642C102.523 9.13956 102.614 9.46233 102.614 9.82475C102.614 10.357 102.421 10.8157 102.036 11.2008C101.651 11.5745 101.187 11.7614 100.643 11.7614Z" fill="white"/>
+        <path d="M94.5506 30.4824H91.5776V7.10645H94.5506V30.4824Z" fill="white"/>
+        <path d="M84.6382 30.4821V27.7639C84.5476 28.0471 84.2815 28.4378 83.8398 28.9361C83.4094 29.4345 82.8148 29.8875 82.056 30.2952C81.3085 30.6916 80.4251 30.8898 79.4058 30.8898C78.1147 30.8898 76.9425 30.584 75.8893 29.9724C74.8473 29.3608 74.0149 28.5058 73.392 27.4072C72.7804 26.2973 72.4746 25.0005 72.4746 23.5169C72.4746 22.0332 72.7804 20.7421 73.392 19.6435C74.0149 18.5336 74.8473 17.6729 75.8893 17.0613C76.9425 16.4384 78.1147 16.127 79.4058 16.127C80.4138 16.127 81.2859 16.3082 82.022 16.6706C82.7695 17.033 83.3641 17.452 83.8058 17.9277C84.2588 18.4034 84.525 18.8111 84.6043 19.1509V16.5347H87.5263V30.4821H84.6382ZM75.3966 23.5169C75.3966 24.5248 75.6174 25.3969 76.0591 26.1331C76.5008 26.8692 77.0728 27.4412 77.775 27.8489C78.4885 28.2453 79.2473 28.4435 80.0514 28.4435C80.9121 28.4435 81.6823 28.2396 82.3618 27.8319C83.0413 27.4242 83.5793 26.8522 83.9757 26.1161C84.3721 25.3686 84.5703 24.5022 84.5703 23.5169C84.5703 22.5315 84.3721 21.6708 83.9757 20.9346C83.5793 20.1872 83.0413 19.6096 82.3618 19.2018C81.6823 18.7828 80.9121 18.5733 80.0514 18.5733C79.2473 18.5733 78.4885 18.7771 77.775 19.1848C77.0728 19.5926 76.5008 20.1645 76.0591 20.9007C75.6174 21.6368 75.3966 22.5089 75.3966 23.5169Z" fill="white"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9187 18.9688H17.2787C18.8681 18.9688 20.1566 20.2958 20.1566 21.9327V28.0086C20.1566 29.6455 21.4451 30.9725 23.0345 30.9725H31.2039L31.1886 31L40.599 31C44.1684 31 47.0299 27.2159 45.6434 22.3854C45.1041 20.5062 43.6763 19.356 42.152 18.8234C41.8443 17.3127 40.9733 15.7847 39.4487 14.5174C38.0838 13.3829 36.4394 13.2 34.9779 13.5337V2.96388C34.9779 1.32699 33.6894 0 32.1 0H21.5807C20.6832 0 19.8371 0.431171 19.2928 1.16596L9.63074 14.207C8.18545 16.1577 9.53616 18.9688 11.9187 18.9688ZM5.75608 21.0929C4.84942 21.0929 3.99574 21.533 3.45234 22.2804L0.57938 26.2323C-0.841313 28.1865 0.512679 30.9725 2.88312 30.9725H15.0723C16.6617 30.9725 17.9502 29.6455 17.9502 28.0086V24.0568C17.9502 22.4199 16.6617 21.0929 15.0723 21.0929H5.75608Z" fill="white"/>
+      </svg>
+    </a>
+    <div class="topbar-right">
+      <a class="case-link chrome-pill" href="../index.html">← Case study</a>
+      <div class="theme-toggle chrome-pill" role="group" aria-label="Theme">
+        <button type="button" id="mode-light" aria-label="Light mode" aria-pressed="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+        </button>
+        <button type="button" id="mode-dark" aria-label="Dark mode" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+        </button>
+      </div>
+      <div class="user-chip chrome-pill">
+        <span class="avatar">Y</span>
+        <span class="name">You</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <nav class="dock chrome-pill" aria-label="Sanctuary sections">
+    <button class="dock-btn" type="button" data-panel="messages" aria-label="Messages">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-8.4 8.4 8.3 8.3 0 01-3.8-.9L3 21l1.9-5.7a8.3 8.3 0 01-.9-3.8A8.4 8.4 0 0112.5 3h.1a8.4 8.4 0 018.4 8.4z"/></svg>
+    </button>
+    <button class="dock-btn" type="button" data-panel="notifications" aria-label="Notifications">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+    </button>
+    <button class="dock-btn" type="button" data-panel="search" aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+    <button class="dock-btn" type="button" data-panel="shop" aria-label="Shop">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 4 6v14a2 2 0 002 2h12a2 2 0 002-2V6l-2-4"/><path d="M4 6h16"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    </button>
+  </nav>
+
+  <main class="room" id="room">
+    <div class="room-illustration" aria-hidden="true">
+      <img class="room-photo" src="assets/room.webp" alt="">
+      <div class="room-glow"></div>
+    </div>
+
+    <div class="room-content">
+      <div>
+        <h1 class="headline">Start wherever you feel comfortable.</h1>
+        <p class="subline">No feed, no streak to keep. Just a quiet room that adjusts to how you feel today.</p>
+      </div>
+
+      <div class="cards">
+        <button class="card card-relax" type="button" data-panel="breathe">
+          <div class="card-media">
+            <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          </div>
+          <h3>Relax the mind</h3>
+          <p>A slow, wordless breathing rhythm — stay as long as it helps.</p>
+        </button>
+
+        <button class="card card-reflect" type="button" data-panel="reflect">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></div>
+          <h3>Reflect</h3>
+          <p>Put a feeling into words — private, just for you.</p>
+        </button>
+
+        <button class="card card-event" type="button" data-panel="event">
+          <div class="moon-card-visual" aria-hidden="true"></div>
+          <h3>Step into an event</h3>
+          <p>A museum hour, a reading, a small concert nearby.</p>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <button class="companion-trigger" type="button" onclick="openPanel('companion')" aria-label="Open AI companion (concept)">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/></svg>
+  </button>
+
+  <div class="backdrop" id="backdrop" hidden></div>
+
+  <!-- BREATHE PANEL -->
+  <aside class="panel" id="panel-breathe" role="dialog" aria-modal="true" aria-labelledby="breathe-title" hidden>
+    <div class="panel-head">
+      <div>
+        <p class="panel-eyebrow">Breathe</p>
+        <h2 id="breathe-title">Just a moment</h2>
+      </div>
+      <button class="panel-close" type="button" onclick="closePanel()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="panel-hint">No count to hit, no session to finish — leave whenever it feels right.</p>
+    <div class="breathe-stage">
+      <div class="breathe-ring"><div class="breathe-core"></div></div>
+      <div id="breathe-label">in...</div>
+    </div>
+    <button class="btn btn-ghost" type="button" onclick="closePanel()" style="align-self:center;">Done for now</button>
+  </aside>
+
+  <!-- REFLECT PANEL -->
+  <aside class="panel" id="panel-reflect" role="dialog" aria-modal="true" aria-labelledby="reflect-title" hidden>
+    <div class="panel-head">
+      <div>
+        <p class="panel-eyebrow">Reflect</p>
+        <h2 id="reflect-title">What's here right now?</h2>
+      </div>
+      <button class="panel-close" type="button" onclick="closePanel()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div>
+      <label class="field-label" for="journal-input">Private — visible only to you, on this device</label>
+      <textarea id="journal-input" placeholder="Start wherever feels true. Half a sentence is enough."></textarea>
+      <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:12px;">
+        <button class="btn btn-primary" type="button" id="save-btn" onclick="saveReflection()">Let it rest</button>
+        <span class="journal-status" id="journal-status"></span>
+      </div>
+    </div>
+    <div>
+      <span class="field-label">Held moments</span>
+      <div class="moments" id="moments-list"></div>
+    </div>
+  </aside>
+
+  <!-- MESSAGES PANEL -->
+  <aside class="panel" id="panel-messages" role="dialog" aria-modal="true" aria-labelledby="messages-title" hidden>
+    <div class="panel-head">
+      <div>
+        <p class="panel-eyebrow">Messages</p>
+        <h2 id="messages-title">Send presence, not a message</h2>
+      </div>
+      <button class="panel-close" type="button" onclick="closePanel()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="panel-hint">No read receipts, no pressure to reply — just let someone know they crossed your mind.</p>
+    <div>
+      <span class="field-label">Who comes to mind</span>
+      <div class="contacts" id="contacts-grid"></div>
+    </div>
+    <div>
+      <span class="field-label">What you'd like to send</span>
+      <div class="signals" id="signals-grid">
+        <div class="signal-chip" role="button" tabindex="0" data-signal="Thinking of you">Thinking of you</div>
+        <div class="signal-chip" role="button" tabindex="0" data-signal="Sending calm">Sending calm</div>
+        <div class="signal-chip" role="button" tabindex="0" data-signal="Here if needed">Here if needed</div>
+        <div class="signal-chip" role="button" tabindex="0" data-signal="Just because">Just because</div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+      <button class="btn btn-primary" type="button" id="send-signal-btn" onclick="sendSignal()" disabled>Send quietly</button>
+      <span class="journal-status" id="signal-status"></span>
+    </div>
+    <div>
+      <span class="field-label">Recently sent</span>
+      <div class="signal-log" id="signal-log"></div>
+    </div>
+  </aside>
+
+  <!-- EVENT PANEL -->
+  <aside class="panel" id="panel-event" role="dialog" aria-modal="true" aria-labelledby="event-title" hidden>
+    <div class="panel-head">
+      <div>
+        <p class="panel-eyebrow">Step into an event</p>
+        <h2 id="event-title">Something happening nearby</h2>
+      </div>
+      <button class="panel-close" type="button" onclick="closePanel()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="panel-hint">No headcount, no reminders — just note what you might step into.</p>
+    <div class="events" id="events-list"></div>
+  </aside>
+
+  <!-- NOTIFICATIONS PANEL -->
+  <aside class="panel" id="panel-notifications" role="dialog" aria-modal="true" aria-labelledby="notifications-title" hidden>
+    <div class="panel-head">
+      <div>
+        <p class="panel-eyebrow">Notifications</p>
+        <h2 id="notifications-title">Nothing urgent</h2>
+      </div>
+      <button class="panel-close" type="button" onclick="closePanel()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="panel-hint">No unread counts, no red dots — just a quiet log you can check whenever.</p>
+    <div class="moments" id="notifications-list"></div>
+  </aside>
+
+  <!-- SEARCH PANEL -->
+  <aside class="panel" id="panel-search" role="dialog" aria-modal="true" aria-labelledby="search-title" hidden>
+    <div class="panel-head">
+      <div>
+        <p class="panel-eyebrow">Search</p>
+        <h2 id="search-title">Find your way</h2>
+      </div>
+      <button class="panel-close" type="button" onclick="closePanel()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div>
+      <label class="field-label" for="search-input">People, events, moments</label>
+      <textarea id="search-input" placeholder="Try “Mara”, “concert”, or “museum”" style="min-height:44px;"></textarea>
+    </div>
+    <div class="moments" id="search-results"></div>
+  </aside>
+
+  <!-- SHOP PANEL -->
+  <aside class="panel" id="panel-shop" role="dialog" aria-modal="true" aria-labelledby="shop-title" hidden>
+    <div class="panel-head">
+      <div>
+        <p class="panel-eyebrow">Shop</p>
+        <h2 id="shop-title">Small things for slow days</h2>
+      </div>
+      <button class="panel-close" type="button" onclick="closePanel()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="panel-hint">A prototype shelf — nothing here actually charges you anything.</p>
+    <div class="shop-grid" id="shop-grid"></div>
+  </aside>
+
+  <!-- AI COMPANION PANEL -->
+  <aside class="panel" id="panel-companion" role="dialog" aria-modal="true" aria-labelledby="companion-title" hidden>
+    <div class="panel-head">
+      <div>
+        <p class="panel-eyebrow">AI companion · concept</p>
+        <h2 id="companion-title">A quiet layer that learns alongside you</h2>
+      </div>
+      <button class="panel-close" type="button" onclick="closePanel()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="panel-hint">This part isn't built yet — it's the next step from the case study, simulated here so you can feel its shape. No real wearable is connected.</p>
+
+    <div class="signal-card">
+      <span class="field-label">From your wearable (simulated)</span>
+      <div class="signal-level" id="signal-level"></div>
+      <p class="signal-detail" id="signal-detail"></p>
+    </div>
+
+    <div class="ai-bubble">
+      <p id="ai-bubble-text"></p>
+      <button class="listen-btn" type="button" id="listen-btn" aria-label="Hear this, spoken calmly">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+      </button>
+    </div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn btn-primary" type="button" id="companion-action"></button>
+      <button class="btn btn-ghost" type="button" onclick="closePanel()">Not right now</button>
+    </div>
+
+    <div class="companion-row">
+      <div>
+        <div class="companion-row-title">Learn from my patterns</div>
+        <div class="companion-row-sub">You're always in control of what this knows about you.</div>
+      </div>
+      <button class="switch" id="learn-toggle" type="button" role="switch" aria-checked="false" aria-label="Learn from my patterns over time"><span class="knob"></span></button>
+    </div>
+
+    <div class="mic-row">
+      <button class="mic-btn" id="mic-btn" type="button" aria-label="Voice — tap to learn more" aria-expanded="false" aria-controls="mic-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0"/><path d="M12 17v5"/></svg>
+      </button>
+      <div>
+        <div class="companion-row-title">Voice</div>
+        <div class="companion-row-sub" id="mic-note" hidden>In the VR headset, this listens for your voice — ask it how you're doing, or just talk it out. In this browser prototype, taps stand in for speech; the 🔈 button above reads it back to you in a calm voice, using your browser's built-in speech.</div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var appEl = document.getElementById('app');
+
+  /* ---------- theme toggle ---------- */
+  var lightBtn = document.getElementById('mode-light');
+  var darkBtn = document.getElementById('mode-dark');
+  function applyMode(mode){
+    appEl.setAttribute('data-mode', mode);
+    lightBtn.classList.toggle('on', mode === 'light');
+    darkBtn.classList.toggle('on', mode === 'dark');
+    lightBtn.setAttribute('aria-pressed', mode === 'light' ? 'true' : 'false');
+    darkBtn.setAttribute('aria-pressed', mode === 'dark' ? 'true' : 'false');
+    try { localStorage.setItem('alienpooh_mode', mode); } catch(e){}
+  }
+  var savedMode = 'light';
+  try { savedMode = localStorage.getItem('alienpooh_mode') || 'light'; } catch(e){}
+  applyMode(savedMode);
+  lightBtn.addEventListener('click', function(){ applyMode('light'); });
+  darkBtn.addEventListener('click', function(){ applyMode('dark'); });
+
+  /* ---------- keyboard activation for role=button ---------- */
+  document.addEventListener('keydown', function(e){
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[role="button"]')){
+      e.preventDefault();
+      e.target.click();
+    }
+  });
+
+  /* ---------- panels ---------- */
+  var panelNames = ['breathe','reflect','event','messages','notifications','search','shop','companion'];
+  var lastFocused = null;
+
+  function updateDockActive(name){
+    document.querySelectorAll('.dock-btn').forEach(function(btn){
+      var isActive = btn.getAttribute('data-panel') === name;
+      btn.classList.toggle('active', isActive);
+      if (isActive) btn.setAttribute('aria-current','page'); else btn.removeAttribute('aria-current');
+    });
+  }
+
+  window.openPanel = function(name){
+    lastFocused = document.activeElement;
+    panelNames.forEach(function(p){
+      document.getElementById('panel-'+p).hidden = (p !== name);
+    });
+    document.getElementById('backdrop').hidden = false;
+    updateDockActive(name);
+    var panel = document.getElementById('panel-'+name);
+    var closeBtn = panel.querySelector('.panel-close');
+    if (closeBtn) closeBtn.focus();
+    if (name === 'reflect') renderMoments();
+    if (name === 'messages') { renderContacts(); renderSignalLog(); }
+    if (name === 'event') renderEvents();
+    if (name === 'notifications') renderNotifications();
+    if (name === 'search') renderSearch('');
+    if (name === 'shop') renderShop();
+    if (name === 'companion') renderCompanion();
+  };
+
+  window.closePanel = function(){
+    panelNames.forEach(function(p){ document.getElementById('panel-'+p).hidden = true; });
+    document.getElementById('backdrop').hidden = true;
+    updateDockActive(null);
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  };
+
+  document.getElementById('backdrop').addEventListener('click', closePanel);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){
+      var anyOpen = panelNames.some(function(p){ return !document.getElementById('panel-'+p).hidden; });
+      if (anyOpen) closePanel();
+    }
+  });
+
+  document.querySelectorAll('[data-panel]').forEach(function(el){
+    el.addEventListener('click', function(){
+      openPanel(el.getAttribute('data-panel'));
+    });
+  });
+
+  /* ---------- breathing label cycle ---------- */
+  var breatheEl = document.getElementById('breathe-label');
+  var phase = 0;
+  var phases = ['in...', 'hold...', 'out...', 'hold...'];
+  if (!reduceMotion){
+    setInterval(function(){
+      phase = (phase+1) % phases.length;
+      breatheEl.textContent = phases[phase];
+    }, 2000);
+  } else {
+    breatheEl.textContent = 'breathe at your own pace';
+  }
+
+  /* ---------- storage helpers ---------- */
+  function readStore(key){ try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e){ return []; } }
+  function writeStore(key, val){ try { localStorage.setItem(key, JSON.stringify(val)); } catch(e){} }
+  function timeAgo(ts){
+    var diff = Date.now() - ts;
+    var mins = Math.floor(diff/60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    var hrs = Math.floor(mins/60);
+    if (hrs < 24) return hrs + 'h ago';
+    return Math.floor(hrs/24) + 'd ago';
+  }
+
+  /* ---------- reflect ---------- */
+  var REFLECTIONS_KEY = 'alienpooh_reflections';
+  window.saveReflection = function(){
+    var input = document.getElementById('journal-input');
+    var text = input.value.trim();
+    var status = document.getElementById('journal-status');
+    var btn = document.getElementById('save-btn');
+    if (!text){ status.textContent = 'A few words are enough, when you\'re ready.'; return; }
+    btn.disabled = true;
+    status.textContent = 'Holding this for a moment…';
+    setTimeout(function(){
+      var list = readStore(REFLECTIONS_KEY);
+      list.unshift({ text: text, ts: Date.now() });
+      writeStore(REFLECTIONS_KEY, list);
+      input.value = '';
+      status.textContent = 'Held safely here — just for you.';
+      btn.disabled = false;
+      renderMoments();
+      setTimeout(function(){ status.textContent = ''; }, 4000);
+    }, 800);
+  };
+
+  window.releaseMoment = function(ts){
+    writeStore(REFLECTIONS_KEY, readStore(REFLECTIONS_KEY).filter(function(m){ return m.ts !== ts; }));
+    renderMoments();
+  };
+
+  function renderMoments(){
+    var host = document.getElementById('moments-list');
+    var list = readStore(REFLECTIONS_KEY);
+    if (!list.length){
+      host.innerHTML = '<p class="empty-note">Nothing held yet. Whatever you write stays on this device only.</p>';
+      return;
+    }
+    host.innerHTML = '';
+    list.slice(0,8).forEach(function(m){
+      var card = document.createElement('div');
+      card.className = 'moment';
+      var when = document.createElement('div'); when.className = 'when'; when.textContent = timeAgo(m.ts);
+      var text = document.createElement('div'); text.className = 'text'; text.textContent = m.text;
+      var release = document.createElement('button'); release.className = 'release'; release.textContent = 'let this go';
+      release.onclick = function(){ releaseMoment(m.ts); };
+      card.appendChild(when); card.appendChild(text); card.appendChild(release);
+      host.appendChild(card);
+    });
+  }
+
+  /* ---------- connect ---------- */
+  var CONTACTS = [
+    { name:'Mara', tint:'linear-gradient(135deg,#F6C6DA,#CBB9EA)' },
+    { name:'Idris', tint:'linear-gradient(135deg,#9FDCCF,#CBB9EA)' },
+    { name:'Sena', tint:'linear-gradient(135deg,#FBD3A8,#F6C6DA)' },
+    { name:'Wren', tint:'linear-gradient(135deg,#CBB9EA,#9FDCCF)' }
+  ];
+  var SIGNALS_KEY = 'alienpooh_signals';
+  var selectedContact = null;
+  var selectedSignal = null;
+
+  function renderContacts(){
+    var host = document.getElementById('contacts-grid');
+    host.innerHTML = '';
+    CONTACTS.forEach(function(c){
+      var el = document.createElement('div');
+      el.className = 'contact' + (selectedContact === c.name ? ' selected' : '');
+      el.setAttribute('role','button');
+      el.tabIndex = 0;
+      el.innerHTML = '<div class="avatar-lg" style="background:'+c.tint+'">'+c.name.charAt(0)+'</div><span class="cname">'+c.name+'</span>';
+      el.addEventListener('click', function(){ selectedContact = c.name; renderContacts(); updateSendState(); });
+      host.appendChild(el);
+    });
+  }
+
+  document.getElementById('signals-grid').addEventListener('click', function(e){
+    var chip = e.target.closest('.signal-chip');
+    if (!chip) return;
+    document.querySelectorAll('.signal-chip').forEach(function(c){ c.classList.remove('selected'); });
+    chip.classList.add('selected');
+    selectedSignal = chip.getAttribute('data-signal');
+    updateSendState();
+  });
+
+  function updateSendState(){
+    document.getElementById('send-signal-btn').disabled = !(selectedContact && selectedSignal);
+  }
+
+  window.sendSignal = function(){
+    if (!selectedContact || !selectedSignal) return;
+    var status = document.getElementById('signal-status');
+    var btn = document.getElementById('send-signal-btn');
+    btn.disabled = true;
+    status.textContent = 'Sending quietly…';
+    setTimeout(function(){
+      var list = readStore(SIGNALS_KEY);
+      list.unshift({ to: selectedContact, signal: selectedSignal, ts: Date.now() });
+      writeStore(SIGNALS_KEY, list);
+      status.textContent = 'A quiet signal reached ' + selectedContact + '.';
+      selectedContact = null; selectedSignal = null;
+      document.querySelectorAll('.signal-chip').forEach(function(c){ c.classList.remove('selected'); });
+      renderContacts();
+      renderSignalLog();
+      updateSendState();
+      setTimeout(function(){ status.textContent = ''; }, 4000);
+    }, 700);
+  };
+
+  function renderSignalLog(){
+    var host = document.getElementById('signal-log');
+    var list = readStore(SIGNALS_KEY);
+    if (!list.length){
+      host.innerHTML = '<p class="empty-note">No signals sent yet — this list is private to you too.</p>';
+      return;
+    }
+    host.innerHTML = '';
+    list.slice(0,6).forEach(function(s){
+      var row = document.createElement('div');
+      row.className = 'signal-entry';
+      row.innerHTML = '<span class="when">'+timeAgo(s.ts)+'</span><span>"'+s.signal+'" → '+s.to+'</span>';
+      host.appendChild(row);
+    });
+  }
+
+  /* ---------- events ---------- */
+  var EVENTS_KEY = 'alienpooh_events_joined';
+  var EVENTS = [
+    { id:'ev1', title:'Quiet museum hour', when:'Thu · 7:00 PM', category:'museum' },
+    { id:'ev2', title:'Reading circle — slow mornings', when:'Sat · 10:00 AM', category:'reading' },
+    { id:'ev3', title:'Ambient set, low lights', when:'Fri · 9:00 PM', category:'concert' },
+    { id:'ev4', title:'Beginners’ pottery class', when:'Sun · 11:00 AM', category:'class' },
+    { id:'ev5', title:'A gentle talk on slowing down', when:'Wed · 6:00 PM', category:'talk' }
+  ];
+  var EVENT_ICONS = {
+    museum:'<path d="M3 10l9-6 9 6"/><path d="M5 10v9h14v-9"/><path d="M9 19v-6h6v6"/>',
+    reading:'<path d="M4 4h11a3 3 0 013 3v13H7a3 3 0 01-3-3V4z"/><path d="M4 4v13a3 3 0 003 3"/>',
+    concert:'<circle cx="7" cy="18" r="2.5"/><circle cx="17" cy="16" r="2.5"/><path d="M9.5 18V6l10-2v12"/>',
+    class:'<path d="M12 3a9 9 0 000 18c1.1 0 2-.9 2-2 0-.5-.2-.9-.5-1.3-.3-.3-.5-.7-.5-1.2 0-1 .8-1.5 1.8-1.5H17a4 4 0 004-4c0-4.4-4-8-9-8z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="8" r="1"/>',
+    talk:'<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0"/><path d="M12 17v5"/>'
+  };
+
+  function renderEvents(){
+    var host = document.getElementById('events-list');
+    var joined = readStore(EVENTS_KEY);
+    host.innerHTML = '';
+    EVENTS.forEach(function(ev){
+      var isJoined = joined.indexOf(ev.id) !== -1;
+      var row = document.createElement('div');
+      row.className = 'event-item';
+      row.innerHTML =
+        '<div class="event-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+(EVENT_ICONS[ev.category]||'')+'</svg></div>'+
+        '<div class="event-body"><div class="etitle">'+ev.title+'</div><div class="ewhen">'+ev.when+'</div></div>'+
+        '<button type="button" class="event-join'+(isJoined ? ' joined' : '')+'" data-id="'+ev.id+'">'+(isJoined ? 'You’re in' : 'I’ll step in')+'</button>';
+      host.appendChild(row);
+    });
+  }
+
+  document.getElementById('panel-event').addEventListener('click', function(e){
+    var btn = e.target.closest('.event-join');
+    if (!btn) return;
+    var id = btn.getAttribute('data-id');
+    var joined = readStore(EVENTS_KEY);
+    var idx = joined.indexOf(id);
+    if (idx === -1) joined.push(id); else joined.splice(idx,1);
+    writeStore(EVENTS_KEY, joined);
+    renderEvents();
+  });
+
+  /* ---------- notifications ---------- */
+  function renderNotifications(){
+    var host = document.getElementById('notifications-list');
+    var items = [
+      { when:'2h ago', text:'New: “Quiet museum hour” was added nearby.' },
+      { when:'1d ago', text:'Your reflections stay just yours — no one else can read them.' },
+      { when:'3d ago', text:'A gentle reminder: there’s no streak to keep here.' }
+    ];
+    host.innerHTML = '';
+    items.forEach(function(n){
+      var row = document.createElement('div');
+      row.className = 'moment';
+      row.innerHTML = '<div class="when">'+n.when+'</div><div class="text">'+n.text+'</div>';
+      host.appendChild(row);
+    });
+  }
+
+  /* ---------- search ---------- */
+  function searchDataset(){
+    var list = [];
+    CONTACTS.forEach(function(c){ list.push({ type:'Person', label:c.name }); });
+    EVENTS.forEach(function(e){ list.push({ type:'Event', label:e.title }); });
+    return list;
+  }
+  function renderSearch(query){
+    var host = document.getElementById('search-results');
+    var q = (query || '').trim().toLowerCase();
+    var all = searchDataset();
+    var matches = q ? all.filter(function(item){ return item.label.toLowerCase().indexOf(q) !== -1; }) : all;
+    host.innerHTML = '';
+    if (!matches.length){
+      host.innerHTML = '<p class="empty-note">Nothing matches yet — try another word.</p>';
+      return;
+    }
+    matches.forEach(function(m){
+      var row = document.createElement('div');
+      row.className = 'moment';
+      row.innerHTML = '<div class="when">'+m.type+'</div><div class="text">'+m.label+'</div>';
+      host.appendChild(row);
+    });
+  }
+  document.getElementById('search-input').addEventListener('input', function(e){
+    renderSearch(e.target.value);
+  });
+
+  /* ---------- shop ---------- */
+  var SHOP_KEY = 'alienpooh_shop_saved';
+  var SHOP_ITEMS = [
+    { id:'sh1', icon:'🕯️', name:'Slow-burn candle', price:'$18' },
+    { id:'sh2', icon:'🫖', name:'Herbal wind-down blend', price:'$14' },
+    { id:'sh3', icon:'🧣', name:'Weighted lap blanket', price:'$42' },
+    { id:'sh4', icon:'🎧', name:'Soft static soundscape', price:'$6' }
+  ];
+  function renderShop(){
+    var host = document.getElementById('shop-grid');
+    var saved = readStore(SHOP_KEY);
+    host.innerHTML = '';
+    SHOP_ITEMS.forEach(function(item){
+      var isSaved = saved.indexOf(item.id) !== -1;
+      var card = document.createElement('div');
+      card.className = 'shop-item';
+      card.innerHTML =
+        '<div class="sicon">'+item.icon+'</div>'+
+        '<div class="sname">'+item.name+'</div>'+
+        '<div class="sprice">'+item.price+'</div>'+
+        '<button type="button" class="shop-save'+(isSaved ? ' saved' : '')+'" data-id="'+item.id+'">'+(isSaved ? 'Saved' : 'Save for later')+'</button>';
+      host.appendChild(card);
+    });
+  }
+  document.getElementById('panel-shop').addEventListener('click', function(e){
+    var btn = e.target.closest('.shop-save');
+    if (!btn) return;
+    var id = btn.getAttribute('data-id');
+    var saved = readStore(SHOP_KEY);
+    var idx = saved.indexOf(id);
+    if (idx === -1) saved.push(id); else saved.splice(idx,1);
+    writeStore(SHOP_KEY, saved);
+    renderShop();
+  });
+
+  /* ---------- AI companion (concept) ---------- */
+  var LEARN_KEY = 'alienpooh_learn_patterns';
+  var SIGNAL_STATES = [
+    { label: 'Signals look steady', detail: 'Heart rate calm, no spikes since this morning.', suggestion: 'Nothing urgent — want to just sit with the room for a bit?', primary: null },
+    { label: 'A little tense today', detail: 'Elevated heart rate since about 2:00 PM.', suggestion: 'Want to breathe for a minute, or just sit with it?', primary: 'breathe' },
+    { label: 'Restless, hard to settle', detail: 'Sleep signals were shorter last night.', suggestion: 'Sometimes writing it down helps more than pushing through.', primary: 'reflect' }
+  ];
+
+  function renderCompanion(){
+    var state = SIGNAL_STATES[Math.floor(Math.random() * SIGNAL_STATES.length)];
+    document.getElementById('signal-level').textContent = state.label;
+    document.getElementById('signal-detail').textContent = state.detail;
+    document.getElementById('ai-bubble-text').textContent = state.suggestion;
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    document.getElementById('listen-btn').classList.remove('speaking');
+
+    var actionBtn = document.getElementById('companion-action');
+    if (state.primary === 'breathe'){
+      actionBtn.textContent = 'Try breathing';
+      actionBtn.onclick = function(){ openPanel('breathe'); };
+    } else if (state.primary === 'reflect'){
+      actionBtn.textContent = 'Open reflection';
+      actionBtn.onclick = function(){ openPanel('reflect'); };
+    } else {
+      actionBtn.textContent = 'Stay in the sanctuary';
+      actionBtn.onclick = function(){ closePanel(); };
+    }
+
+    var learnOn = false;
+    try { learnOn = localStorage.getItem(LEARN_KEY) === '1'; } catch(e){}
+    document.getElementById('learn-toggle').setAttribute('aria-checked', learnOn ? 'true' : 'false');
+  }
+
+  document.getElementById('learn-toggle').addEventListener('click', function(){
+    var el = document.getElementById('learn-toggle');
+    var on = el.getAttribute('aria-checked') === 'true';
+    el.setAttribute('aria-checked', on ? 'false' : 'true');
+    try { localStorage.setItem(LEARN_KEY, on ? '0' : '1'); } catch(e){}
+  });
+
+  document.getElementById('mic-btn').addEventListener('click', function(){
+    var btn = document.getElementById('mic-btn');
+    var note = document.getElementById('mic-note');
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    note.hidden = expanded;
+  });
+
+  /* ---------- calm voice (real Web Speech API, output only) ---------- */
+  document.getElementById('listen-btn').addEventListener('click', function(){
+    var btn = this;
+    if (!('speechSynthesis' in window)){
+      btn.disabled = true;
+      return;
+    }
+    if (window.speechSynthesis.speaking){
+      window.speechSynthesis.cancel();
+      btn.classList.remove('speaking');
+      return;
+    }
+    var text = document.getElementById('ai-bubble-text').textContent;
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.rate = 0.88;
+    utter.pitch = 1.0;
+    utter.onstart = function(){ btn.classList.add('speaking'); };
+    utter.onend = function(){ btn.classList.remove('speaking'); };
+    utter.onerror = function(){ btn.classList.remove('speaking'); };
+    window.speechSynthesis.speak(utter);
+  });
+
+  /* ---------- deep link: #breathe, #reflect, #companion… ---------- */
+  var fromHash = (location.hash || '').slice(1);
+  if (panelNames.indexOf(fromHash) !== -1) openPanel(fromHash);
+
+})();
+</script>
+</body>
+</html>

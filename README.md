@@ -75,6 +75,7 @@ npx serve .
 * [x] SEO: canonical, Open Graph, favicon, schema y sitemap
 * [x] Analytics con Umami
 * [x] Limpieza de legacy folders
+* [x] Prototipo interactivo de Alienpooh en `projects/alienpooh/prototype/`
 * [ ] Subir el sitemap a Google Search Console
 * [ ] Números concretos donde existan (ej. pasos reducidos, % de mejora)
 
@@ -82,7 +83,7 @@ npx serve .
 
 ## 🎨 Próximos pasos
 
-1. Prototipo de **Alienpooh** con capa de IA (guía personalizada, nivel de estrés, recomendaciones de actividades)
+1. Conectar el companion de IA de **Alienpooh** a señales reales (hoy están simuladas)
 2. Dominio propio (ej. `verukami.com`)
 3. Ir sumando nuevos proyectos a la colección
 

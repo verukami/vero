@@ -68,6 +68,10 @@
           <span class="tag t-rect green">VR</span>
           <span class="tag t-pill neutral">Concept Project</span>
         </div>
+        <div class="ctas" style="margin-top: 22px">
+          <a href="prototype/index.html" class="btn primary">Try the prototype →</a>
+          <a href="#prototype" class="btn link">How it was built</a>
+        </div>
       </div>
 
       <div class="cs-object velvet" aria-hidden="true">
@@ -100,8 +104,8 @@
     <dl class="glance">
       <div><dt>Role</dt><dd>Product Designer, end-to-end lead</dd></div>
       <div><dt>Type</dt><dd>Personal project · product hypothesis</dd></div>
-      <div><dt>Platform</dt><dd>Emotional well-being experience in VR</dd></div>
-      <div class="impact"><dt>Result</dt><dd>★ A direction validated with real users</dd></div>
+      <div><dt>Platform</dt><dd>Emotional well-being experience in VR · Interactive web prototype</dd></div>
+      <div class="impact"><dt>Result</dt><dd>★ Validated with real users · Prototype you can try</dd></div>
       <div class="scope"><dt>What I worked on</dt><dd>User research &amp; synthesis · UX strategy &amp; AI · Wireframing &amp; prototyping · High-fidelity UI · Design system foundations</dd></div>
     </dl>
 
@@ -308,24 +312,87 @@
       </div>
     </section>
 
-    <!-- NEXT: AI LAYER -->
-    <section class="chapter">
-      <div class="chapter-label"><span class="mono ch">CARD 10</span><span class="mono">What's next</span></div>
+    <!-- PROTOTYPE -->
+    <section class="chapter" id="prototype">
+      <div class="chapter-label"><span class="mono ch">CARD 10</span><span class="mono">The prototype</span></div>
       <div>
-        <h2>What's next: an AI companion layer</h2>
+        <h2>From hypothesis to something you can walk into.</h2>
+        <p>
+          Designing a calm space is one thing; feeling it is another. So I built the sanctuary as an interactive
+          prototype: the room, the three entry points, and the quiet tools around them. Anyone can open it and
+          move through it at their own pace.
+        </p>
+        <div class="ctas" style="margin: 8px 0 4px">
+          <a href="prototype/index.html" class="btn primary">Try the interactive prototype →</a>
+        </div>
+        <figure class="cs-figure">
+          <img src="assets/images/prototype-room.webp" alt="Alienpooh prototype: a soft lavender room with three floating cards, Relax the mind, Reflect and Step into an event" loading="lazy" />
+          <figcaption>
+            The sanctuary home. No feed and no streak to keep: three entry points float in the room, and the
+            navigation stays quietly on the side.
+          </figcaption>
+        </figure>
+
+        <h4>What you can do in it</h4>
+        <ul>
+          <li><strong>Relax the mind:</strong> a wordless breathing rhythm with no count to hit and no session to finish.</li>
+          <li><strong>Reflect:</strong> a private journal that stays on your device, with a gentle "let this go" instead of delete.</li>
+          <li><strong>Send presence:</strong> let someone know they crossed your mind, with no read receipts and no pressure to reply.</li>
+          <li><strong>Step into an event:</strong> note what you might join nearby, without headcounts or reminders.</li>
+          <li><strong>Notifications, search and shop:</strong> a calm log with no red dots, and a shelf that never charges anything.</li>
+        </ul>
+
+        <div class="split">
+          <figure class="cs-figure" style="margin: 0">
+            <img src="assets/images/prototype-reflect.webp" alt="Reflect panel with a private journal field and held moments" loading="lazy" />
+            <figcaption>Reflect: "Private, visible only to you, on this device."</figcaption>
+          </figure>
+          <figure class="cs-figure" style="margin: 0">
+            <img src="assets/images/prototype-messages.webp" alt="Send presence panel with contacts and soft signals like Thinking of you" loading="lazy" />
+            <figcaption>Send presence, not a message: soft signals instead of chat.</figcaption>
+          </figure>
+        </div>
+
+        <h4>Rules I held the prototype to</h4>
+        <ul>
+          <li>No feed, no streaks, no unread counts, no read receipts</li>
+          <li>Every panel can be closed at any moment, with Escape or a tap outside</li>
+          <li>Keyboard accessible, respects reduced motion, and works in light and dark mode</li>
+          <li>Nothing a person writes leaves their device</li>
+        </ul>
+        <p class="mono" style="font-size: 12px; color: var(--ink-soft)">
+          Designed by me and built as a working web prototype with AI-assisted development.
+        </p>
+      </div>
+    </section>
+
+    <!-- AI COMPANION -->
+    <section class="chapter">
+      <div class="chapter-label"><span class="mono ch">CARD 11</span><span class="mono">AI companion · concept</span></div>
+      <div>
+        <h2>An AI companion layer, simulated so you can feel its shape.</h2>
         <p>
           The next step for Alienpooh is exploring how AI could make the space feel personal without making it
-          feel watched. Instead of more features, a quiet layer that learns alongside the user:
+          feel watched. The prototype simulates it: no real wearable is connected yet, but the interaction is real.
         </p>
+        <figure class="cs-figure">
+          <img src="assets/images/prototype-companion.webp" alt="AI companion panel reading simulated wearable signals and suggesting a calm next step" loading="lazy" />
+          <figcaption>
+            The companion reads a (simulated) wearable signal, like "Restless, hard to settle", and suggests one
+            gentle next step instead of a routine.
+          </figcaption>
+        </figure>
         <ul>
-          <li>Guiding each person through the space at their own pace</li>
-          <li>Learning from their stress levels and emotional patterns over time</li>
-          <li>Recommending activities that fit how they feel today, not a generic routine</li>
+          <li><strong>Guides at your own pace:</strong> one suggestion at a time, always with "Not right now" as an equal option</li>
+          <li><strong>Learns from stress signals:</strong> heart rate and sleep patterns shape what it recommends today</li>
+          <li><strong>Recommends, never pushes:</strong> breathing, reflecting, or simply staying in the room</li>
+          <li><strong>A calm voice:</strong> suggestions can be read aloud slowly, using the browser's built-in speech</li>
+          <li><strong>You stay in control:</strong> "Learn from my patterns" is off by default and can be turned off anytime</li>
         </ul>
-        <p>
-          The same principles still apply: no judgment, no gamified "progress", and the user always in control
-          of what the product knows about them. A working prototype is in progress.
-        </p>
+        <p class="pull">No judgment, no gamified "progress", and the user always in control of what the product knows about them.</p>
+        <div class="ctas">
+          <a href="prototype/index.html#companion" class="btn ghost">Meet the companion →</a>
+        </div>
       </div>
     </section>
 
