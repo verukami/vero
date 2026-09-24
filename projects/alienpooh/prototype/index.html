@@ -374,6 +374,44 @@
   }
   @media (max-width:760px){ .companion-trigger{ right:16px; bottom:96px; width:52px; height:52px; } }
 
+  /* ---------- voice on/off + welcome bubble ---------- */
+  .voice-toggle{
+    appearance:none; cursor:pointer;
+    width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+    padding:0; transition:background .2s ease;
+  }
+  .voice-toggle svg{ width:17px; height:17px; }
+  .voice-toggle:hover{ background:var(--chrome-dark-strong); }
+  .voice-toggle:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  .voice-toggle .off{ display:none; }
+  .voice-toggle[aria-pressed="false"] .on{ display:none; }
+  .voice-toggle[aria-pressed="false"] .off{ display:block; }
+
+  .greeting{
+    position:fixed; z-index:31; right:92px; bottom:28px;
+    max-width:min(300px, calc(100vw - 120px));
+    padding:14px 16px 14px 18px;
+    border-radius:18px 18px 4px 18px;
+    background:var(--card-fill-strong);
+    backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);
+    border:1px solid var(--card-line);
+    box-shadow:0 18px 40px -16px var(--card-shadow);
+    color:var(--ink-card);
+    font-size:.9rem; line-height:1.45;
+    display:flex; gap:10px; align-items:flex-start;
+    animation:greetIn .6s cubic-bezier(.2,.7,.2,1);
+  }
+  .greeting p{ flex:1; }
+  .greeting strong{ font-family:'Fredoka', sans-serif; font-weight:600; }
+  .greeting .greet-close{
+    appearance:none; border:none; background:none; cursor:pointer;
+    color:var(--ink-card-faint); font-size:1.1rem; line-height:1; padding:2px 4px;
+  }
+  .greeting .greet-close:hover{ color:var(--ink-card); }
+  .greeting.speaking{ box-shadow:0 18px 40px -16px var(--card-shadow), 0 0 0 3px rgba(239,111,162,.35); }
+  @keyframes greetIn{ from{ transform:translateY(12px); opacity:0; } to{ transform:none; opacity:1; } }
+  @media (max-width:760px){ .greeting{ right:16px; bottom:160px; max-width:calc(100vw - 32px); } }
+
   .signal-card{ padding:16px; border-radius:16px; background:rgba(255,255,255,.35); border:1px solid var(--card-line); display:flex; flex-direction:column; gap:6px; }
   #app[data-mode="dark"] .signal-card{ background:rgba(255,255,255,.06); }
   .signal-level{ font-family:'Fredoka', sans-serif; font-size:1.05rem; font-weight:600; }
@@ -407,7 +445,7 @@
   .mic-btn svg{ width:18px; height:18px; }
 
   @media (prefers-reduced-motion: reduce){
-    .breathe-core, .panel, .companion-trigger{ animation:none !important; }
+    .breathe-core, .panel, .companion-trigger, .greeting{ animation:none !important; }
     .card{ transition:none !important; }
   }
 </style>
@@ -436,6 +474,10 @@
     </a>
     <div class="topbar-right">
       <a class="case-link chrome-pill" href="../index.html">← Case study</a>
+      <button class="voice-toggle chrome-pill" id="voice-toggle" type="button" aria-pressed="true" aria-label="Voice on — turn off">
+        <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M18.5 5.5a9 9 0 010 13"/></svg>
+        <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg>
+      </button>
       <div class="theme-toggle chrome-pill" role="group" aria-label="Theme">
         <button type="button" id="mode-light" aria-label="Light mode" aria-pressed="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
@@ -506,6 +548,11 @@
   <button class="companion-trigger" type="button" onclick="openPanel('companion')" aria-label="Open AI companion (concept)">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/></svg>
   </button>
+
+  <div class="greeting" id="greeting" role="status" hidden>
+    <p><strong id="greeting-hi">Hi again, little stranger.</strong><br>How are you feeling today?</p>
+    <button class="greet-close" type="button" id="greeting-close" aria-label="Dismiss greeting">×</button>
+  </div>
 
   <div class="backdrop" id="backdrop" hidden></div>
 
@@ -1107,26 +1154,109 @@
   });
 
   /* ---------- calm voice (real Web Speech API, output only) ---------- */
-  document.getElementById('listen-btn').addEventListener('click', function(){
+  var synth = window.speechSynthesis || null;
+  var VOICE_KEY = 'alienpooh_voice';
+  var voiceOn = true;
+  try { voiceOn = localStorage.getItem(VOICE_KEY) !== 'off'; } catch(e){}
+
+  // Softest-sounding English voices first; availability depends on the device.
+  var PREFERRED_VOICES = [
+    'Microsoft Ava Online (Natural)', 'Microsoft Aria Online (Natural)', 'Microsoft Jenny Online (Natural)',
+    'Microsoft Emma Online (Natural)', 'Google UK English Female', 'Samantha', 'Moira', 'Karen', 'Tessa',
+    'Microsoft Zira', 'Google US English'
+  ];
+  var calmVoice = null;
+  function pickVoice(){
+    if (!synth) return;
+    var voices = synth.getVoices();
+    for (var i = 0; i < PREFERRED_VOICES.length && !calmVoice; i++){
+      calmVoice = voices.filter(function(v){ return v.name.indexOf(PREFERRED_VOICES[i]) === 0; })[0] || null;
+    }
+    if (!calmVoice) calmVoice = voices.filter(function(v){ return /^en/i.test(v.lang) && /female|woman/i.test(v.name); })[0]
+                              || voices.filter(function(v){ return /^en/i.test(v.lang); })[0] || null;
+  }
+  if (synth){ pickVoice(); if ('onvoiceschanged' in synth) synth.addEventListener('voiceschanged', pickVoice); }
+
+  // Speaks each line slowly, with a soft pause between them.
+  function speakCalm(lines, onStart, onEnd){
+    if (!synth || !voiceOn) { if (onEnd) onEnd(); return; }
+    synth.cancel();
+    var i = 0;
+    function next(){
+      if (i >= lines.length){ if (onEnd) onEnd(); return; }
+      var u = new SpeechSynthesisUtterance(lines[i++]);
+      if (calmVoice) u.voice = calmVoice;
+      u.rate = 0.8;
+      u.pitch = 0.94;
+      u.volume = 0.85;
+      u.onend = function(){ setTimeout(next, 650); };
+      u.onerror = function(){ if (onEnd) onEnd(); };
+      synth.speak(u);
+    }
+    if (onStart) onStart();
+    next();
+  }
+
+  /* voice on / off */
+  var voiceBtn = document.getElementById('voice-toggle');
+  var listenBtn = document.getElementById('listen-btn');
+  function applyVoice(on){
+    voiceOn = on;
+    voiceBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    voiceBtn.setAttribute('aria-label', on ? 'Voice on — turn off' : 'Voice off — turn on');
+    listenBtn.disabled = !on || !synth;
+    listenBtn.setAttribute('aria-label', on ? 'Hear this, spoken calmly' : 'Voice is off');
+    if (!on && synth) synth.cancel();
+    try { localStorage.setItem(VOICE_KEY, on ? 'on' : 'off'); } catch(e){}
+  }
+  applyVoice(voiceOn && !!synth);
+  if (!synth) voiceBtn.hidden = true;
+  voiceBtn.addEventListener('click', function(){ applyVoice(!voiceOn); });
+
+  listenBtn.addEventListener('click', function(){
     var btn = this;
-    if (!('speechSynthesis' in window)){
-      btn.disabled = true;
-      return;
-    }
-    if (window.speechSynthesis.speaking){
-      window.speechSynthesis.cancel();
-      btn.classList.remove('speaking');
-      return;
-    }
-    var text = document.getElementById('ai-bubble-text').textContent;
-    var utter = new SpeechSynthesisUtterance(text);
-    utter.rate = 0.88;
-    utter.pitch = 1.0;
-    utter.onstart = function(){ btn.classList.add('speaking'); };
-    utter.onend = function(){ btn.classList.remove('speaking'); };
-    utter.onerror = function(){ btn.classList.remove('speaking'); };
-    window.speechSynthesis.speak(utter);
+    if (synth && synth.speaking){ synth.cancel(); btn.classList.remove('speaking'); return; }
+    speakCalm([document.getElementById('ai-bubble-text').textContent],
+      function(){ btn.classList.add('speaking'); },
+      function(){ btn.classList.remove('speaking'); });
   });
+
+  /* ---------- welcome: written right away, spoken on the first tap ---------- */
+  var greetEl = document.getElementById('greeting');
+  var VISITED_KEY = 'alienpooh_visited';
+  var returning = false, greetedThisSession = false;
+  try { returning = localStorage.getItem(VISITED_KEY) === '1'; localStorage.setItem(VISITED_KEY, '1'); } catch(e){}
+  try { greetedThisSession = sessionStorage.getItem('alienpooh_greeted') === '1'; sessionStorage.setItem('alienpooh_greeted', '1'); } catch(e){}
+  var hiLine = returning ? 'Hi again, little stranger.' : 'Hi, little stranger.';
+  document.getElementById('greeting-hi').textContent = hiLine;
+
+  var greetTimer = null;
+  function hideGreeting(){ greetEl.hidden = true; clearTimeout(greetTimer); }
+  document.getElementById('greeting-close').addEventListener('click', function(){
+    hideGreeting();
+    if (synth) synth.cancel();
+  });
+
+  if (!greetedThisSession && !location.hash){
+    greetEl.hidden = false;
+    greetTimer = setTimeout(hideGreeting, 14000);
+
+    var spoken = false;
+    function greetAloud(e){
+      document.removeEventListener('pointerdown', greetAloud, true);
+      document.removeEventListener('keydown', greetAloud, true);
+      if (spoken || greetEl.hidden) return;
+      // don't talk over someone who is reaching for the voice or close buttons
+      if (e && e.target && e.target.closest && e.target.closest('#voice-toggle, #greeting-close')) return;
+      spoken = true;
+      clearTimeout(greetTimer);
+      speakCalm([hiLine, 'How are you feeling today?'],
+        function(){ greetEl.classList.add('speaking'); },
+        function(){ greetEl.classList.remove('speaking'); greetTimer = setTimeout(hideGreeting, 5000); });
+    }
+    document.addEventListener('pointerdown', greetAloud, true);
+    document.addEventListener('keydown', greetAloud, true);
+  }
 
   /* ---------- deep link: #breathe, #reflect, #companion… ---------- */
   var fromHash = (location.hash || '').slice(1);
