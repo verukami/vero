@@ -1,5 +1,8 @@
 # Verukami — Portfolio
-El sitio está construido como un **static site** (HTML, CSS, JavaScript) y está pensado para publicarse fácilmente en servicios como **GitHub Pages, Netlify o Vercel**.
+
+🌐 **Live:** [verukami.github.io/vero](https://verukami.github.io/vero/)
+
+El sitio está construido como un **static site** (HTML, CSS y JavaScript, sin frameworks) y se publica con **GitHub Pages** directo desde la rama `master`.
 
 ---
 
@@ -13,68 +16,95 @@ Principios:
 * Narrativa visual + racional
 * Casos de estudio que expliquen *cómo pienso*, no solo qué diseño
 
-> ⚠️ Nota: algunos folders vienen de versiones anteriores del sitio y se irán limpiando progresivamente.
+### 📼 The collection
+
+Cada proyecto se presenta como un objeto de colección, uno a la vez:
+
+| Objeto | Proyectos |
+|---|---|
+| 📼 **VHS** | Citibanamex · Scalable Banking |
+| 🔮 **Tarot** | Healthcare Operations · Alienpooh |
+| 🎞️ **3-D Reel** | University Redesign · Melifloz |
+
+En el home, el objeto cambia con el scroll o desde un mini menú. Cada caso de estudio abre con su objeto, un resumen rápido para reclutadores (rol, empresa, año, resultado) y la historia contada en capítulos.
+
+Estética: lienzo de diseño limpio + terror de los 90s + pixeles. Rosa, morado, azul y un toque de verde neón. Versión clara y oscura.
+
+---
+
+## 🗂 Estructura
+
+```
+index.html                 Home: hero, the collection, contacto
+about.html                 About: player card, escenas, créditos
+projects/<proyecto>/       Un caso de estudio por carpeta
+assets/styles/site.css         Tokens, tema claro/oscuro, nav, footer, home
+assets/styles/collection.css   Objetos (VHS, tarot, 3-D reel) y la colección
+assets/styles/case-study.css   Plantilla de los casos de estudio
+assets/js/site.js              Toggle de tema claro/oscuro
+assets/js/eaad-gate.js         Contraseña de cortesía del caso University
+concept/vhs.html               Exploración VHS anterior (archivo)
+sitemap.xml                    Para Google Search Console
+```
+
+> 🔒 El caso de **University** tiene una contraseña de cortesía por trabajo académico. Vive en `eaad-gate.js`, así que filtra visitas casuales, no es seguridad real.
 
 ---
 
 ## 🚀 Deploy
 
-El sitio puede publicarse de varias formas:
+**GitHub Pages**, desde `master` (raíz del repo). Cada push a `master` se publica solo en ~1 minuto.
 
-### Opción recomendada (segura)
+Para probarlo en local basta cualquier servidor estático, por ejemplo:
 
-**Netlify / Vercel**
-
-* Deploy directo desde repo
-* SSL automático
-* Dominio personalizado
-
-### Alternativa
-
-**GitHub Pages**
-
-* Gratuito
-* Ideal si el repo vive en GitHub
+```bash
+npx serve .
+```
 
 ---
 
 ## 🧪 Estado actual
 
-* [x] Estructura base del home
-* [x] Refactor de case studies (HTML más limpio)
-* [x] Sistema de animaciones (GSAP + ScrollTrigger)
-* [x] Menú mobile
-* [ ] Migración completa de imágenes (WIP)
-* [ ] Refinamiento visual final
-* [ ] QA responsive
+* [x] Home nuevo con la colección (VHS, tarot, 3-D reel)
+* [x] About con player card, escenas y créditos
+* [x] Los 6 casos de estudio con la plantilla nueva
+* [x] Roles, empresas, años y resultados reales en cada proyecto
+* [x] Versión clara y oscura
+* [x] GIFs pesados convertidos a MP4
+* [x] SEO: canonical, Open Graph, favicon, schema y sitemap
+* [x] Analytics con Umami
+* [x] Limpieza de legacy folders
+* [ ] Subir el sitemap a Google Search Console
+* [ ] Números concretos donde existan (ej. pasos reducidos, % de mejora)
 
 ---
 
 ## 🎨 Próximos pasos
 
-1. Migrar imágenes del **home**
-2. Verificar rutas absolutas / relativas
-3. Deploy inicial (aunque esté imperfecto)
-4. Iterar casos internos uno por uno
-5. Limpieza de legacy folders
+1. Prototipo de **Alienpooh** con capa de IA (guía personalizada, nivel de estrés, recomendaciones de actividades)
+2. Dominio propio (ej. `verukami.com`)
+3. Ir sumando nuevos proyectos a la colección
+
 ---
 
 ## 🛠 Tech stack
 
 * HTML5
-* CSS3 (custom, sin framework)
-* JavaScript (vanilla)
-* GSAP (animaciones)
+* CSS3 (custom, sin framework): custom properties, grid, `clip-path`, animaciones CSS
+* JavaScript (vanilla): IntersectionObserver, pointer events
+* Google Fonts: Space Grotesk, Anton, JetBrains Mono, Pixelify Sans
+* Umami (analytics)
+* Diseñado por mí, programado junto con IA (Claude)
 
 ---
 
 ## ✨ Autor
 
 **Verónica Martínez**
-Product Designer · UX · UI 
+Senior Product Designer · UX · UI
 
 📩 [vero.prance608@passinbox.com](mailto:vero.prance608@passinbox.com)
-🌐 Portfolio: (soon)
+🌐 Portfolio: [verukami.github.io/vero](https://verukami.github.io/vero/)
 
 ---
 
