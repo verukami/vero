@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verónica Martínez — CV</title>
+  <meta name="description" content="CV of Verónica Martínez, Senior UX / Product Designer. Fintech, B2B and enterprise platforms." />
+  <link rel="canonical" href="https://verukami.github.io/vero/cv/" />
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="6849f1a9-3081-4167-981d-b2495c49043b"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #15121c;
+      --ink-soft: #5d5770;
+      --line: #e4e0ee;
+      --pink: #ff4fb4;
+      --purple: #7b3fe4;
+      --blue: #3d6bff;
+      --lime: #b8ff3c;
+      --holo: linear-gradient(100deg, #ff4fb4 0%, #a45cff 42%, #4d7cff 78%, #7fe3ff 100%);
+      --sans: "Space Grotesk", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    @page { size: Letter; margin: 0; }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: #e9e6f1;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 9.6pt;
+      line-height: 1.45;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---------- screen: paper on a canvas ---------- */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(233, 230, 241, 0.9);
+      backdrop-filter: blur(8px);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .toolbar a.dl {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--sans);
+      font-weight: 500;
+    }
+    .sheet {
+      position: relative;
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto 32px;
+      padding: 0.55in 0.6in 0.5in;
+      background: #fff;
+      box-shadow: 0 20px 50px -25px rgba(40, 10, 90, 0.45);
+      overflow: hidden;
+    }
+    .sheet::before { /* holo strip */
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 7px;
+      background: var(--holo);
+    }
+    @media screen and (max-width: 8.8in) {
+      .sheet { width: auto; min-height: 0; margin: 0 12px 24px; padding: 32px 22px; }
+    }
+
+    /* ---------- header ---------- */
+    header.cv-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: end;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 {
+      margin: 0;
+      font-size: 27pt;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+    .role {
+      margin: 6px 0 0;
+      font-size: 11.5pt;
+      font-weight: 600;
+      background: var(--holo);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .contact {
+      margin: 8px 0 0;
+      font-family: var(--mono);
+      font-size: 8pt;
+      color: var(--ink-soft);
+    }
+    .contact a { color: var(--ink); border-bottom: 1px solid var(--pink); }
+    .contact .sep { color: var(--pink); margin: 0 4px; }
+    .mark { width: 62px; height: 62px; }
+
+    /* ---------- sections ---------- */
+    section { margin-top: 16px; }
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0 0 8px;
+      font-family: var(--mono);
+      font-size: 8pt;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--purple);
+    }
+    h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+    h2 svg { width: 9px; height: 9px; flex: none; }
+    p { margin: 0; }
+    .about { color: #2c2638; }
+
+    /* ---------- jobs ---------- */
+    .job { margin-top: 11px; break-inside: avoid; }
+    .job-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .job h3 { margin: 0; font-size: 10.6pt; font-weight: 600; letter-spacing: -0.01em; }
+    .job h3 .co { color: var(--purple); }
+    .dates {
+      flex: none;
+      font-family: var(--mono);
+      font-size: 8pt;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+    .where { margin-top: 1px; font-family: var(--mono); font-size: 7.6pt; color: var(--ink-soft); }
+    ul { margin: 5px 0 0; padding: 0; list-style: none; }
+    li { position: relative; padding-left: 13px; margin-top: 2.5px; }
+    li::before { /* pink diamond bullet, drawn not typed */
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: 0.52em;
+      width: 5px;
+      height: 5px;
+      background: var(--pink);
+      transform: rotate(45deg);
+    }
+    .prev li::before { background: var(--blue); }
+
+    /* ---------- skills ---------- */
+    .skills { display: grid; gap: 6px; }
+    .skills div { display: grid; grid-template-columns: 1.35in 1fr; gap: 10px; }
+    .skills dt {
+      font-family: var(--mono);
+      font-size: 7.8pt;
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+      padding-top: 1px;
+    }
+    .skills dd { margin: 0; }
+    .ai dt { color: var(--purple); }
+    .tools dd { display: flex; flex-wrap: wrap; gap: 4px; }
+    .tools span {
+      padding: 1px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 8.4pt;
+    }
+    .tools span.hl { background: var(--lime); border-color: var(--lime); }
+
+    .edu { display: grid; gap: 3px; }
+    .foot {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 7.4pt;
+      color: var(--ink-soft);
+    }
+
+    /* ---------- print ---------- */
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none; }
+      .sheet { width: 8.5in; height: 11in; min-height: 0; margin: 0; box-shadow: none; page-break-after: always; }
+      .sheet:last-child { page-break-after: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <a href="../index.html">← verukami.github.io/vero</a>
+    <a class="dl" href="Veronica_Martinez_CV.pdf" download>Download PDF ↓</a>
+  </div>
+
+  <!-- ================= PAGE 1 ================= -->
+  <div class="sheet">
+    <header class="cv-head">
+      <div>
+        <h1>Verónica Martínez</h1>
+        <p class="role">Senior UX / Product Designer | Fintech, B2B and Enterprise Platforms</p>
+        <p class="contact">
+          <a href="mailto:veru.kami@gmail.com">veru.kami@gmail.com</a><span class="sep">✦</span><a href="https://www.linkedin.com/in/veromtz">linkedin.com/in/veromtz</a><span class="sep">✦</span><a href="https://verukami.github.io/vero/">verukami.github.io/vero</a><span class="sep">✦</span>Mexico City
+        </p>
+      </div>
+      <!-- decorative mark: the site's shapes -->
+      <svg class="mark" viewBox="0 0 62 62" aria-hidden="true">
+        <defs><linearGradient id="h" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4fb4"/><stop offset=".5" stop-color="#a45cff"/><stop offset="1" stop-color="#4d7cff"/></linearGradient></defs>
+        <circle cx="38" cy="38" r="20" fill="url(#h)"/>
+        <path d="M18 2 L21 15 L34 18 L21 21 L18 34 L15 21 L2 18 L15 15 Z" fill="#7b3fe4"/>
+        <path d="M50 4 L46 13 L52 13 L44 26 L47 16 L41 16 Z" fill="#b8ff3c" stroke="#15121c" stroke-width=".6"/>
+      </svg>
+    </header>
+
+    <section>
+      <h2><svg viewBox="0 0 14 14"><path d="M7 0L8.4 5.6L14 7L8.4 8.4L7 14L5.6 8.4L0 7L5.6 5.6Z" fill="#ff4fb4"/></svg>About</h2>
+      <p class="about">
+        UX and Product Designer with 10+ years working on fintech, banking, and enterprise products, with hands-on experience
+        across web and mobile. I like starting from the big picture: understanding the system, finding where things break, and
+        then building something that actually holds together. I've worked on banking platforms used in Latin America and the US,
+        helped build design systems from the ground up, and more recently contributed to UI/UX and content decisions for a
+        large-scale consumer mobile app. Throughout my career I've worked closely with BAs, PMs, POs, developers, and leads,
+        and I'm comfortable presenting to clients and stakeholders.
+      </p>
+    </section>
+
+    <section>
+      <h2><svg viewBox="0 0 14 14"><path d="M7 0L8.4 5.6L14 7L8.4 8.4L7 14L5.6 8.4L0 7L5.6 5.6Z" fill="#ff4fb4"/></svg>Experience</h2>
+
+      <div class="job">
+        <div class="job-top">
+          <h3>Freelance Product / UI-UX Designer <span class="co">| Self-employed</span></h3>
+          <span class="dates">2025 – Present</span>
+        </div>
+        <div class="where">Remote · Selected clients: Hibrids, Truper, Playful, Multiplica</div>
+        <ul>
+          <li>Currently embedded with Hibrids on the product team behind a promotions and rewards mobile app for a global beverage brand, contributing to UI/UX and content decisions across core app flows.</li>
+          <li>Support usability and content structure for a high-traffic, large-scale mobile app, working closely with content, marketing, and engineering teams on promotions and engagement features.</li>
+          <li>Led the full redesign of a Mexican university faculty website, from research and audience mapping to final screens and documentation, with a focus on accessibility for students, faculty, and visitors.</li>
+          <li>Worked on UX proposals for mobile investment apps for Multiplica, identifying opportunities to improve clarity and trust in core user flows.</li>
+          <li>Contributed to the visual design of ATM interfaces, a context where every decision has to work for a very broad and diverse user base.</li>
+          <li>Delivered end-to-end design across short and mid-term projects, adapting process and scope to each product's maturity and constraints.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <h3>Senior UX Designer <span class="co">| Backbase</span></h3>
+          <span class="dates">Feb 2024 – Feb 2025</span>
+        </div>
+        <div class="where">Mexico City</div>
+        <ul>
+          <li>Worked on UX strategy for enterprise banking products in two markets: a B2C platform in Peru and a B2B product for a US client, both on Backbase's core platform.</li>
+          <li>Used service blueprints and journey maps to help teams get aligned before jumping into design decisions.</li>
+          <li>Took research findings and turned them into high-fidelity prototypes, keeping patterns consistent across both products even though the audiences were very different.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <h3>Product Designer <span class="co">| Concentrix</span></h3>
+          <span class="dates">Nov 2021 – Aug 2023</span>
+        </div>
+        <div class="where">Remote</div>
+        <ul>
+          <li>Led accessibility research for a web and mobile app platform, identifying usability barriers and translating findings into concrete design improvements aligned with WCAG standards.</li>
+          <li>Designed a hospital operations dashboard for doctors and staff, including a complex scheduling and hours-tracking table that had to work across different roles and workflows.</li>
+          <li>Built personas, journey maps, and problem frameworks that guided product direction and roadmap prioritization, across both web and mobile touchpoints.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= PAGE 2 ================= -->
+  <div class="sheet">
+    <section style="margin-top: 4px">
+      <h2><svg viewBox="0 0 14 14"><path d="M7 0L8.4 5.6L14 7L8.4 8.4L7 14L5.6 8.4L0 7L5.6 5.6Z" fill="#ff4fb4"/></svg>Experience, continued</h2>
+
+      <div class="job">
+        <div class="job-top">
+          <h3>Product Designer (Mid/Senior) <span class="co">| Globant</span></h3>
+          <span class="dates">Nov 2019 – Nov 2021</span>
+        </div>
+        <div class="where">Mexico City</div>
+        <ul>
+          <li>Worked as UI designer on a Citibanamex project, contributing to wireframes, prototypes, and visual systems for the web and mobile app experiences of one of Mexico's largest banking platforms.</li>
+          <li>Co-created BlueBox, a design system based on Atomic Design that became the standard across 4+ product teams, spanning both web and mobile components. The idea was to build something new team members could pick up and continue without starting from scratch.</li>
+          <li>Supported the pre-sales team by creating visual proposals and presentation decks that helped pitch new clients and projects.</li>
+          <li>Worked as UI designer on an eLearning platform for a US-based client, building the interface and visual components for the product.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <h3>Product Designer <span class="co">| Krieger</span></h3>
+          <span class="dates">Jun 2017 – Mar 2019</span>
+        </div>
+        <div class="where">Mexico City</div>
+        <ul>
+          <li>Worked across a wide range of projects from the ground up: branding, UX, UI, and platform documentation for clients in different industries.</li>
+          <li>Designed products including an insurance broker platform, an HR dashboard, a file management and transfer dashboard, and a mobile civic reporting app built for a Mexico City district government to let citizens file reports during the presidential elections.</li>
+          <li>Involved in the full process on most projects, from concept and branding to final UI and documentation, across both web and mobile deliverables.</li>
+        </ul>
+      </div>
+
+      <div class="job prev">
+        <div class="job-top">
+          <h3>Previous Experience <span class="co">| Various</span></h3>
+          <span class="dates">2010 – 2017</span>
+        </div>
+        <ul>
+          <li>Senior Designer at Terán TBWA</li>
+          <li>Web Designer at Grupo Expansión</li>
+          <li>Digital Designer at La Base (UI assets, marketing campaigns, HTML/CSS)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2><svg viewBox="0 0 14 14"><path d="M7 0L8.4 5.6L14 7L8.4 8.4L7 14L5.6 8.4L0 7L5.6 5.6Z" fill="#ff4fb4"/></svg>Skills</h2>
+      <dl class="skills" style="margin: 0">
+        <div><dt>UX &amp; Product</dt><dd>UX Strategy · UX Research &amp; Usability Testing · Journey Mapping · A/B Testing · Personas &amp; Scenarios · Information Architecture · Wireframing &amp; Prototyping · Data-Informed Design</dd></div>
+        <div><dt>Mobile &amp; Content</dt><dd>Mobile App Design · Cross-Platform Consistency · UX Writing &amp; Content Structure (supporting skill)</dd></div>
+        <div><dt>Design Systems</dt><dd>Component Libraries · Design Tokens · Governance · Visual Design · Art Direction · Accessibility (WCAG)</dd></div>
+        <div><dt>Collaboration</dt><dd>Stakeholder Alignment &amp; Facilitation · Cross-functional Workshops · Agile &amp; Scrum · Presentation to clients and leadership</dd></div>
+        <div class="ai"><dt>AI-Assisted Design</dt><dd>Integrating AI tools into UX workflows for research synthesis, ideation, and rapid prototyping</dd></div>
+        <div class="tools"><dt>Tools</dt><dd>
+          <span class="hl">Figma</span><span>Miro</span><span>FigJam</span><span>Axure</span><span>Adobe Suite</span><span>Maze</span><span>Principle</span><span>Lottie</span><span>HTML/CSS</span><span>ChatGPT</span><span>Claude</span><span>Midjourney</span>
+        </dd></div>
+      </dl>
+    </section>
+
+    <section>
+      <h2><svg viewBox="0 0 14 14"><path d="M7 0L8.4 5.6L14 7L8.4 8.4L7 14L5.6 8.4L0 7L5.6 5.6Z" fill="#ff4fb4"/></svg>Education &amp; Languages</h2>
+      <div class="edu">
+        <p><strong>Bachelor's Degree in Graphic Design</strong> — Universidad del Valle de México (UVM) · 2006–2010</p>
+        <p>Spanish (Native) · English (Fluent / Professional) · German (Beginner – A1, actively studying)</p>
+      </div>
+    </section>
+
+    <div class="foot">
+      <span>Portfolio: verukami.github.io/vero</span>
+      <span>Half systems thinker, half pixel nerd.</span>
+    </div>
+  </div>
+
+</body>
+</html>

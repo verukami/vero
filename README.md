@@ -37,6 +37,7 @@ Estética: lienzo de diseño limpio + terror de los 90s + pixeles. Rosa, morado,
 ```
 index.html                 Home: hero, the collection, contacto
 about.html                 About: player card, escenas, créditos
+cv/                        CV en web + PDF descargable (mismo look del sitio)
 projects/<proyecto>/       Un caso de estudio por carpeta
 assets/styles/site.css         Tokens, tema claro/oscuro, nav, footer, home
 assets/styles/collection.css   Objetos (VHS, tarot, 3-D reel) y la colección
