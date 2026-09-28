@@ -91,13 +91,13 @@
       top: var(--y);
       width: var(--s);
       aspect-ratio: 1;
-      background: #d9f2c4;
+      background: var(--ink);
       clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
       opacity: 0.8;
       animation: twinkle-star var(--t) ease-in-out infinite alternate;
     }
-    :root[data-theme="dark"] .loose i { filter: drop-shadow(0 0 8px #b8ff3c); }
-    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .loose i { filter: drop-shadow(0 0 8px #b8ff3c); } }
+    :root[data-theme="dark"] .loose i { background: #d9f2c4; filter: drop-shadow(0 0 8px #b8ff3c); }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .loose i { background: #d9f2c4; filter: drop-shadow(0 0 8px #b8ff3c); } }
     @keyframes twinkle-star { from { transform: rotate(0) scale(0.9); opacity: 0.5; } to { transform: rotate(20deg) scale(1.1); opacity: 0.95; } }
     .lost > .copy, .lost > .bag { position: relative; z-index: 1; }
 
@@ -130,10 +130,12 @@
 
   <main class="lost">
     <div class="loose" aria-hidden="true">
-      <i style="--x:6%;  --y:14%; --s:22px; --t:3.2s"></i>
+      <i style="--x:6%;  --y:14%; --s:28px; --t:3.2s"></i>
       <i style="--x:44%; --y:8%;  --s:14px; --t:2.6s"></i>
       <i style="--x:92%; --y:20%; --s:18px; --t:3.8s"></i>
-      <i style="--x:86%; --y:84%; --s:26px; --t:2.9s"></i>
+      <i style="--x:86%; --y:84%; --s:32px; --t:2.9s"></i>
+      <i style="--x:34%; --y:22%; --s:18px; --t:3.6s"></i>
+      <i style="--x:70%; --y:12%; --s:22px; --t:2.7s"></i>
       <i style="--x:12%; --y:88%; --s:16px; --t:3.4s"></i>
       <i style="--x:52%; --y:92%; --s:12px; --t:2.2s"></i>
     </div>
