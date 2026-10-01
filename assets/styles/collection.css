@@ -306,7 +306,7 @@
 ====================================================== */
 .lab-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(16px, 2.5vw, 28px);
 }
 .lab-card {
@@ -334,10 +334,13 @@
 .lab-card .ctas { margin-top: 20px; }
 
 .lab-soon {
+  grid-column: 1 / -1; /* a slim row under the lab cards */
   display: grid;
+  grid-auto-flow: column;
   place-content: center;
-  gap: 8px;
-  padding: 28px;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 22px 28px;
   border-radius: 24px;
   border: 1.5px dashed var(--line);
   text-align: center;
@@ -347,11 +350,12 @@
 .lab-soon strong { color: var(--ink); font-weight: 600; }
 @keyframes brew { to { transform: translateY(-6px) rotate(8deg); } }
 
-@media (max-width: 900px) {
+@media (max-width: 1080px) {
   .lab-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
   .lab-card { grid-template-columns: 1fr; justify-items: start; }
+  .lab-soon { grid-auto-flow: row; }
 }
 @media (prefers-reduced-motion: reduce) {
   .lab-soon .brew { animation: none; }
@@ -365,3 +369,290 @@
   box-shadow: 0 30px 60px -24px rgba(40, 10, 90, 0.55), inset 0 0 0 6px #e8479f;
 }
 .reel-tag { color: rgba(255, 255, 255, 0.9); }
+
+/* ======================================================
+   RETRO PHONE — lilac candy-bar phone, in the site's violet (WYRD, LAB 02)
+   Everything is sized in em, so set --w and it scales.
+====================================================== */
+.retro-phone {
+  --w: 160px;
+  --shell: #c7b2ff;
+  --shell-dark: #9577ee;
+  position: relative;
+  width: var(--w);
+  font-size: calc(var(--w) / 10);
+  padding-top: 1.4em;
+  filter: drop-shadow(0 1.6em 2em rgba(60, 30, 140, 0.4));
+  animation: rp-float 4.5s ease-in-out infinite alternate;
+}
+@keyframes rp-float { from { transform: rotate(-4deg) translateY(0); } to { transform: rotate(-1deg) translateY(-0.6em); } }
+.rp-antenna {
+  position: absolute;
+  top: 0;
+  right: 1.3em;
+  width: 1.5em;
+  height: 2.2em;
+  border-radius: 0.6em 0.6em 0.2em 0.2em;
+  background: linear-gradient(90deg, var(--shell-dark), var(--shell) 45%, var(--shell-dark));
+}
+.rp-body {
+  position: relative;
+  padding: 1.3em 0.9em 1.1em;
+  border-radius: 3.2em 3.2em 3.6em 3.6em / 2.6em 2.6em 4.4em 4.4em;
+  background:
+    radial-gradient(120% 60% at 30% 0%, rgba(255, 255, 255, 0.75), transparent 55%),
+    linear-gradient(165deg, #efe8ff, var(--shell) 50%, var(--shell-dark));
+  box-shadow:
+    inset 0 -0.5em 0.9em rgba(90, 55, 190, 0.4),
+    inset 0 0.25em 0.4em rgba(255, 255, 255, 0.9),
+    0 0 0 0.12em rgba(90, 55, 190, 0.4);
+}
+.rp-speaker {
+  display: block;
+  width: 2.6em;
+  height: 0.45em;
+  margin: 0 auto 0.8em;
+  border-radius: 1em;
+  background: repeating-linear-gradient(90deg, #5a3fb0 0 0.25em, transparent 0.25em 0.45em);
+  opacity: 0.7;
+}
+.rp-screen {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  justify-items: center;
+  gap: 0.3em;
+  aspect-ratio: 1 / 1.08;
+  padding: 0.5em 0.55em 0.45em;
+  border-radius: 0.9em;
+  background: radial-gradient(90% 80% at 50% 45%, #1d0b44, #0c0420 75%);
+  box-shadow: 0 0 0 0.45em #2e1a5e, 0 0 0 0.6em rgba(255, 255, 255, 0.5), inset 0 0 1.2em rgba(0, 255, 71, 0.18);
+  overflow: hidden;
+  font-family: "Pixelify Sans", var(--mono);
+  color: #00ff47;
+}
+.rp-screen::after { /* LCD scanlines */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+.rp-status {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.55em;
+  letter-spacing: 0.08em;
+}
+.rp-bars { display: flex; align-items: flex-end; gap: 0.15em; height: 1em; }
+.rp-bars i { width: 0.25em; background: currentColor; }
+.rp-bars i:nth-child(1) { height: 35%; }
+.rp-bars i:nth-child(2) { height: 60%; }
+.rp-bars i:nth-child(3) { height: 100%; }
+.rp-batt { width: 1.5em; height: 0.75em; border: 0.12em solid currentColor; border-radius: 0.15em; background: linear-gradient(90deg, currentColor 70%, transparent 70%) content-box; padding: 0.08em; }
+.rp-screen img {
+  width: 72%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 0.4em rgba(0, 255, 71, 0.6));
+  min-height: 0;
+}
+.rp-msg {
+  margin: 0;
+  font-size: 0.62em;
+  letter-spacing: 0.04em;
+  animation: rp-blink 1.6s steps(1) infinite;
+}
+@keyframes rp-blink { 50% { opacity: 0.25; } }
+.rp-soft {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  font-size: 0.5em;
+  color: #c9a8ff;
+  letter-spacing: 0.06em;
+}
+.rp-nav {
+  display: grid;
+  grid-template-columns: 1fr 2.4em 1fr;
+  align-items: center;
+  gap: 0.4em;
+  margin: 1.1em 0.2em 0.8em;
+}
+.rp-nav i {
+  height: 0.8em;
+  border-radius: 1em;
+  background: linear-gradient(#f8f5ff, #d9ccff);
+  box-shadow: 0 0.12em 0 #8a6ee0;
+}
+.rp-nav b {
+  height: 1.5em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #ffffff, #e2d8ff 60%, #b9a2f7);
+  box-shadow: 0 0.15em 0 #8a6ee0, 0 0 0 0.12em rgba(90, 55, 190, 0.35);
+}
+.rp-keys {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45em 0.5em;
+  padding: 0 0.25em;
+}
+.rp-keys span {
+  display: grid;
+  place-items: center;
+  height: 2.1em;
+  border-radius: 0.7em 0.7em 0.9em 0.9em;
+  background: linear-gradient(#fbf9ff, #e1d6ff);
+  box-shadow: 0 0.14em 0 #8a6ee0;
+  color: #5a3fb0;
+  font-family: var(--mono);
+  font-size: 0.62em;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.lab-card .retro-phone { --w: clamp(104px, 11vw, 136px); }
+.lab-card:hover .retro-phone { animation-duration: 1.6s; }
+.cs-object .retro-phone { --w: clamp(118px, 11.5vw, 150px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .retro-phone, .rp-msg { animation: none; }
+}
+
+/* ======================================================
+   PAINT WINDOW — a tiny pastel Paint window for the lab (lilac + pink)
+   Sized in em: set --w and the whole window scales.
+====================================================== */
+.paint {
+  --w: 240px;
+  --face: #e9e0ff;
+  --hi: #ffffff;
+  --lo: #b3a2e6;
+  --dk: #6d5aa8;
+  width: var(--w);
+  font-size: calc(var(--w) / 18);
+  padding: 0.2em;
+  background: var(--face);
+  color: #4a3a86;
+  box-shadow:
+    inset -1px -1px 0 var(--dk), inset 1px 1px 0 #f6f1ff,
+    inset -2px -2px 0 var(--lo), inset 2px 2px 0 var(--hi),
+    0 1.6em 2.4em -1em rgba(40, 10, 90, 0.55);
+  font-family: "Pixelify Sans", var(--mono);
+  transform: rotate(-2deg);
+  transition: transform 0.5s cubic-bezier(.3,.9,.3,1.05);
+  user-select: none;
+}
+.pt-title {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  height: 1.6em;
+  padding: 0 0.2em 0 0.4em;
+  background: linear-gradient(90deg, #f5a8d6, #c9b3ff);
+  color: #3d2b7a;
+  font-size: 0.95em;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.pt-title span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pt-title i {
+  display: grid;
+  place-items: center;
+  width: 1.25em;
+  height: 1.1em;
+  background: var(--face);
+  color: #4a3a86;
+  font-style: normal;
+  font-size: 0.85em;
+  line-height: 1;
+  box-shadow: inset -1px -1px 0 var(--dk), inset 1px 1px 0 var(--hi), inset -2px -2px 0 var(--lo);
+}
+.pt-title i:last-child { margin-left: 0.15em; }
+.pt-menu { display: flex; gap: 0.7em; padding: 0.25em 0.4em; font-size: 0.85em; }
+.pt-menu span::first-letter { text-decoration: underline; }
+.pt-main { display: grid; grid-template-columns: auto 1fr; gap: 0.25em; }
+.pt-tools {
+  display: grid;
+  grid-template-columns: repeat(2, 1.5em);
+  grid-auto-rows: 1.5em;
+  gap: 0.1em;
+  align-content: start;
+  padding: 0.15em;
+}
+.pt-tools i {
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 0.8em;
+  line-height: 1;
+  box-shadow: inset -1px -1px 0 var(--dk), inset 1px 1px 0 var(--hi), inset -2px -2px 0 var(--lo);
+}
+.pt-tools i.on { background: #fbe3f2; box-shadow: inset 1px 1px 0 var(--dk), inset -1px -1px 0 var(--hi), inset 2px 2px 0 var(--lo); }
+.pt-canvas {
+  position: relative;
+  aspect-ratio: 3 / 3.6;
+  background: #d7caff;
+  padding: 0.35em;
+  box-shadow: inset 1px 1px 0 var(--lo), inset 2px 2px 0 var(--dk), inset -1px -1px 0 var(--hi);
+  overflow: hidden;
+}
+.pt-canvas .art {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--art-bg, #fff);
+  overflow: hidden;
+}
+.pt-canvas img { width: 100%; height: 100%; object-fit: var(--fit, cover); display: block; }
+.pt-canvas .art::after { /* the dotted resize handle in the corner */
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0.35em;
+  height: 0.35em;
+  background: #f5a8d6;
+}
+.pt-palette { display: flex; gap: 0.3em; align-items: center; margin-top: 0.3em; padding: 0.1em 0.15em; }
+.pt-current {
+  position: relative;
+  width: 2em;
+  height: 2em;
+  flex: none;
+  box-shadow: inset 1px 1px 0 var(--lo), inset -1px -1px 0 var(--hi);
+  background: #fff;
+}
+.pt-current::before, .pt-current::after {
+  content: "";
+  position: absolute;
+  width: 0.85em;
+  height: 0.85em;
+  box-shadow: 0 0 0 1px #000;
+}
+.pt-current::before { top: 0.3em; left: 0.3em; background: var(--fg, #ff4fb4); z-index: 1; }
+.pt-current::after { bottom: 0.3em; right: 0.3em; background: #fff; }
+.pt-colors { display: grid; grid-template-columns: repeat(8, 1fr); gap: 1px; flex: 1; }
+.pt-colors i { aspect-ratio: 1; background: var(--c); box-shadow: inset 1px 1px 0 var(--lo), inset -1px -1px 0 var(--hi); }
+.pt-status {
+  margin-top: 0.3em;
+  padding: 0.15em 0.4em;
+  font-size: 0.75em;
+  color: #6d5aa8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: inset 1px 1px 0 var(--lo), inset -1px -1px 0 var(--hi);
+}
+
+.lab-card .paint { --w: clamp(150px, 14vw, 180px); }
+.lab-card:hover .paint { transform: rotate(0deg) translateY(-4px); }
+.cs-object .paint { --w: clamp(190px, 18vw, 240px); position: relative; z-index: 1; }
+@media (max-width: 560px) {
+  .lab-card .paint { --w: 180px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .paint { transition: none; }
+}

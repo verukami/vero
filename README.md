@@ -28,7 +28,7 @@ Cada proyecto se presenta como un objeto de colección, uno a la vez:
 
 ### 🧪 The lab
 
-Experimentos personales, separados del trabajo con clientes. Hoy: **Alienpooh**, con su prototipo interactivo y el concepto de compañero de IA.
+Experimentos personales, separados del trabajo con clientes. Hoy: **Alienpooh** (LAB 01), con su prototipo interactivo y el concepto de compañero de IA, y **WYRD** (LAB 02), una app de mensajería con dos velocidades: chats rápidos y cartas lentas que tardan lo que la distancia real, con 20 pantallas y prototipo navegable.
 
 
 En el home, el objeto cambia con el scroll o desde un mini menú. Cada caso de estudio abre con su objeto, un resumen rápido para reclutadores (rol, empresa, año, resultado) y la historia contada en capítulos.
@@ -81,6 +81,7 @@ npx serve .
 * [x] Analytics con Umami
 * [x] Limpieza de legacy folders
 * [x] Prototipo interactivo de Alienpooh en `projects/alienpooh/prototype/`
+* [x] WYRD (LAB 02): caso de estudio + prototipo navegable en `projects/wyrd/prototype/`
 * [ ] Subir el sitemap a Google Search Console
 * [ ] Números concretos donde existan (ej. pasos reducidos, % de mejora)
 

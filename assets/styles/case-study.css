@@ -547,3 +547,154 @@
     0 50px 90px -30px rgba(40, 10, 90, 0.55),
     inset 0 0 0 6px #e8479f;
 }
+
+/* ======================================================
+   APP SCREENS — phone screenshots in a grid (WYRD)
+====================================================== */
+.screens {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 168px), 1fr));
+  gap: 28px 18px;
+  margin: 28px 0 12px;
+}
+.screens figure { margin: 0; }
+.screens img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 22px;
+  background: #0c0420;
+  box-shadow: 0 0 0 1.5px var(--line), 0 24px 40px -26px rgba(40, 10, 90, 0.55);
+}
+.screens figcaption {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.screens figcaption b { display: block; margin-bottom: 2px; color: var(--ink); font-weight: 600; font-size: 14px; }
+
+/* the dark strip of phones used as a cover */
+.phone-strip {
+  margin: clamp(32px, 6vh, 64px) var(--gutter) 0;
+  padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 56px) 0;
+  border-radius: 28px;
+  background:
+    radial-gradient(60% 80% at 50% 110%, rgba(0, 255, 71, 0.22), transparent 70%),
+    #0c0420;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(10px, 2.4vw, 32px);
+  overflow: hidden;
+}
+.phone-strip img {
+  width: clamp(96px, 22vw, 270px);
+  height: auto;
+  border-radius: clamp(14px, 2.4vw, 32px) clamp(14px, 2.4vw, 32px) 0 0;
+  box-shadow: 0 0 0 6px #16101f, 0 0 0 7px rgba(255, 255, 255, 0.1);
+  margin-top: 7px;
+}
+.phone-strip img:nth-child(2) { transform: translateY(-18px); }
+
+/* color swatches with meaning */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.swatches div {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 4px 14px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+}
+.swatches i { grid-row: span 2; width: 44px; height: 44px; border-radius: 10px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+.swatches b { font-size: 14px; font-weight: 600; }
+.swatches span { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); }
+
+/* ----- Lab hero: arcade screen with a neon grid floor and a score HUD ----- */
+.cs-object.arcade .screen {
+  position: absolute;
+  z-index: 0; /* keeps the scanlines behind the Paint window */
+  inset: 4% 4%;
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 58%, rgba(255, 79, 180, 0.35), transparent 45%),
+    linear-gradient(180deg, #07021a 0%, #1a0b45 55%, #2b0f52 58%, #0a0418 100%);
+  box-shadow: 0 30px 60px -30px rgba(40, 10, 90, 0.6), inset 0 0 90px rgba(0, 0, 0, 0.7);
+  font-family: "Pixelify Sans", var(--mono);
+}
+.cs-object.arcade .screen::after { /* CRT scanlines */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+  z-index: 3;
+}
+.cs-object.arcade .floor {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: -10%;
+  height: 52%;
+  background:
+    linear-gradient(90deg, rgba(184, 156, 255, 0.75) 1.5px, transparent 1.5px) 0 0 / 44px 100%,
+    linear-gradient(0deg, rgba(255, 79, 180, 0.8) 1.5px, transparent 1.5px) 0 0 / 100% 36px;
+  transform: perspective(260px) rotateX(58deg);
+  transform-origin: 50% 0;
+  animation: grid-run 1.4s linear infinite;
+  mask-image: linear-gradient(transparent, #000 35%);
+  -webkit-mask-image: linear-gradient(transparent, #000 35%);
+}
+@keyframes grid-run { to { background-position: 0 0, 0 36px; } }
+.cs-object.arcade .horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 48%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff4fb4, #b89cff, transparent);
+  box-shadow: 0 0 18px 4px rgba(255, 79, 180, 0.45);
+}
+.cs-object.arcade .px { /* square pixel stars */
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s, 4px);
+  height: var(--s, 4px);
+  background: var(--c, #fff);
+  opacity: 0.3;
+  animation: twinkle var(--t, 3s) steps(3) infinite alternate;
+}
+.cs-object.arcade .hud {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: #b89cff;
+  z-index: 2;
+  text-shadow: 0 0 8px rgba(184, 156, 255, 0.6);
+}
+.cs-object.arcade .hud b { font-weight: 500; color: #b8ff3c; text-shadow: 0 0 8px rgba(184, 255, 60, 0.6); }
+.cs-object.arcade .hud.top { top: 16px; }
+.cs-object.arcade .hud.bottom { bottom: 14px; align-items: center; }
+.cs-object.arcade .lives { color: #ff4fb4; text-shadow: 0 0 8px rgba(255, 79, 180, 0.7); letter-spacing: 0.2em; }
+.cs-object.arcade .coin { color: #fff; animation: coin-blink 1.1s steps(1) infinite; }
+@keyframes coin-blink { 50% { opacity: 0; } }
+.cs-object.arcade .obj { z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-object.arcade .floor, .cs-object.arcade .px, .cs-object.arcade .coin { animation: none; }
+}

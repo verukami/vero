@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>WYRD · location permission</title><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"><style>html,body{margin:0;background:#0C0420}
+  body{margin:0;background:#0C0420;font-family:'Space Grotesk',sans-serif;}
+  @keyframes ping{0%{transform:translate(-50%,-50%) scale(.3);opacity:.9}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+  @keyframes bob{0%,100%{transform:translate(-50%,-100%)}50%{transform:translate(-50%,-112%)}}
+</style></head><body>
+
+
+<div style="width: 390px; height: 844px; box-sizing: border-box; background:#4F9ACF; display: flex; flex-direction: column; overflow: hidden; position: relative; color:#0C0420;">
+
+  <!-- iOS status bar -->
+  <div style="flex:0 0 auto; height:47px; padding:0 30px 0 34px; display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2;">
+    <span style="font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif; font-weight:600; font-size:16px; color:#0C0420; letter-spacing:-.2px; padding-top:6px;">9:41</span>
+    <div style="position:absolute; left:50%; top:11px; transform:translateX(-50%); width:124px; height:36px; border-radius:20px; background:#000;"></div>
+    <div style="display:flex; align-items:center; gap:6px; padding-top:6px;">
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="#0C0420"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="5" y="5.5" width="3" height="6.5" rx="1"></rect><rect x="10" y="3" width="3" height="9" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1"></rect></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="#0C0420"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4ZM8 8.8c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"></path></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="#0C0420" opacity=".4"></rect><rect x="2" y="2" width="20" height="9" rx="2" fill="#0C0420"></rect><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill="#0C0420" opacity=".45"></path></svg>
+    </div>
+  </div>
+
+
+
+
+  <!-- art: a map with portals -->
+  <div aria-hidden="true" style="position:relative; flex:1 1 auto; overflow:hidden;">
+    <svg width="390" height="440" viewBox="0 0 390 440" style="position:absolute; left:0; top:0;" fill="none"><path d="M-20 0 L20 440" stroke="rgba(11,42,69,.35)" stroke-width="10"></path><path d="M90 0 L130 440" stroke="rgba(11,42,69,.35)" stroke-width="4"></path><path d="M200 0 L240 440" stroke="rgba(11,42,69,.35)" stroke-width="14"></path><path d="M300 0 L340 440" stroke="rgba(11,42,69,.35)" stroke-width="4"></path><path d="M380 0 L420 440" stroke="rgba(11,42,69,.35)" stroke-width="8"></path><path d="M0 80 L390 30" stroke="rgba(11,42,69,.35)" stroke-width="6"></path><path d="M0 190 L390 140" stroke="rgba(11,42,69,.35)" stroke-width="12"></path><path d="M0 300 L390 250" stroke="rgba(11,42,69,.35)" stroke-width="4"></path><path d="M0 410 L390 360" stroke="rgba(11,42,69,.35)" stroke-width="8"></path></svg>
+    <div style="position:absolute; left:195px; top:210px; width:300px; height:300px; border-radius:50%; border:2px solid #0C0420; animation: ping 2.8s ease-out infinite;"></div>
+    <div style="position:absolute; left:195px; top:210px; width:300px; height:300px; border-radius:50%; border:2px solid #0C0420; animation: ping 2.8s ease-out 1.4s infinite;"></div>
+    <div style="position:absolute; left:195px; top:212px; animation: bob 2.4s ease-in-out infinite;"><svg width="54" height="64" viewBox="0 0 24 28"><path d="M12 27s-9-8.5-9-15a9 9 0 0 1 18 0c0 6.5-9 15-9 15Z" fill="#0C0420"></path><circle cx="12" cy="12" r="3.6" fill="#00FF47"></circle></svg></div>
+    <div style="position:absolute; left:58px; top:92px; display:flex; flex-direction:column; align-items:center; gap:6px;"><span style="width:34px; height:34px; border-radius:50%; background:#E0409A; box-shadow:0 0 0 3px #0C0420;"></span><span style="background:#0C0420; color:#EBA6CF; font-size:12px; font-weight:700; letter-spacing:1px; padding:4px 8px; border-radius:999px; white-space:nowrap;">PORTAL · 2 km</span></div>
+    <div style="position:absolute; left:262px; top:300px; display:flex; flex-direction:column; align-items:center; gap:6px;"><span style="width:26px; height:26px; border-radius:50%; background:#E0409A; box-shadow:0 0 0 3px #0C0420; opacity:.85;"></span><span style="background:#0C0420; color:#EBA6CF; font-size:12px; font-weight:700; letter-spacing:1px; padding:4px 8px; border-radius:999px; white-space:nowrap;">PORTAL · 5 km</span></div>
+    <div style="position:absolute; left:280px; top:70px; display:flex; flex-direction:column; align-items:center; gap:6px;"><span style="width:20px; height:20px; border-radius:50%; background:#E0409A; box-shadow:0 0 0 3px #0C0420; opacity:.7;"></span></div>
+  </div>
+
+  <!-- copy -->
+  <div style="position: relative; z-index: 2; flex: 0 0 auto; padding: 22px 26px 42px; display: flex; flex-direction: column; gap: 14px; background-color: #0c0420">
+    <div style="font-weight: 700; font-size: 36px; line-height: 1.04; letter-spacing: -1px; color: #00FF47">Portals open where you are.</div>
+    <div style="font-size: 17px; line-height: 1.45; color: #ffffff">WYRD uses your location to find portals nearby — that's where guardians live. No one ever sees where you are: letters show your portal, never your street.</div>
+    <a href="06-feed-day-one.html" style="margin-top:6px; display:flex; align-items:center; justify-content:center; height:58px; border-radius:999px; background:#FFFFFF; color:#0C0420; text-decoration:none; font-weight:700; font-size:17px; letter-spacing:.5px;">Allow while using WYRD</a>
+    <a href="06-feed-day-one.html" style="display:flex; align-items:center; justify-content:center; min-height:44px; color:#d4cdea; font-size:15px; font-weight:600; text-decoration:underline; text-underline-offset:4px;">Not now — I'll just write letters</a>
+  </div>
+
+  <!-- iOS home indicator -->
+  <div style="position:absolute; left:50%; bottom:8px; transform:translateX(-50%); width:134px; height:5px; border-radius:3px; background:#FFFFFF; opacity:.85; z-index:5; pointer-events:none;"></div>
+</div>
+
+</body></html>

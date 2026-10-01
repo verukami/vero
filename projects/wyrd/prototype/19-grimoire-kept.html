@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>WYRD · grimoire kept</title><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"><style>html,body{margin:0;background:#0C0420}
+  body{margin:0;background:#0C0420;font-family:'Space Grotesk',sans-serif;}
+  ::-webkit-scrollbar{width:0;height:0}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 1px rgba(0,255,71,.35),0 6px 16px rgba(0,255,71,.2)}50%{box-shadow:0 0 0 2px #00FF47,0 0 26px rgba(0,255,71,.55)}}
+  @keyframes staticDrift{0%{background-position:0 0}100%{background-position:0 40px}}
+  @keyframes flicker{0%,100%{opacity:1}45%{opacity:.85}50%{opacity:1}78%{opacity:.9}}
+  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+</style></head><body>
+
+
+<div style="width: 390px; height: 844px; box-sizing: border-box; background:#0C0420; display: flex; flex-direction: column; overflow: hidden; position: relative; color: #f3effd;">
+
+  <div style="position:absolute; left:0; right:0; top:0; height:47px; background:#075134;"></div>
+  <!-- iOS status bar -->
+  <div style="flex:0 0 auto; height:47px; padding:0 30px 0 34px; display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2;">
+    <span style="font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif; font-weight:600; font-size:16px; color:#FFFFFF; letter-spacing:-.2px; padding-top:6px;">9:41</span>
+    <div style="position:absolute; left:50%; top:11px; transform:translateX(-50%); width:124px; height:36px; border-radius:20px; background:#000;"></div>
+    <div style="display:flex; align-items:center; gap:6px; padding-top:6px;">
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="#FFFFFF"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="5" y="5.5" width="3" height="6.5" rx="1"></rect><rect x="10" y="3" width="3" height="9" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1"></rect></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="#FFFFFF"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4ZM8 8.8c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"></path></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="#FFFFFF" opacity=".4"></rect><rect x="2" y="2" width="20" height="9" rx="2" fill="#FFFFFF"></rect><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill="#FFFFFF" opacity=".45"></path></svg>
+    </div>
+  </div>
+
+
+  <!-- Header (secondary: shorter, static) -->
+  <div style="flex:0 0 auto; background:#075134; position:relative; overflow:hidden; height:64px;">
+    <div aria-hidden="true" style="position:absolute; left:-20px; top:-20px; transform:rotate(-6deg); opacity:.7;"><div style="white-space:nowrap; width:max-content; font-weight:700; font-size:32px; line-height:.9; letter-spacing:-1.5px; color:transparent; -webkit-text-stroke:1px #00FF47;">GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · </div><div style="white-space:nowrap; width:max-content; font-weight:700; font-size:32px; line-height:.9; letter-spacing:-1.5px; color:transparent; -webkit-text-stroke:1px #00FF47;">GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · </div><div style="white-space:nowrap; width:max-content; font-weight:700; font-size:32px; line-height:.9; letter-spacing:-1.5px; color:transparent; -webkit-text-stroke:1px #00FF47;">GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · </div><div style="white-space:nowrap; width:max-content; font-weight:700; font-size:32px; line-height:.9; letter-spacing:-1.5px; color:transparent; -webkit-text-stroke:1px #00FF47;">GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · GRIMOIRE · </div></div>
+    <a href="09-profile.html" aria-label="Back to Profile" style="position:absolute; left:12px; bottom:10px; width:44px; height:44px; border-radius:50%; background:#0C0420; display:flex; align-items:center; justify-content:center; text-decoration:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF47" stroke-width="2.4"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <div style="position:absolute; left:64px; bottom:13px; max-width:250px; display:flex; align-items:center; gap:8px; background:#0C0420; color:#00FF47; border-radius:999px; padding:6px 13px; font-weight:700; font-size:17px; white-space:nowrap; overflow:hidden;">Grimoire</div>
+  </div>
+
+  <div style="flex:1 1 auto; overflow-y:auto; padding: 16px 20px 28px; display:flex; flex-direction:column; gap:20px;">
+
+    <!-- poster count -->
+    <div style="display:flex; align-items:flex-end; gap:14px;">
+      <div style="font-weight:700; font-size:96px; line-height:.8; letter-spacing:-5px; color:#C4E86A;">4</div>
+      <div style="padding-bottom:4px;">
+        <div style="font-weight:700; font-size:22px; line-height:1.05;">letters kept</div>
+        <div style="font-size:15px; color:#9fc4ad; margin-top:4px; line-height:1.4;">opened, saved, only yours.<br>New ones arrive in <a href="10-random-drops.html" style="color:#00FF47; text-decoration:none; font-weight:600;">Random Drops</a>.</div>
+      </div>
+    </div>
+
+    <div role="tablist" style="display:flex; gap:6px; padding:4px; border-radius:999px; background:#1A1430; border:1px solid rgba(255,255,255,.14);">
+      <button role="tab" style="flex:1; height:44px; border:none; border-radius:999px; background:#C4E86A; color:#0C0420; font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; letter-spacing:1.5px; cursor:pointer;">KEPT</button>
+      <button role="tab" style="flex:1; height:44px; border:none; border-radius:999px; background:transparent; color:#FFFFFF; font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; letter-spacing:1.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;"><span style="width:7px; height:7px; border-radius:50%; background:#00FF47;"></span>IN TRANSIT</button>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:16px;">
+    <div style="font-size:13px; font-weight:700; letter-spacing:2px; color:#C4E86A; ">THIS WEEK</div>
+
+    <!-- kept card -->
+    <div style="position:relative; transform:rotate(-1.5deg); background:#161D07; border:1px solid rgba(196,232,106,.55); color:#F1FFD6; box-shadow:0 12px 28px rgba(0,0,0,.4); border-radius:16px; padding:20px 20px 16px;">
+      <span aria-hidden="true" style="position:absolute; top:-26px; right:10px; width:54px; height:54px; display:flex; align-items:center; justify-content:center;"><img src="assets/seal-glass.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));"><span style="position:absolute; inset:25%; border-radius:50%; background:radial-gradient(circle, rgba(224,64,154,.30), rgba(12,4,32,.92) 72%);"></span><svg width="22" height="22" viewBox="0 0 11 11" fill="#FF7CC4" shape-rendering="crispEdges" style="position:relative; filter:drop-shadow(0 0 3px rgba(224,64,154,.95)) drop-shadow(0 0 8px rgba(224,64,154,.55));"><rect x="4" y="0" width="1" height="1"></rect><rect x="5" y="0" width="1" height="1"></rect><rect x="6" y="0" width="1" height="1"></rect><rect x="2" y="1" width="1" height="1"></rect><rect x="3" y="1" width="1" height="1"></rect><rect x="7" y="1" width="1" height="1"></rect><rect x="8" y="1" width="1" height="1"></rect><rect x="1" y="2" width="1" height="1"></rect><rect x="9" y="2" width="1" height="1"></rect><rect x="1" y="3" width="1" height="1"></rect><rect x="4" y="3" width="1" height="1"></rect><rect x="5" y="3" width="1" height="1"></rect><rect x="6" y="3" width="1" height="1"></rect><rect x="9" y="3" width="1" height="1"></rect><rect x="0" y="4" width="1" height="1"></rect><rect x="3" y="4" width="1" height="1"></rect><rect x="7" y="4" width="1" height="1"></rect><rect x="10" y="4" width="1" height="1"></rect><rect x="0" y="5" width="1" height="1"></rect><rect x="3" y="5" width="1" height="1"></rect><rect x="5" y="5" width="1" height="1"></rect><rect x="7" y="5" width="1" height="1"></rect><rect x="10" y="5" width="1" height="1"></rect><rect x="0" y="6" width="1" height="1"></rect><rect x="3" y="6" width="1" height="1"></rect><rect x="7" y="6" width="1" height="1"></rect><rect x="10" y="6" width="1" height="1"></rect><rect x="1" y="7" width="1" height="1"></rect><rect x="4" y="7" width="1" height="1"></rect><rect x="5" y="7" width="1" height="1"></rect><rect x="6" y="7" width="1" height="1"></rect><rect x="9" y="7" width="1" height="1"></rect><rect x="1" y="8" width="1" height="1"></rect><rect x="9" y="8" width="1" height="1"></rect><rect x="2" y="9" width="1" height="1"></rect><rect x="3" y="9" width="1" height="1"></rect><rect x="7" y="9" width="1" height="1"></rect><rect x="8" y="9" width="1" height="1"></rect><rect x="4" y="10" width="1" height="1"></rect><rect x="5" y="10" width="1" height="1"></rect><rect x="6" y="10" width="1" height="1"></rect></svg></span>
+      <div style="font-family:'Crimson Pro',serif; font-style:italic; font-size:19px; line-height:1.45;">"I found your frequency by accident, the way you find a coin in an old coat."</div>
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:14px;"><span style="display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border-radius:999px; background:#0C0420; color:#4F9ACF; font-size:13px; font-weight:600; white-space:nowrap;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4F9ACF" stroke-width="2.4"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>The Magic Canopy</span><span style="font-size:13px; font-weight:600; color:#B9CC8C;">a stranger · kept 2 days ago</span></div>
+    </div>
+
+    <!-- kept card -->
+    <div style="position:relative; transform:rotate(1.2deg); background:#161D07; border:1px solid rgba(196,232,106,.55); color:#F1FFD6; box-shadow:0 12px 28px rgba(0,0,0,.4); border-radius:16px; padding:20px 20px 16px; margin-left:18px;">
+      <span aria-hidden="true" style="position:absolute; top:-26px; right:10px; width:54px; height:54px; display:flex; align-items:center; justify-content:center;"><img src="assets/seal-glass.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));"><span style="position:absolute; inset:25%; border-radius:50%; background:radial-gradient(circle, rgba(224,64,154,.30), rgba(12,4,32,.92) 72%);"></span><svg width="22" height="22" viewBox="0 0 11 11" fill="#FF7CC4" shape-rendering="crispEdges" style="position:relative; filter:drop-shadow(0 0 3px rgba(224,64,154,.95)) drop-shadow(0 0 8px rgba(224,64,154,.55));"><rect x="1" y="1" width="1" height="1"></rect><rect x="2" y="1" width="1" height="1"></rect><rect x="3" y="1" width="1" height="1"></rect><rect x="7" y="1" width="1" height="1"></rect><rect x="8" y="1" width="1" height="1"></rect><rect x="9" y="1" width="1" height="1"></rect><rect x="0" y="2" width="1" height="1"></rect><rect x="1" y="2" width="1" height="1"></rect><rect x="2" y="2" width="1" height="1"></rect><rect x="3" y="2" width="1" height="1"></rect><rect x="4" y="2" width="1" height="1"></rect><rect x="6" y="2" width="1" height="1"></rect><rect x="7" y="2" width="1" height="1"></rect><rect x="8" y="2" width="1" height="1"></rect><rect x="9" y="2" width="1" height="1"></rect><rect x="10" y="2" width="1" height="1"></rect><rect x="0" y="3" width="1" height="1"></rect><rect x="1" y="3" width="1" height="1"></rect><rect x="2" y="3" width="1" height="1"></rect><rect x="3" y="3" width="1" height="1"></rect><rect x="4" y="3" width="1" height="1"></rect><rect x="5" y="3" width="1" height="1"></rect><rect x="6" y="3" width="1" height="1"></rect><rect x="7" y="3" width="1" height="1"></rect><rect x="8" y="3" width="1" height="1"></rect><rect x="9" y="3" width="1" height="1"></rect><rect x="10" y="3" width="1" height="1"></rect><rect x="0" y="4" width="1" height="1"></rect><rect x="1" y="4" width="1" height="1"></rect><rect x="2" y="4" width="1" height="1"></rect><rect x="3" y="4" width="1" height="1"></rect><rect x="4" y="4" width="1" height="1"></rect><rect x="5" y="4" width="1" height="1"></rect><rect x="6" y="4" width="1" height="1"></rect><rect x="7" y="4" width="1" height="1"></rect><rect x="8" y="4" width="1" height="1"></rect><rect x="9" y="4" width="1" height="1"></rect><rect x="10" y="4" width="1" height="1"></rect><rect x="1" y="5" width="1" height="1"></rect><rect x="2" y="5" width="1" height="1"></rect><rect x="3" y="5" width="1" height="1"></rect><rect x="4" y="5" width="1" height="1"></rect><rect x="5" y="5" width="1" height="1"></rect><rect x="6" y="5" width="1" height="1"></rect><rect x="7" y="5" width="1" height="1"></rect><rect x="8" y="5" width="1" height="1"></rect><rect x="9" y="5" width="1" height="1"></rect><rect x="2" y="6" width="1" height="1"></rect><rect x="3" y="6" width="1" height="1"></rect><rect x="4" y="6" width="1" height="1"></rect><rect x="5" y="6" width="1" height="1"></rect><rect x="6" y="6" width="1" height="1"></rect><rect x="7" y="6" width="1" height="1"></rect><rect x="8" y="6" width="1" height="1"></rect><rect x="3" y="7" width="1" height="1"></rect><rect x="4" y="7" width="1" height="1"></rect><rect x="5" y="7" width="1" height="1"></rect><rect x="6" y="7" width="1" height="1"></rect><rect x="7" y="7" width="1" height="1"></rect><rect x="4" y="8" width="1" height="1"></rect><rect x="5" y="8" width="1" height="1"></rect><rect x="6" y="8" width="1" height="1"></rect><rect x="5" y="9" width="1" height="1"></rect></svg></span>
+      <div style="font-family:'Crimson Pro',serif; font-style:italic; font-size:19px; line-height:1.45;">"Here the snow keeps every footprint for a week. I wonder what yours would say about where you've been."</div>
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:14px;"><span style="display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border-radius:999px; background:#0C0420; color:#4F9ACF; font-size:13px; font-weight:600; white-space:nowrap;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4F9ACF" stroke-width="2.4"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>The Alpenglow Vault</span><span style="display:flex; flex-direction:column; align-items:flex-end; gap:5px; font-size:13px; font-weight:600; color:#B9CC8C; text-align:right;"><span style="padding:3px 8px; border-radius:999px; background:#BBA4E6; color:#0C0420; font-size:11px; font-weight:700; letter-spacing:1px;">CONNECTION</span>Dieter · kept last week</span></div>
+    </div>
+
+    <div style="font-size:13px; font-weight:700; letter-spacing:2px; color:#C4E86A; margin-top:8px;">EARLIER</div>
+
+    <div style="display:flex; gap:12px;">
+      <div style="flex:1; position:relative; transform:rotate(-1deg); background:#161D07; border:1px solid rgba(196,232,106,.55); border-radius:16px; padding:16px 14px 14px;">
+        <div style="font-family:'Crimson Pro',serif; font-style:italic; font-size:17px; line-height:1.4; color:#F1FFD6;">"Don't answer quickly. I like knowing this is still on its way."</div>
+        <div style="font-size:13px; color:#B9CC8C; margin-top:10px;">a stranger · 2 wk</div>
+      </div>
+      <div style="flex:1; position:relative; transform:rotate(1.4deg); margin-top:18px; background:#161D07; border:1px solid rgba(196,232,106,.55); border-radius:16px; padding:16px 14px 14px;">
+        <div style="font-family:'Crimson Pro',serif; font-style:italic; font-size:17px; line-height:1.4; color:#F1FFD6;">"The rain here tastes like copper and old radio."</div>
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:6px; font-size:13px; color:#B9CC8C; margin-top:10px;"><span style="padding:3px 8px; border-radius:999px; background:#BBA4E6; color:#0C0420; font-size:11px; font-weight:700; letter-spacing:1px;">CONNECTION</span>@luna.void · 1 mo</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; font-size:15px; color:#9fc4ad; margin-top:4px;">released letters never come back</div>
+    </div>
+
+    
+  </div>
+
+  <!-- iOS home indicator -->
+  <div style="position:absolute; left:50%; bottom:8px; transform:translateX(-50%); width:134px; height:5px; border-radius:3px; background:#f3effd; opacity:.85; z-index:5; pointer-events:none;"></div>
+</div>
+
+</body></html>

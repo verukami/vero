@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>WYRD · onboarding guardians</title><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"><style>html,body{margin:0;background:#0C0420}
+  body{margin:0;font-family:'Space Grotesk',sans-serif; background-color: #4F9ACF; }
+  ::-webkit-scrollbar{width:0;height:0}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 1px rgba(165,138,225,.35),0 6px 16px rgba(101,48,184,.45)}50%{box-shadow:0 0 0 2px #BBA4E6,0 0 28px rgba(165,138,225,.85)}}
+  @keyframes staticDrift{0%{background-position:0 0}100%{background-position:0 40px}}
+  @keyframes fall{0%{transform:translateY(-40px) rotate(var(--r))}100%{transform:translateY(40px) rotate(var(--r))}}
+  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-10px) rotate(var(--r))}}
+  @keyframes flicker{0%,100%{opacity:1}45%{opacity:.85}50%{opacity:1}78%{opacity:.9}}
+</style></head><body>
+
+
+<div style="width: 390px; height: 844px; box-sizing: border-box; background:#E0409A; display: flex; flex-direction: column; overflow: hidden; position: relative; color:#0C0420;">
+
+  <!-- iOS status bar -->
+  <div style="flex:0 0 auto; height:47px; padding:0 30px 0 34px; display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2;">
+    <span style="font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif; font-weight:600; font-size:16px; color:#0C0420; letter-spacing:-.2px; padding-top:6px;">9:41</span>
+    <div style="position:absolute; left:50%; top:11px; transform:translateX(-50%); width:124px; height:36px; border-radius:20px; background:#000;"></div>
+    <div style="display:flex; align-items:center; gap:6px; padding-top:6px;">
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="#0C0420"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="5" y="5.5" width="3" height="6.5" rx="1"></rect><rect x="10" y="3" width="3" height="9" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1"></rect></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="#0C0420"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4ZM8 8.8c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"></path></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="#0C0420" opacity=".4"></rect><rect x="2" y="2" width="20" height="9" rx="2" fill="#0C0420"></rect><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill="#0C0420" opacity=".45"></path></svg>
+    </div>
+  </div>
+
+
+
+  <div style="position:relative; z-index:2; flex:0 0 auto; display:flex; justify-content:flex-end; padding: 4px 20px 0;">
+    <a href="07-feed.html" aria-label="Skip intro and go to the app" style="display:inline-flex; align-items:center; gap:6px; min-height:44px; padding:0 18px; border-radius:999px; background:#0C0420; color:#FFFFFF; border:1.5px solid rgba(255,255,255,.6); font-size:15px; font-weight:700; letter-spacing:1px; text-decoration:none;">SKIP INTRO <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+  </div>
+
+  <!-- art -->
+  <div aria-hidden="true" style="position:relative; flex:1 1 auto; overflow:hidden;">
+    <div style="position:absolute; left:30px; top:40px; width:170px; height:170px; --r:-10deg; animation: bob 4s ease-in-out infinite;">
+      <div style="width:100%; height:100%; border-radius:50%; padding:6px; box-sizing:border-box; background:#00FF47; box-shadow:0 0 0 4px #0C0420, 0 14px 30px rgba(12,4,32,.35);"><img src="assets/guardian-quetzal-core.webp" alt="" style="width:100%; height:100%; object-fit:cover; object-position:40% 37%; border-radius:50%;"></div><div style="position:absolute; left:50%; bottom:-14px; transform:translateX(-50%); background:#0C0420; color:#00FF47; font-size:12px; font-weight:700; letter-spacing:1px; padding:5px 10px; border-radius:999px; white-space:nowrap;">QUETZAL CORE</div>
+    </div>
+    <div style="position:absolute; left:200px; top:150px; width:150px; height:150px; --r:8deg; animation: bob 5s ease-in-out infinite;">
+      <div style="width:100%; height:100%; border-radius:50%; padding:6px; box-sizing:border-box; background:#4F9ACF; box-shadow:0 0 0 4px #0C0420, 0 14px 30px rgba(12,4,32,.35);"><img src="assets/guardian-glacial-echo.webp" alt="" style="width:100%; height:100%; object-fit:cover; object-position:40% 30%; border-radius:50%;"></div><div style="position:absolute; left:50%; bottom:-14px; transform:translateX(-50%); background:#0C0420; color:#4F9ACF; font-size:12px; font-weight:700; letter-spacing:1px; padding:5px 10px; border-radius:999px; white-space:nowrap;">GLACIAL ECHO</div>
+    </div>
+    <div style="position:absolute; left:60px; top:250px; width:86px; height:86px; --r:6deg; animation: bob 3s ease-in-out infinite;">
+      <div style="width:100%; height:100%; border-radius:50%; padding:6px; box-sizing:border-box; background:#BBA4E6; box-shadow:0 0 0 4px #0C0420, 0 14px 30px rgba(12,4,32,.35);"><div style="width:100%; height:100%; border-radius:50%; background:#0C0420; display:flex; align-items:center; justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#BBA4E6" stroke-width="1.8"><path d="M7 11V8a5 5 0 0 1 10 0v3"></path><rect x="5" y="11" width="14" height="10" rx="2"></rect></svg></div></div>
+    </div>
+    <div style="position:absolute; left:250px; top:20px; width:78px; height:78px; --r:-6deg; animation: bob 3s ease-in-out infinite;">
+      <div style="width:100%; height:100%; border-radius:50%; padding:6px; box-sizing:border-box; background:#BBA4E6; box-shadow:0 0 0 4px #0C0420, 0 14px 30px rgba(12,4,32,.35);"><div style="width:100%; height:100%; border-radius:50%; background:#0C0420; display:flex; align-items:center; justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#BBA4E6" stroke-width="1.8"><path d="M7 11V8a5 5 0 0 1 10 0v3"></path><rect x="5" y="11" width="14" height="10" rx="2"></rect></svg></div></div>
+    </div>
+    <div style="position:absolute; left:290px; top:320px; width:60px; height:60px; --r:12deg; animation: bob 3s ease-in-out infinite;">
+      <div style="width:100%; height:100%; border-radius:50%; padding:6px; box-sizing:border-box; background:#BBA4E6; box-shadow:0 0 0 4px #0C0420, 0 14px 30px rgba(12,4,32,.35);"><div style="width:100%; height:100%; border-radius:50%; background:#0C0420; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BBA4E6" stroke-width="1.8"><path d="M7 11V8a5 5 0 0 1 10 0v3"></path><rect x="5" y="11" width="14" height="10" rx="2"></rect></svg></div></div>
+    </div>
+<div style="position:absolute; left:18px; bottom:10px; font-weight:700; font-size:64px; line-height:1; color:#0C0420; letter-spacing:-2px;">0<span style="font-size: 28px">/50</span></div>
+  </div>
+
+  <!-- copy -->
+  <div style="position: relative; z-index: 2; flex: 0 0 auto; padding: 8px 26px 46px; display: flex; flex-direction: column; gap: 14px; background-color: #0c0420">
+    <div style="display:flex; gap:6px;"><div style="width:8px; height:8px; border-radius:4px; background:rgba(255,255,255,.4);"></div><div style="width:8px; height:8px; border-radius:4px; background:rgba(255,255,255,.4);"></div><div style="width: 26px; height: 8px; border-radius: 4px; background-color: #E0409A"></div></div>
+    <div style="font-weight: 700; font-size: 40px; line-height: 1.02; letter-spacing: -1px; color: #00ff47">Claim your guardians.</div>
+    <div style="font-size: 17px; line-height: 1.45; color: #FFFFFF">Guardians carry your letters. Earn them by traveling to a portal… or by writing to the people who live there.</div>
+    <a href="05-location-permission.html" style="margin-top:8px; display:flex; align-items:center; justify-content:center; height:58px; border-radius:999px; background:#FFFFFF; color:#0C0420; box-shadow:0 0 0 2px #0C0420; text-decoration:none; font-weight:700; font-size:17px; letter-spacing:1px;">Enter WYRD</a>
+  </div>
+
+  <!-- iOS home indicator -->
+  <div style="position:absolute; left:50%; bottom:8px; transform:translateX(-50%); width:134px; height:5px; border-radius:3px; background:#0C0420; opacity:.85; z-index:5; pointer-events:none;"></div>
+</div>
+
+</body></html>
