@@ -49,14 +49,15 @@
       try { t = localStorage.getItem("theme"); } catch (e) {}
       const root = document.documentElement;
       if (t) root.dataset.theme = t;
-      /* Night mode = cyberpunk mode (see cyber.css) */
-      root.classList.toggle("cyber", t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches);
+      /* The hero has a night skin and a day skin (see hero.css) */
+      const dark = t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      root.classList.add(dark ? "night" : "day");
     })();
   </script>
 
   <link rel="stylesheet" href="assets/styles/site.css" />
   <link rel="stylesheet" href="assets/styles/collection.css" />
-  <link rel="stylesheet" href="assets/styles/cyber.css" />
+  <link rel="stylesheet" href="assets/styles/hero.css" />
 </head>
 
 <body>
@@ -83,21 +84,18 @@
       <svg class="guides" aria-hidden="true" preserveAspectRatio="none">
         <line x1="8%" y1="100%" x2="46%" y2="0" />
         <line x1="58%" y1="100%" x2="98%" y2="6%" />
-        <line x1="0" y1="86%" x2="100%" y2="86%" />
         <rect x="45.3%" y="0" width="10" height="10" />
         <text x="46.5%" y="22">UX</text>
         <text x="88%" y="22">SYSTEMS</text>
-        <text x="2%" y="84%">UI / 15+ YRS</text>
       </svg>
 
-      <!-- VHS on-screen display (night mode only) -->
-      <span class="osd osd-play" aria-hidden="true"><span class="is-playing">▶ PLAY</span><span class="is-tracking">TRACKING…</span></span>
-      <span class="osd osd-time" aria-hidden="true">SP <span id="timecode">0:00:00</span></span>
-
       <div class="hero-copy">
-        <span class="hola" data-text="¡Hola!">¡Hola!</span>
-        <h1>I'm <strong class="glitch" data-text="Verónica">Verónica</strong>, a Senior Product Designer who turns complex systems into clear, scalable products.</h1>
-        <p class="hero-meta mono" id="hero-meta">15+ years ✦ Fintech · Enterprise · Education ✦ Design systems ✦ Based in México</p>
+        <span class="hola-wrap">
+          <span class="hola">¡Hola!</span>
+          <canvas class="holo-canvas" aria-hidden="true"></canvas>
+        </span>
+        <h1>I'm <strong class="glitch" data-text="Verónica">Verónica</strong>, a Senior Product Designer for <em>complex, regulated products</em>: banking, healthcare and the design systems behind them.</h1>
+        <p class="hero-meta mono" id="hero-meta">15+ years ✦ Fintech · Healthcare · Design systems ✦ Open to remote</p>
         <div class="ctas">
           <a href="#work" class="btn primary">See my work ↓</a>
           <a href="mailto:veru.kami@gmail.com" class="btn ghost">Let's talk ✉</a>
@@ -105,37 +103,46 @@
         </div>
       </div>
 
-      <figure class="portrait selected" style="margin:0">
+      <figure class="portrait">
+        <canvas class="halo" aria-hidden="true"></canvas>
         <span class="tilt"><span class="float">
-          <img src="assets/images/avatar.png" alt="3D avatar of Verónica: purple hair, round pink glasses, holding a phone" />
-          <!-- Live eyes and hologram slices (night mode only). Eye boxes are in % of the avatar image. -->
+          <img src="assets/images/avatar.png" alt="3D avatar of Verónica: purple hair, round pink glasses, holding a phone" width="600" height="600" />
+          <!-- Live eyes and hologram slices. Eye boxes are in % of the avatar image. -->
           <span class="eye" aria-hidden="true" style="left:35.08%; top:38.08%; width:6.67%; height:7.33%; --skin:#b36569; --iris:#521d37; --lean:-10deg"><i></i></span>
           <span class="eye" aria-hidden="true" style="left:51.42%; top:33.17%; width:6.33%; height:7.33%; --skin:#b97474; --iris:#571e3a; --lean:-6deg"><i></i></span>
           <span class="echo g1" aria-hidden="true"></span>
           <span class="echo g2" aria-hidden="true"></span>
         </span></span>
-        <span class="handle tl"></span><span class="handle tr"></span>
-        <span class="handle bl"></span><span class="handle br"></span>
-        <span class="hud" aria-hidden="true">
-          <span class="tag t-tl">ID VERUKAMI</span>
-          <span class="tag t-tr"><span class="dot"></span>ONLINE</span>
-          <span class="tag t-bl">XP 15+ YRS</span>
-          <span class="tag t-br">BASE MX</span>
-        </span>
         <span class="dims">LV.15+ <span class="px-heart">♥</span> senior designer</span>
       </figure>
 
       <div class="shapes" aria-hidden="true">
-        <div class="shape" style="--x:34%; --y:5%;  --s:64px;  --fill:var(--pink);   --t:5s;  --r:18deg"><div class="body star8"></div><span class="xy"></span></div>
-        <div class="shape" style="--x:40%; --y:64%; --s:110px; --fill:var(--blue);   --t:7s;  --r:-8deg"><div class="body flower"></div><span class="xy"></span></div>
-        <div class="shape" style="--x:52%; --y:12%; --s:90px;  --fill:var(--purple); --t:6s;  --r:22deg"><div class="body sparkle"></div><span class="xy"></span></div>
-        <div class="shape" style="--x:88%; --y:70%; --s:70px;  --fill:var(--holo);   --t:8s;  --r:0deg"><div class="body orb"></div><span class="xy"></span></div>
-        <div class="shape" style="--x:26%; --y:84%; --s:84px;  --fill:var(--pink);   --t:6.5s; --r:-14deg"><div class="body pill"></div><span class="xy"></span></div>
-        <div class="shape" style="--x:6%;  --y:66%; --s:48px;  --fill:var(--pink);   --t:4.5s; --r:-10deg"><div class="body pixel-heart"></div><span class="xy"></span></div>
-        <div class="shape" style="--x:91%; --y:12%; --s:64px;  --fill:var(--lime);   --t:5.5s; --r:12deg"><div class="body bolt"></div><span class="xy"></span></div>
+        <div class="shape" style="--i:1; --x:34%; --y:5%;  --s:64px; --fill:var(--pink);   --t:5s;   --r:18deg"><div class="body star8"></div><span class="xy"></span></div>
+        <div class="shape" style="--i:2; --x:52%; --y:12%; --s:90px; --fill:var(--purple); --t:6s;   --r:22deg"><div class="body sparkle"></div><span class="xy"></span></div>
+        <div class="shape" style="--i:3; --x:91%; --y:12%; --s:64px; --fill:var(--lime);   --t:5.5s; --r:12deg"><div class="body bolt"></div><span class="xy"></span></div>
       </div>
 
       <p class="hint mono">↖ psst, you can drag the shapes</p>
+      <div class="ribbon" aria-hidden="true"><span>Senior Product Designer ✦ Fintech ✦ Design systems ✦ Healthcare ✦ Made in México ✦ Weird &amp; useful ✦ </span><span>Senior Product Designer ✦ Fintech ✦ Design systems ✦ Healthcare ✦ Made in México ✦ Weird &amp; useful ✦ </span><span>Senior Product Designer ✦ Fintech ✦ Design systems ✦ Healthcare ✦ Made in México ✦ Weird &amp; useful ✦ </span></div>
+    </section>
+
+    <!-- PROOF: three facts a recruiter can repeat -->
+    <section class="proof" aria-label="Proof in three facts">
+      <div>
+        <strong>1 system, 4 product lines</strong>
+        <b>Design systems</b>
+        <span>BlueBox started with a team of 6 designers and grew to align BancaNet, business banking, mobile and ATMs at Citibanamex.</span>
+      </div>
+      <div>
+        <strong>1 platform, 2 markets</strong>
+        <b>Enterprise banking</b>
+        <span>The same core adapted for first-time bank users in Peru and treasury teams in the US, without forking the system.</span>
+      </div>
+      <div>
+        <strong>2 prototypes you can try</strong>
+        <b>Built with AI</b>
+        <span>WYRD and Alienpooh: designed by me, coded with AI, and live in the browser instead of behind a Figma link.</span>
+      </div>
     </section>
 
     <section class="section" id="work" aria-labelledby="work-title">
@@ -430,7 +437,8 @@
       shape.addEventListener("pointercancel", drop);
     });
 
-    /* ===== Night mode hero (cyber.css): intro, decrypting meta line, VHS counter, avatar that looks at the cursor ===== */
+    /* ===== Hero (hero.css): intro, decrypting meta line, avatar that looks at the cursor,
+       scroll tint in day mode, and the holographic texture ===== */
     (() => {
       const root = document.documentElement;
       const hero = document.querySelector(".hero");
@@ -439,6 +447,7 @@
       const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
       const finalMeta = meta.textContent;
       meta.setAttribute("aria-label", finalMeta);
+      const isDay = () => root.classList.contains("day");
 
       let scrambleTimer = null;
       const scramble = () => {
@@ -462,23 +471,18 @@
 
       let introTimer = null;
       const playIntro = () => {
-        if (reduced || !root.classList.contains("cyber")) return;
+        if (reduced) return;
         clearTimeout(introTimer);
+        clearTimeout(scrambleTimer);
+        meta.textContent = finalMeta;
         root.classList.remove("intro");
         void root.offsetWidth;
         root.classList.add("intro");
-        scramble();
-        introTimer = setTimeout(() => root.classList.remove("intro"), 1050);
+        if (!isDay()) scramble();
+        introTimer = setTimeout(() => root.classList.remove("intro"), 1300);
       };
 
-      const tc = document.getElementById("timecode");
-      const t0 = Date.now();
-      setInterval(() => {
-        const s = Math.floor((Date.now() - t0) / 1000);
-        const pad = n => String(n).padStart(2, "0");
-        tc.textContent = `${Math.floor(s / 3600)}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
-      }, 1000);
-
+      /* Avatar leans toward the cursor and looks at it (mouse only) */
       if (!reduced && matchMedia("(pointer: fine)").matches) {
         hero.addEventListener("pointermove", e => {
           const r = tilt.getBoundingClientRect();
@@ -495,13 +499,124 @@
         });
       }
 
-      /* Replay the intro whenever night mode switches on */
+      /* Day mode: the page tint drifts from blue to pink to lilac with the scroll */
+      const tints = [[228, 237, 255], [251, 230, 241], [236, 228, 252]];
+      const tint = () => {
+        if (!isDay()) { root.style.removeProperty("--canvas"); root.style.removeProperty("--nav-bg"); return; }
+        const max = Math.max(1, root.scrollHeight - innerHeight);
+        const t = Math.min(1, Math.max(0, scrollY / max)) * (tints.length - 1);
+        const i = Math.min(tints.length - 2, Math.floor(t)), f = t - i;
+        const c = tints[i].map((v, k) => Math.round(v + (tints[i + 1][k] - v) * f));
+        root.style.setProperty("--canvas", `rgb(${c[0]}, ${c[1]}, ${c[2]})`);
+        root.style.setProperty("--nav-bg", `rgba(${c[0]}, ${c[1]}, ${c[2]}, 0.82)`);
+      };
+      addEventListener("scroll", tint, { passive: true });
+
+      /* When the theme flips, replay the intro and refresh the tint */
+      let wasDay = isDay();
       new MutationObserver(() => {
-        if (root.classList.contains("cyber") && !root.classList.contains("intro") && !wasCyber) playIntro();
-        wasCyber = root.classList.contains("cyber");
-        if (!wasCyber) { clearTimeout(scrambleTimer); meta.textContent = finalMeta; }
+        if (isDay() === wasDay) return;
+        wasDay = isDay();
+        tint();
+        playIntro();
       }).observe(root, { attributes: true, attributeFilter: ["class"] });
-      let wasCyber = root.classList.contains("cyber");
+
+      /* Holographic texture: one small WebGL shader, copied into the ¡Hola! letters and the avatar halo */
+      (() => {
+        const glc = document.createElement("canvas");
+        glc.width = 384; glc.height = 192;
+        const gl = glc.getContext("webgl", { antialias: false, preserveDrawingBuffer: true });
+        if (!gl) return;
+        const vs = "attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }";
+        const fs = `
+          precision highp float;
+          uniform vec2 r; uniform float t; uniform vec2 m;
+          void main() {
+            vec2 p = gl_FragCoord.xy / r.y * 1.5;
+            for (int i = 1; i < 6; i++) {
+              float f = float(i);
+              p.x += 0.6 / f * sin(f * 2.1 * p.y + t * 0.32 + 0.3 * f + m.x * 1.6);
+              p.y += 0.5 / f * cos(f * 1.7 * p.x + t * 0.26 + 0.6 * f + m.y * 1.6);
+            }
+            float v = sin(p.x * 1.3 + p.y * 1.1) * 0.5 + 0.5;
+            vec3 col = vec3(0.50, 0.52, 0.90) + vec3(0.38, 0.34, 0.12) * cos(6.2831 * (vec3(1.0, 1.0, 0.5) * (v * 1.25 + p.x * 0.07) + vec3(0.62, 0.42, 0.25)));
+            float ridge = pow(abs(sin(p.x * 2.6 - p.y * 1.9)), 18.0);
+            col += ridge * 0.38;
+            gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+          }`;
+        const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+        const prog = gl.createProgram();
+        gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs));
+        gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+        gl.linkProgram(prog);
+        if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+        gl.useProgram(prog);
+        gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+        const loc = gl.getAttribLocation(prog, "p");
+        gl.enableVertexAttribArray(loc);
+        gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+        const uR = gl.getUniformLocation(prog, "r"), uT = gl.getUniformLocation(prog, "t"), uM = gl.getUniformLocation(prog, "m");
+
+        const hola = hero.querySelector(".hola");
+        const textCanvas = hero.querySelector(".holo-canvas");
+        const haloCanvas = hero.querySelector(".halo");
+        const tctx = textCanvas.getContext("2d");
+        const hctx = haloCanvas.getContext("2d");
+        const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+        hero.addEventListener("pointermove", e => {
+          const r = hero.getBoundingClientRect();
+          mouse.tx = (e.clientX - r.left) / r.width - 0.5;
+          mouse.ty = (e.clientY - r.top) / r.height - 0.5;
+        });
+
+        const fit = (canvas, dpr) => {
+          const w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
+          if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+          return w > 0 && h > 0;
+        };
+        const draw = ms => {
+          mouse.x += (mouse.tx - mouse.x) * 0.08;
+          mouse.y += (mouse.ty - mouse.y) * 0.08;
+          gl.viewport(0, 0, glc.width, glc.height);
+          gl.uniform2f(uR, glc.width, glc.height);
+          gl.uniform1f(uT, ms / 1000);
+          gl.uniform2f(uM, mouse.x, mouse.y);
+          gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          if (fit(textCanvas, dpr)) {
+            const cs = getComputedStyle(hola);
+            const size = parseFloat(cs.fontSize) * dpr;
+            const pad = 0.1 * size;
+            tctx.globalCompositeOperation = "source-over";
+            tctx.drawImage(glc, 0, 0, textCanvas.width, textCanvas.height);
+            tctx.globalCompositeOperation = "destination-in";
+            tctx.font = `${cs.fontWeight} ${size}px ${cs.fontFamily}`;
+            if ("letterSpacing" in tctx) tctx.letterSpacing = (-0.055 * size) + "px";
+            tctx.textBaseline = "alphabetic";
+            const mt = tctx.measureText("H");
+            const asc = mt.fontBoundingBoxAscent || size * 0.95, desc = mt.fontBoundingBoxDescent || size * 0.3;
+            const line = 0.95 * size;
+            tctx.fillStyle = "#000";
+            tctx.fillText(hola.textContent, pad, pad + (line - (asc + desc)) / 2 + asc);
+          }
+          if (fit(haloCanvas, dpr)) hctx.drawImage(glc, 0, 0, haloCanvas.width, haloCanvas.height);
+        };
+
+        root.classList.add("holo-on");
+        let last = 0, onScreen = true;
+        new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }).observe(hero);
+        const loop = ms => {
+          if (onScreen && !document.hidden && ms - last > 32) { last = ms; draw(ms); }
+          requestAnimationFrame(loop);
+        };
+        const start = () => { draw(8000); if (!reduced) requestAnimationFrame(loop); };
+        (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
+        addEventListener("resize", () => draw(performance.now()));
+      })();
+
+      tint();
       playIntro();
     })();
   </script>
