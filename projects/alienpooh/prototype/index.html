@@ -818,7 +818,7 @@
     panelNames.forEach(function(p){ document.getElementById('panel-'+p).hidden = true; });
     document.getElementById('backdrop').hidden = true;
     updateDockActive(null);
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    stopVoice();
     if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
   };
 
@@ -1136,7 +1136,7 @@
     document.getElementById('signal-level').textContent = state.label;
     document.getElementById('signal-detail').textContent = state.detail;
     document.getElementById('ai-bubble-text').textContent = state.suggestion;
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    stopVoice();
     document.getElementById('listen-btn').classList.remove('speaking');
 
     var actionBtn = document.getElementById('companion-action');
@@ -1171,7 +1171,7 @@
     note.hidden = expanded;
   });
 
-  /* ---------- calm voice (real Web Speech API, output only) ---------- */
+  /* ---------- calm voice (recorded clips, with the Web Speech API as fallback) ---------- */
   var synth = window.speechSynthesis || null;
   var VOICE_KEY = 'alienpooh_voice';
   var voiceOn = true;
@@ -1190,26 +1190,91 @@
     for (var i = 0; i < PREFERRED_VOICES.length && !calmVoice; i++){
       calmVoice = voices.filter(function(v){ return v.name.indexOf(PREFERRED_VOICES[i]) === 0; })[0] || null;
     }
+    // Any neural voice the device has beats the default robotic one.
+    if (!calmVoice) calmVoice = voices.filter(function(v){ return /^en/i.test(v.lang) && /natural|neural|enhanced|premium/i.test(v.name); })[0] || null;
     if (!calmVoice) calmVoice = voices.filter(function(v){ return /^en/i.test(v.lang) && /female|woman/i.test(v.name); })[0]
                               || voices.filter(function(v){ return /^en/i.test(v.lang); })[0] || null;
   }
   if (synth){ pickVoice(); if ('onvoiceschanged' in synth) synth.addEventListener('voiceschanged', pickVoice); }
 
+  // Every fixed line has a recorded clip (assets/voice), so the voice sounds the same on every device.
+  // Anything without a clip falls back to the browser's own voice.
+  var CLIPS = {
+    "Held safely. Just for you.": "held-safely-just-for-you",
+    "Let it go.": "let-it-go",
+    "A quiet signal is on its way to Mara.": "a-quiet-signal-is-on-its-way-to-mara",
+    "A quiet signal is on its way to Idris.": "a-quiet-signal-is-on-its-way-to-idris",
+    "A quiet signal is on its way to Sena.": "a-quiet-signal-is-on-its-way-to-sena",
+    "A quiet signal is on its way to Wren.": "a-quiet-signal-is-on-its-way-to-wren",
+    "Noted. There's no pressure to go.": "noted-theres-no-pressure-to-go",
+    "Breathe at your own pace. I'm here.": "breathe-at-your-own-pace-im-here",
+    "Breathe in": "breathe-in",
+    "Hold": "hold",
+    "Breathe out": "breathe-out",
+    "I'll stay quiet now.": "ill-stay-quiet-now",
+    "Keep going as long as it helps.": "keep-going-as-long-as-it-helps",
+    "Take your time. Half a sentence is enough.": "take-your-time-half-a-sentence-is-enough",
+    "Who's been on your mind?": "whos-been-on-your-mind",
+    "Here's what's happening nearby, whenever you feel like it.": "heres-whats-happening-nearby-whenever-yo",
+    "Nothing urgent. Just a quiet log.": "nothing-urgent-just-a-quiet-log",
+    "Hi again, little stranger.": "hi-again-little-stranger",
+    "Hi, little stranger.": "hi-little-stranger",
+    "How are you feeling today?": "how-are-you-feeling-today",
+    "Nothing urgent — want to just sit with the room for a bit?": "nothing-urgent-want-to-just-sit-with-the",
+    "Want to breathe for a minute, or just sit with it?": "want-to-breathe-for-a-minute-or-just-sit",
+    "Sometimes writing it down helps more than pushing through.": "sometimes-writing-it-down-helps-more-tha"
+  };
+  var clipEl = window.Audio ? new Audio() : null;
+  var canSpeak = !!(clipEl || synth);
+  var voiceToken = 0;
+  var activeEnd = null;
+
+  function stopVoice(){
+    voiceToken++;
+    if (clipEl) clipEl.pause();
+    if (synth) synth.cancel();
+    var end = activeEnd; activeEnd = null;
+    if (end) end();
+  }
+  function isSpeaking(){
+    return !!((clipEl && clipEl.src && !clipEl.paused && !clipEl.ended) || (synth && synth.speaking));
+  }
+
   // Speaks each line slowly, with a soft pause between them.
   function speakCalm(lines, onStart, onEnd){
-    if (!synth || !voiceOn) { if (onEnd) onEnd(); return; }
-    synth.cancel();
-    var i = 0;
-    function next(){
-      if (i >= lines.length){ if (onEnd) onEnd(); return; }
-      var u = new SpeechSynthesisUtterance(lines[i++]);
+    if (!canSpeak || !voiceOn) { if (onEnd) onEnd(); return; }
+    stopVoice();
+    var token = voiceToken, i = 0;
+    activeEnd = onEnd || null;
+    function done(){
+      if (token !== voiceToken) return;
+      activeEnd = null;
+      if (onEnd) onEnd();
+    }
+    function later(){ if (token === voiceToken) setTimeout(next, 650); }
+    function withBrowserVoice(text){
+      if (!synth) return done();
+      var u = new SpeechSynthesisUtterance(text);
       if (calmVoice) u.voice = calmVoice;
       u.rate = 0.8;
       u.pitch = 0.94;
       u.volume = 0.85;
-      u.onend = function(){ setTimeout(next, 650); };
-      u.onerror = function(){ if (onEnd) onEnd(); };
+      u.onend = later;
+      u.onerror = done;
       synth.speak(u);
+    }
+    function next(){
+      if (token !== voiceToken) return;
+      if (i >= lines.length) return done();
+      var text = lines[i++];
+      var clip = clipEl && CLIPS[text];
+      if (!clip) return withBrowserVoice(text);
+      clipEl.onended = later;
+      clipEl.onerror = function(){ if (token === voiceToken) withBrowserVoice(text); };
+      clipEl.src = 'assets/voice/' + clip + '.mp3';
+      clipEl.volume = 0.9;
+      var playing = clipEl.play();
+      if (playing && playing.catch) playing.catch(function(){ if (token === voiceToken) withBrowserVoice(text); });
     }
     if (onStart) onStart();
     next();
@@ -1222,18 +1287,18 @@
     voiceOn = on;
     voiceBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
     voiceBtn.setAttribute('aria-label', on ? 'Voice on — turn off' : 'Voice off — turn on');
-    listenBtn.disabled = !on || !synth;
+    listenBtn.disabled = !on || !canSpeak;
     listenBtn.setAttribute('aria-label', on ? 'Hear this, spoken calmly' : 'Voice is off');
-    if (!on && synth) synth.cancel();
+    if (!on) stopVoice();
     try { localStorage.setItem(VOICE_KEY, on ? 'on' : 'off'); } catch(e){}
   }
-  applyVoice(voiceOn && !!synth);
-  if (!synth) voiceBtn.hidden = true;
+  applyVoice(voiceOn && canSpeak);
+  if (!canSpeak) voiceBtn.hidden = true;
   voiceBtn.addEventListener('click', function(){ applyVoice(!voiceOn); });
 
   listenBtn.addEventListener('click', function(){
     var btn = this;
-    if (synth && synth.speaking){ synth.cancel(); btn.classList.remove('speaking'); return; }
+    if (isSpeaking()){ stopVoice(); btn.classList.remove('speaking'); return; }
     speakCalm([document.getElementById('ai-bubble-text').textContent],
       function(){ btn.classList.add('speaking'); },
       function(){ btn.classList.remove('speaking'); });
@@ -1263,7 +1328,7 @@
     stopBreatheGuide();
     if (reduceMotion){ speakCalm(['Breathe at your own pace. I\'m here.']); return; }
     startBreatheCycle();
-    if (!synth || !voiceOn) return;
+    if (!canSpeak || !voiceOn) return;
     var cues = ['Breathe in', 'Hold', 'Breathe out', 'Hold', 'Breathe in', 'Hold', 'Breathe out', 'Hold'];
     cues.forEach(function(cue, i){
       guideTimers.push(setTimeout(function(){ speakCalm([cue]); }, i * 2000));
@@ -1274,7 +1339,7 @@
   }
 
   function voiceMoment(name){
-    if (!synth || !voiceOn) { if (name === 'breathe') startBreatheGuide(); return; }
+    if (!canSpeak || !voiceOn) { if (name === 'breathe') startBreatheGuide(); return; }
     if (greetingSpeaking){ pendingMoment = name; return; }
     if (name === 'breathe') return startBreatheGuide();
     if (name === 'companion'){
@@ -1301,7 +1366,7 @@
   function hideGreeting(){ greetEl.hidden = true; clearTimeout(greetTimer); }
   document.getElementById('greeting-close').addEventListener('click', function(){
     hideGreeting();
-    if (synth) synth.cancel();
+    stopVoice();
   });
 
   if (!greetedThisSession && !location.hash){
@@ -1317,7 +1382,7 @@
       if (e && e.target && e.target.closest && e.target.closest('#voice-toggle, #greeting-close')) return;
       spoken = true;
       clearTimeout(greetTimer);
-      if (!synth || !voiceOn) return;
+      if (!canSpeak || !voiceOn) return;
       greetingSpeaking = true;
       speakCalm([hiLine, 'How are you feeling today?'],
         function(){ greetEl.classList.add('speaking'); },

@@ -390,28 +390,22 @@
   .cs-object.lightbox .lb::before, .cs-object.velvet .cloth i { animation: none; }
 }
 
-/* ----- Password gate (courtesy filter for academic work) ----- */
-#password-gate {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  padding: var(--gutter);
-  background: var(--canvas);
-}
+/* ----- Password gate (courtesy filter for academic work): text is public, screens are blurred ----- */
 .gate-box {
-  width: min(100%, 420px);
-  padding: 32px;
+  width: min(100% - 2 * var(--gutter), 520px);
+  margin: 40px auto 8px;
+  padding: 28px 32px;
   border-radius: 22px;
   border: 1.5px solid var(--line);
   background: var(--surface);
   text-align: center;
 }
-.gate-box h3 { margin: 12px 0 8px; font-size: 26px; font-weight: 600; letter-spacing: -0.03em; }
-.gate-box p { margin: 0 0 20px; color: var(--ink-soft); }
+.gate-box p { margin: 10px 0 18px; color: var(--ink-soft); }
+.gate-box form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.gate-box label { flex-basis: 100%; text-align: left; margin-left: 4px; }
 .gate-box input {
-  width: 100%;
+  flex: 1 1 180px;
+  min-width: 0;
   padding: 12px 16px;
   border-radius: 999px;
   border: 1.5px solid var(--line);
@@ -420,10 +414,31 @@
   font: inherit;
 }
 .gate-box input:focus-visible { outline: 2px solid var(--select); outline-offset: 2px; }
-.gate-box .btn { margin-top: 12px; width: 100%; justify-content: center; cursor: pointer; font: inherit; font-weight: 500; }
-.gate-back { display: inline-block; margin-top: 18px; font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+.gate-box .btn { justify-content: center; cursor: pointer; font: inherit; font-weight: 500; }
 #error { display: none; margin-top: 12px; color: var(--pink); font-family: var(--mono); font-size: 12px; }
-#protected-content { display: none; }
+
+.screens-locked .cs-figure, .screens-locked .cs-cover { position: relative; overflow: hidden; }
+.screens-locked .cs-figure img, .screens-locked .cs-cover video {
+  filter: blur(26px) saturate(0.8);
+  pointer-events: none;
+  user-select: none;
+}
+.screens-locked .cs-figure::after, .screens-locked .cs-cover::after {
+  content: "✦ PROTECTED · PASSWORD ABOVE";
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
 
 /* pull quotes */
 .pull {
