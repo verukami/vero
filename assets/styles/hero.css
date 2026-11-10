@@ -87,7 +87,7 @@
 .proof span { display: block; color: var(--ink-soft); font-size: 15px; max-width: 34ch; }
 
 /* pieces that belong to one skin only */
-.echo, .ribbon { display: none; }
+.echo, .ribbon, .avatar-night, .lid { display: none; }
 
 /* ============ NIGHT ============ */
 .night .hero { background: linear-gradient(#09070f 72%, var(--canvas)); }
@@ -118,6 +118,21 @@
 }
 .night .hero-meta { color: var(--lilac); letter-spacing: 0.06em; text-transform: uppercase; }
 
+/* night has its own avatar; her glowing eyes switch off for a moment as a blink */
+.night .avatar-day, .night .eye { display: none; }
+.night .avatar-night { display: block; }
+.lid {
+  position: absolute; pointer-events: none;
+  background: radial-gradient(ellipse closest-side, var(--skin) 70%, transparent 100%);
+  opacity: 0;
+  animation: blink-lid 6.4s steps(1) infinite;
+}
+.lid::after { content: ""; position: absolute; left: 22%; right: 22%; top: 50%; height: 2px; border-radius: 2px; background: rgba(160, 250, 255, 0.85); }
+.night .lid { display: block; }
+@keyframes blink-lid {
+  0%, 44%, 48%, 78%, 82%, 86%, 100% { opacity: 0; }
+  46%, 80%, 84% { opacity: 1; }
+}
 .night .portrait img { filter: drop-shadow(0 0 34px rgba(255, 79, 180, 0.3)) drop-shadow(0 30px 60px rgba(109, 60, 255, 0.45)); }
 /* fallback ring when the holographic halo can't run */
 .night:not(.holo-on) .portrait::after {
@@ -130,7 +145,7 @@
   pointer-events: none;
 }
 /* hologram slices over the avatar, in bursts */
-.echo { position: absolute; inset: 0; border-radius: 50%; background: url("../images/avatar.png") center / cover; opacity: 0; pointer-events: none; }
+.echo { position: absolute; inset: 0; border-radius: 50%; background: url("../images/avatar-night.jpg") center / cover; opacity: 0; pointer-events: none; }
 .night .echo { display: block; }
 .night .g1 { filter: hue-rotate(35deg) saturate(1.3); animation: holo-a 6.5s steps(1) infinite; }
 .night .g2 { filter: hue-rotate(-45deg) saturate(1.3); animation: holo-b 6.5s steps(1) infinite; }
@@ -215,7 +230,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .float, .eye i, .echo, .ribbon span, .night .guides line,
+  .float, .eye i, .lid, .echo, .ribbon span, .night .guides line,
   .night .glitch::before, .night .glitch::after,
   .night.intro .hero-copy, .night.intro .portrait, .day.intro .shape { animation: none; }
   .tilt, .eye i, .shape { transition: none; }

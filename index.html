@@ -106,8 +106,11 @@
       <figure class="portrait">
         <canvas class="halo" aria-hidden="true"></canvas>
         <span class="tilt"><span class="float">
-          <img src="assets/images/avatar.png" alt="3D avatar of Verónica: purple hair, round pink glasses, holding a phone" width="600" height="600" />
-          <!-- Live eyes and hologram slices. Eye boxes are in % of the avatar image. -->
+          <!-- Two avatars: one per skin. Eye and eyelid boxes are in % of each image. -->
+          <img class="avatar-day" src="assets/images/avatar.png" alt="3D avatar of Verónica: purple hair, round pink glasses, holding a phone" width="600" height="600" />
+          <img class="avatar-night" src="assets/images/avatar-night.jpg" alt="3D avatar of Verónica at night: glowing cyan eyes, hair in two buns, holding a neon pinwheel" width="460" height="460" />
+          <span class="lid" aria-hidden="true" style="left:37.5%; top:51%; width:13%; height:11%; --skin:#3b4dc2"></span>
+          <span class="lid" aria-hidden="true" style="left:56.7%; top:51%; width:13%; height:11%; --skin:#705ce6"></span>
           <span class="eye" aria-hidden="true" style="left:35.08%; top:38.08%; width:6.67%; height:7.33%; --skin:#b36569; --iris:#521d37; --lean:-10deg"><i></i></span>
           <span class="eye" aria-hidden="true" style="left:51.42%; top:33.17%; width:6.33%; height:7.33%; --skin:#b97474; --iris:#571e3a; --lean:-6deg"><i></i></span>
           <span class="echo g1" aria-hidden="true"></span>
