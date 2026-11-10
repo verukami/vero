@@ -1190,6 +1190,8 @@
     for (var i = 0; i < PREFERRED_VOICES.length && !calmVoice; i++){
       calmVoice = voices.filter(function(v){ return v.name.indexOf(PREFERRED_VOICES[i]) === 0; })[0] || null;
     }
+    // Any neural voice the device has beats the default robotic one.
+    if (!calmVoice) calmVoice = voices.filter(function(v){ return /^en/i.test(v.lang) && /natural|neural|enhanced|premium/i.test(v.name); })[0] || null;
     if (!calmVoice) calmVoice = voices.filter(function(v){ return /^en/i.test(v.lang) && /female|woman/i.test(v.name); })[0]
                               || voices.filter(function(v){ return /^en/i.test(v.lang); })[0] || null;
   }
