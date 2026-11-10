@@ -8,6 +8,8 @@ if (saved) root.dataset.theme = saved;
 
 const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : systemDark.matches;
 const paintToggle = () => {
+  /* Night mode = cyberpunk mode: the home hero styles hang off this class (cyber.css) */
+  root.classList.toggle("cyber", isDark());
   toggle.firstElementChild.textContent = isDark() ? "☀" : "☾";
   toggle.setAttribute("aria-label", isDark() ? "Switch to light mode" : "Switch to dark mode");
 };

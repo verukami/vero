@@ -33,23 +33,7 @@
   <link rel="stylesheet" href="../../assets/styles/case-study.css" />
 </head>
 
-<body>
-
-  <!-- PASSWORD GATE -->
-  <div id="password-gate">
-    <div class="gate-box">
-      <span class="mono">✦ PROTECTED REEL</span>
-      <h3>Academic work inside</h3>
-      <p>This project contains academic work.<br />Enter the password to continue.</p>
-      <form>
-        <label for="passwordInput" class="mono" style="display:block; text-align:left; margin: 0 0 6px 4px">Password</label>
-        <input type="password" id="passwordInput" autocomplete="off" />
-        <button type="submit" class="btn primary">Enter</button>
-      </form>
-      <div id="error" role="alert">Wrong password</div>
-      <a href="../../index.html#work" class="gate-back">← Return to the collection</a>
-    </div>
-  </div>
+<body class="screens-locked">
 
   <div id="protected-content">
 
@@ -116,6 +100,18 @@
       <div class="impact"><dt>Result</dt><dd>★ Faster search · Clearer user flows · New IA &amp; sitemap</dd></div>
       <div class="scope"><dt>What I worked on</dt><dd>UX strategy · Information architecture · User flows &amp; wireframes · Design system · UI per sprint · Accessibility</dd></div>
     </dl>
+
+    <!-- PASSWORD GATE: the story is public, only the screens are protected -->
+    <div id="password-gate" class="gate-box">
+      <span class="mono">✦ PROTECTED SCREENS</span>
+      <p>The case study is open to read. The screens are academic work, so they stay blurred until you enter the password.</p>
+      <form>
+        <label for="passwordInput" class="mono">Password</label>
+        <input type="password" id="passwordInput" autocomplete="off" />
+        <button type="submit" class="btn primary">Show screens</button>
+      </form>
+      <div id="error" role="alert">Wrong password</div>
+    </div>
 
     <figure class="cs-cover">
       <video
@@ -288,13 +284,6 @@
           stakeholders and internal users confirmed improved clarity,
           orientation, and maintainability.
         </p>
-        <h4>Live site audit</h4>
-        <div class="audit">
-          <div><strong>83</strong><span>Accessibility</span></div>
-          <div><strong>92</strong><span>Best practices</span></div>
-          <div><strong>85</strong><span>SEO</span></div>
-        </div>
-        <p class="audit-note">Google Lighthouse via PageSpeed Insights, mobile, measured on the live site in September 2026.</p>
       </div>
     </section>
 

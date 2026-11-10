@@ -53,7 +53,7 @@ concept/vhs.html               Exploración VHS anterior (archivo)
 sitemap.xml                    Para Google Search Console
 ```
 
-> 🔒 El caso de **University** tiene una contraseña de cortesía por trabajo académico. Vive en `eaad-gate.js`, así que filtra visitas casuales, no es seguridad real.
+> 🔒 El caso de **University** se puede leer completo; solo las pantallas quedan borrosas tras una contraseña de cortesía por trabajo académico. Vive en `eaad-gate.js`, así que filtra visitas casuales, no es seguridad real.
 
 ---
 

@@ -43,10 +43,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet" />
 
-  <script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+  <script>
+    (() => {
+      let t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      const root = document.documentElement;
+      if (t) root.dataset.theme = t;
+      /* Night mode = cyberpunk mode (see cyber.css) */
+      root.classList.toggle("cyber", t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches);
+    })();
+  </script>
 
   <link rel="stylesheet" href="assets/styles/site.css" />
   <link rel="stylesheet" href="assets/styles/collection.css" />
+  <link rel="stylesheet" href="assets/styles/cyber.css" />
 </head>
 
 <body>
@@ -80,10 +90,14 @@
         <text x="2%" y="84%">UI / 15+ YRS</text>
       </svg>
 
+      <!-- VHS on-screen display (night mode only) -->
+      <span class="osd osd-play" aria-hidden="true"><span class="is-playing">▶ PLAY</span><span class="is-tracking">TRACKING…</span></span>
+      <span class="osd osd-time" aria-hidden="true">SP <span id="timecode">0:00:00</span></span>
+
       <div class="hero-copy">
-        <span class="hola">¡Hola!</span>
-        <h1>I'm <strong>Verónica</strong>, a Senior Product Designer who turns complex systems into clear, scalable products.</h1>
-        <p class="hero-meta mono">15+ years ✦ Fintech · Enterprise · Education ✦ Design systems ✦ Based in México</p>
+        <span class="hola" data-text="¡Hola!">¡Hola!</span>
+        <h1>I'm <strong class="glitch" data-text="Verónica">Verónica</strong>, a Senior Product Designer who turns complex systems into clear, scalable products.</h1>
+        <p class="hero-meta mono" id="hero-meta">15+ years ✦ Fintech · Enterprise · Education ✦ Design systems ✦ Based in México</p>
         <div class="ctas">
           <a href="#work" class="btn primary">See my work ↓</a>
           <a href="mailto:veru.kami@gmail.com" class="btn ghost">Let's talk ✉</a>
@@ -92,9 +106,22 @@
       </div>
 
       <figure class="portrait selected" style="margin:0">
-        <img src="assets/images/avatar.png" alt="3D avatar of Verónica: purple hair, round pink glasses, holding a phone" />
+        <span class="tilt"><span class="float">
+          <img src="assets/images/avatar.png" alt="3D avatar of Verónica: purple hair, round pink glasses, holding a phone" />
+          <!-- Live eyes and hologram slices (night mode only). Eye boxes are in % of the avatar image. -->
+          <span class="eye" aria-hidden="true" style="left:35.08%; top:38.08%; width:6.67%; height:7.33%; --skin:#b36569; --iris:#521d37; --lean:-10deg"><i></i></span>
+          <span class="eye" aria-hidden="true" style="left:51.42%; top:33.17%; width:6.33%; height:7.33%; --skin:#b97474; --iris:#571e3a; --lean:-6deg"><i></i></span>
+          <span class="echo g1" aria-hidden="true"></span>
+          <span class="echo g2" aria-hidden="true"></span>
+        </span></span>
         <span class="handle tl"></span><span class="handle tr"></span>
         <span class="handle bl"></span><span class="handle br"></span>
+        <span class="hud" aria-hidden="true">
+          <span class="tag t-tl">ID VERUKAMI</span>
+          <span class="tag t-tr"><span class="dot"></span>ONLINE</span>
+          <span class="tag t-bl">XP 15+ YRS</span>
+          <span class="tag t-br">BASE MX</span>
+        </span>
         <span class="dims">LV.15+ <span class="px-heart">♥</span> senior designer</span>
       </figure>
 
@@ -215,7 +242,7 @@
             <div class="kicker"><span class="format">VHS</span><span class="mono">01 · Banking · Globant 2019–2021</span></div>
             <h3>Citibanamex</h3>
             <p class="line">Millions of users. One design system. No way out.</p>
-            <span class="chip">★ Millions of users nationwide</span>
+            <span class="chip">★ Design system adopted across web, mobile &amp; ATMs</span>
             <p class="tags mono">UI strategy · Design system</p>
             <div class="ctas"><a href="projects/citibanamex/index.html" class="btn primary">Play the tape →</a></div>
           </article>
@@ -402,6 +429,81 @@
       shape.addEventListener("pointerup", drop);
       shape.addEventListener("pointercancel", drop);
     });
+
+    /* ===== Night mode hero (cyber.css): intro, decrypting meta line, VHS counter, avatar that looks at the cursor ===== */
+    (() => {
+      const root = document.documentElement;
+      const hero = document.querySelector(".hero");
+      const meta = document.getElementById("hero-meta");
+      const tilt = hero.querySelector(".tilt");
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const finalMeta = meta.textContent;
+      meta.setAttribute("aria-label", finalMeta);
+
+      let scrambleTimer = null;
+      const scramble = () => {
+        clearTimeout(scrambleTimer);
+        const pool = "/<>_#01*+";
+        const total = 30;
+        let frame = 0;
+        const tick = () => {
+          const solved = Math.floor(finalMeta.length * frame / total);
+          let out = "";
+          for (let i = 0; i < finalMeta.length; i++) {
+            const c = finalMeta[i];
+            out += (i < solved || c === " ") ? c : pool[Math.floor(Math.random() * pool.length)];
+          }
+          meta.textContent = out;
+          if (frame++ < total) scrambleTimer = setTimeout(tick, 34);
+          else meta.textContent = finalMeta;
+        };
+        tick();
+      };
+
+      let introTimer = null;
+      const playIntro = () => {
+        if (reduced || !root.classList.contains("cyber")) return;
+        clearTimeout(introTimer);
+        root.classList.remove("intro");
+        void root.offsetWidth;
+        root.classList.add("intro");
+        scramble();
+        introTimer = setTimeout(() => root.classList.remove("intro"), 1050);
+      };
+
+      const tc = document.getElementById("timecode");
+      const t0 = Date.now();
+      setInterval(() => {
+        const s = Math.floor((Date.now() - t0) / 1000);
+        const pad = n => String(n).padStart(2, "0");
+        tc.textContent = `${Math.floor(s / 3600)}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+      }, 1000);
+
+      if (!reduced && matchMedia("(pointer: fine)").matches) {
+        hero.addEventListener("pointermove", e => {
+          const r = tilt.getBoundingClientRect();
+          const nx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 1.2)));
+          const ny = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 1.2)));
+          tilt.style.setProperty("--ry", (nx * 12).toFixed(2) + "deg");
+          tilt.style.setProperty("--rx", (-ny * 10).toFixed(2) + "deg");
+          tilt.style.setProperty("--gx", nx.toFixed(2));
+          tilt.style.setProperty("--gy", ny.toFixed(2));
+        });
+        hero.addEventListener("pointerleave", () => {
+          ["--ry", "--rx"].forEach(v => tilt.style.setProperty(v, "0deg"));
+          ["--gx", "--gy"].forEach(v => tilt.style.setProperty(v, "0"));
+        });
+      }
+
+      /* Replay the intro whenever night mode switches on */
+      new MutationObserver(() => {
+        if (root.classList.contains("cyber") && !root.classList.contains("intro") && !wasCyber) playIntro();
+        wasCyber = root.classList.contains("cyber");
+        if (!wasCyber) { clearTimeout(scrambleTimer); meta.textContent = finalMeta; }
+      }).observe(root, { attributes: true, attributeFilter: ["class"] });
+      let wasCyber = root.classList.contains("cyber");
+      playIntro();
+    })();
   </script>
 </body>
 </html>
