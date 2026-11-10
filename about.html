@@ -144,6 +144,18 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: clamp(20px, 3vw, 36px);
     }
+    /* Same buttons as the home hero: black pills with lit lettering */
+    .ctas .btn {
+      padding: 12px 22px;
+      border: 1.5px solid var(--lit);
+      background: #15121c; color: var(--lit);
+      transition: background 0.2s, color 0.2s, translate 0.2s;
+    }
+    .ctas .btn:hover { transform: none; translate: 0 -2px; background: var(--lit); border-color: var(--lit); color: #15121c; }
+    .ctas .btn.primary { --lit: #ff7ac6; }
+    .ctas .btn.ghost { --lit: #8dff6e; }
+    .ctas .btn.link { border-color: transparent; background: none; color: var(--ink); }
+    .ctas .btn.link:hover { background: none; border-color: transparent; color: var(--accent-text); }
     .scene {
       position: relative;
       padding: clamp(24px, 3vw, 36px);
@@ -151,15 +163,6 @@
       background: var(--surface);
       border: 1.5px solid var(--line);
       overflow: hidden;
-    }
-    .scene::before { /* thin holo strip, like the edge of a tape label */
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 5px;
-      background: var(--holo);
     }
     .scene .tc {
       display: flex;
