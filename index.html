@@ -55,9 +55,9 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="assets/styles/site.css" />
-  <link rel="stylesheet" href="assets/styles/collection.css" />
-  <link rel="stylesheet" href="assets/styles/hero.css" />
+  <link rel="stylesheet" href="assets/styles/site.css?v=2" />
+  <link rel="stylesheet" href="assets/styles/collection.css?v=2" />
+  <link rel="stylesheet" href="assets/styles/hero.css?v=2" />
 </head>
 
 <body>
@@ -383,7 +383,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/site.js"></script>
+  <script src="assets/js/site.js?v=2"></script>
   <script>
     /* The collection: the step in the middle of the screen picks the object on stage */
     const steps = [...document.querySelectorAll(".step")];
@@ -514,6 +514,19 @@
         root.style.setProperty("--nav-bg", `rgba(${c[0]}, ${c[1]}, ${c[2]}, 0.82)`);
       };
       addEventListener("scroll", tint, { passive: true });
+
+      /* Keep the skin in step with the theme from here too, so the hero never depends on
+         which copy of site.js the browser has cached */
+      const systemDark = matchMedia("(prefers-color-scheme: dark)");
+      const syncSkin = () => {
+        const t = root.dataset.theme;
+        const dark = t ? t === "dark" : systemDark.matches;
+        root.classList.toggle("night", dark);
+        root.classList.toggle("day", !dark);
+      };
+      new MutationObserver(syncSkin).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+      systemDark.addEventListener("change", syncSkin);
+      syncSkin();
 
       /* When the theme flips, replay the intro and refresh the tint */
       let wasDay = isDay();
