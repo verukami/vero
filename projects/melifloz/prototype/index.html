@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Melifloz prototype — Verónica Martínez</title>
+  <meta name="description" content="Concept prototype of Melifloz: a body-scan fitting flow for premium Indian garments. The scan is simulated." />
+
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="6849f1a9-3081-4167-981d-b2495c49043b"></script>
+
+  <meta property="og:title" content="Melifloz prototype — Verónica Martínez" />
+  <meta property="og:description" content="Concept prototype of a body-scan fitting flow for premium Indian garments." />
+  <meta property="og:image" content="https://verukami.github.io/vero/assets/images/melifloz-hero.png" />
+  <link rel="canonical" href="https://verukami.github.io/vero/projects/melifloz/prototype/" />
+  <link rel="icon" type="image/png" href="../../../assets/images/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Melifloz: ivory paper, emerald, one black call to action. The fitting screens go dark
+       so the scanned body and the garment can glow. */
+    :root {
+      --ivory: #f6f1e7;
+      --paper: #fffdf8;
+      --ink: #1c1a17;
+      --soft: #6f675c;
+      --line: rgba(28, 26, 23, 0.14);
+      --emerald: #0f6b57;
+      --deep: #0a211c;
+      --mint: #8fe3c4;
+      --gold: #b8935a;
+      --rose: #b9584f;
+      --tight: #ff7b72;
+      --snug: #f2b84b;
+      --comfortable: #58d6a4;
+      --loose: #8db8ff;
+      --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+      --sans: "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(50% 60% at 50% 100%, rgba(15, 107, 87, 0.28), transparent 70%),
+        #0d0f0e;
+      color: #f3ead8;
+      font-family: var(--sans);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100svh;
+    }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+
+    /* ----- page chrome around the phone ----- */
+    .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 16px; border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      color: #f3ead8;
+      font: 500 14px/1 var(--sans);
+      text-decoration: none;
+    }
+    .pill:hover { border-color: var(--mint); color: var(--mint); }
+    .stage { display: grid; place-items: center; padding: 8px 16px 16px; min-height: 0; }
+    .phone {
+      --scale: 1;
+      position: relative;
+      width: calc(390px * var(--scale));
+      height: calc(844px * var(--scale));
+      border-radius: calc(46px * var(--scale));
+      overflow: hidden;
+      box-shadow: 0 0 0 10px #171a19, 0 0 0 11px rgba(255, 255, 255, 0.1), 0 40px 80px rgba(0, 0, 0, 0.55);
+      background: var(--ivory);
+    }
+    .app {
+      position: relative;
+      width: 390px; height: 844px;
+      transform: scale(var(--scale));
+      transform-origin: top left;
+      color: var(--ink);
+      overflow: hidden;
+    }
+    .hint { margin: 0; padding: 0 16px 20px; text-align: center; color: #a9b5b0; font-size: 13px; }
+
+    /* ----- screens ----- */
+    .screen { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--ivory); }
+    .screen.dark { background: var(--deep); color: #f3ead8; }
+    .screen.enter { animation: enter 0.32s ease-out both; }
+    @keyframes enter { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .view { position: relative; flex: 1 1 auto; min-height: 0; }
+    .view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; cursor: grab; }
+    .view canvas:active { cursor: grabbing; }
+    .eyebrow { font: 500 11px/1.2 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--soft); margin: 0; }
+    .dark .eyebrow { color: #a9c7bc; }
+
+    .top {
+      flex: none; display: flex; align-items: center; justify-content: space-between;
+      height: 56px; padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .wordmark { font: 600 17px/1 var(--serif); letter-spacing: 0.34em; margin-right: -0.34em; }
+    .icon-btn {
+      display: grid; place-items: center; width: 44px; height: 44px; margin: 0 -10px;
+      border: 0; background: none; border-radius: 50%; position: relative;
+    }
+    .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .bag-count {
+      position: absolute; top: 6px; right: 4px; min-width: 16px; height: 16px; padding: 0 4px;
+      border-radius: 8px; background: var(--emerald); color: #fff; font: 600 10px/16px var(--sans); text-align: center;
+    }
+    .spacer { width: 24px; }
+
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; min-height: 50px; padding: 12px 18px;
+      border: 1.5px solid var(--ink); border-radius: 4px;
+      background: var(--ink); color: var(--paper);
+      font: 500 13px/1 var(--sans); letter-spacing: 0.18em; text-transform: uppercase;
+    }
+    .btn:hover { background: #33302a; }
+    .btn.line { background: transparent; color: var(--ink); }
+    .btn.line:hover { background: rgba(28, 26, 23, 0.06); }
+    .btn.ivory { background: var(--ivory); color: var(--ink); border-color: var(--ivory); }
+    .btn.ivory:hover { background: #fff; }
+    .btn[disabled] { opacity: 0.45; cursor: default; }
+    .text-btn { border: 0; background: none; padding: 12px; font: 500 14px/1 var(--sans); text-decoration: underline; text-underline-offset: 4px; }
+
+    /* product */
+    .sheet { flex: none; padding: 18px 20px 22px; background: var(--paper); border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; }
+    .title { margin: 0; font: 600 30px/1.02 var(--serif); letter-spacing: 0.08em; text-transform: uppercase; }
+    .price { margin: 0; font: 500 15px/1 var(--sans); letter-spacing: 0.06em; }
+    .fabric { display: flex; align-items: center; gap: 12px; color: var(--soft); font-size: 14px; line-height: 1.35; }
+    .fabric img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex: none; border: 1px solid var(--line); }
+    .sizes { display: flex; align-items: center; gap: 8px; }
+    .sizes .label { font: 500 11px/1 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--soft); margin-right: 4px; }
+    .size {
+      position: relative; min-width: 46px; height: 44px; padding: 0 8px;
+      border: 1.5px solid var(--line); border-radius: 4px; background: transparent;
+      font: 500 14px/1 var(--sans);
+    }
+    .size[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+    .size .best {
+      position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+      padding: 2px 6px; border-radius: 3px; background: var(--emerald); color: #fff;
+      font: 600 9px/1.2 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
+    }
+    .turn-hint { position: absolute; left: 0; right: 0; top: 12px; margin: 0; text-align: center; font-size: 12px; color: var(--soft); pointer-events: none; }
+    .dark .turn-hint { color: #8fb3a7; }
+
+    /* scan intro */
+    .intro { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 22px; padding: 28px 26px; }
+    .intro h2 { margin: 0; font: 600 40px/1.02 var(--serif); letter-spacing: 0.01em; text-wrap: balance; }
+    .steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; counter-reset: s; }
+    .steps li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; font-size: 16px; line-height: 1.35; counter-increment: s; }
+    .steps li::before {
+      content: counter(s); display: grid; place-items: center; width: 34px; height: 34px;
+      border: 1px solid rgba(143, 227, 196, 0.5); border-radius: 50%; font: 600 18px/1 var(--serif); color: var(--mint);
+    }
+    .note { margin: 0; padding: 12px 14px; border-radius: 6px; background: rgba(143, 227, 196, 0.1); color: #cfe9df; font-size: 13.5px; line-height: 1.4; }
+    .intro .actions { display: grid; gap: 4px; justify-items: center; }
+    .intro .text-btn { color: #cfe9df; }
+
+    /* scan + fit */
+    .status-bar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 64px; padding: 0 16px; background: var(--emerald); color: #f6f1e7; }
+    .status-bar h2 { margin: 0; font: 500 22px/1.1 var(--serif); letter-spacing: 0.01em; flex: 1; text-align: center; }
+    .status-bar .icon-btn { color: #f6f1e7; }
+    .panel { flex: none; padding: 16px 18px 20px; background: var(--paper); color: var(--ink); display: flex; flex-direction: column; gap: 14px; border-radius: 18px 18px 0 0; margin-top: -14px; position: relative; }
+    .progress { height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; }
+    .progress i { display: block; height: 100%; width: 0; background: var(--emerald); }
+    .progress-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--soft); }
+    .progress-row b { font: 600 22px/1 var(--serif); color: var(--ink); font-variant-numeric: tabular-nums; }
+    .measures { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin: 0; }
+    .measures div { min-width: 0; }
+    .measures dt { font: 500 9.5px/1.2 var(--sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--soft); }
+    .measures dd { margin: 4px 0 0; font: 600 22px/1 var(--serif); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .measures dd small { font: 500 11px/1 var(--sans); color: var(--soft); margin-left: 2px; }
+    details.tune { border-top: 1px solid var(--line); padding-top: 10px; }
+    details.tune summary { cursor: pointer; font: 500 14px/1.2 var(--sans); padding: 6px 0; min-height: 32px; }
+    .tune label { display: grid; grid-template-columns: 64px 1fr 58px; align-items: center; gap: 10px; font-size: 13px; color: var(--soft); min-height: 36px; }
+    .tune output { text-align: right; color: var(--ink); font-variant-numeric: tabular-nums; }
+    .tune input[type="range"] { width: 100%; accent-color: var(--emerald); }
+
+    .seg { display: inline-flex; padding: 3px; border-radius: 999px; background: rgba(0, 0, 0, 0.22); }
+    .seg button { border: 0; background: none; min-height: 34px; padding: 0 14px; border-radius: 999px; color: #f6f1e7; font: 500 13px/1 var(--sans); }
+    .seg button[aria-pressed="true"] { background: #f6f1e7; color: var(--emerald); }
+    .match { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .match strong { font: 600 30px/1 var(--serif); font-variant-numeric: tabular-nums; }
+    .match span { font-size: 14px; color: var(--soft); text-align: right; }
+    .readouts { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+    .readouts li { display: grid; grid-template-columns: 58px 1fr; gap: 10px; align-items: center; min-height: 34px; font-size: 14px; border-top: 1px solid var(--line); }
+    .readouts li b { font: 500 11px/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--soft); }
+    .readouts .tag { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; }
+    .readouts .tag::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c); flex: none; }
+    .readouts .tag small { font-weight: 400; color: var(--soft); font-size: 13px; }
+    .cta-row { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; }
+
+    /* added to bag */
+    .overlay { position: absolute; inset: 0; z-index: 5; display: flex; align-items: flex-end; background: rgba(8, 20, 17, 0.6); }
+    .overlay .card { width: 100%; padding: 26px 22px 24px; background: var(--paper); color: var(--ink); border-radius: 18px 18px 0 0; display: grid; gap: 14px; animation: enter 0.3s ease-out both; }
+    .overlay h2 { margin: 0; font: 600 32px/1.05 var(--serif); }
+    .overlay p { margin: 0; color: var(--soft); font-size: 15px; line-height: 1.45; }
+    .overlay a { color: var(--emerald); font-weight: 500; text-underline-offset: 4px; text-align: center; padding: 10px; }
+    .toast {
+      position: absolute; left: 50%; bottom: 96px; z-index: 6; transform: translateX(-50%);
+      padding: 10px 16px; border-radius: 999px; background: var(--ink); color: var(--paper); font-size: 14px; white-space: nowrap;
+      animation: enter 0.25s ease-out both;
+    }
+    [hidden] { display: none !important; }
+
+    /* on a real phone, the prototype takes the whole screen */
+    @media (max-width: 480px) {
+      body { grid-template-rows: auto 1fr; }
+      .bar { padding: 8px 12px; }
+      .stage { padding: 0; place-items: stretch; }
+      .phone { width: 100%; height: 100%; min-height: calc(100svh - 54px); border-radius: 0; box-shadow: none; }
+      .app { width: 100%; height: 100%; transform: none; position: absolute; inset: 0; }
+      .hint { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .screen.enter, .overlay .card, .toast { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <a class="pill" href="../index.html">← Case study</a>
+    <button class="pill" type="button" id="restart">↺ Start over</button>
+  </div>
+
+  <main class="stage">
+    <div class="phone" id="phone">
+      <div class="app">
+
+        <!-- 1. Product -->
+        <section class="screen" id="s-product" aria-label="Product">
+          <header class="top">
+            <span class="spacer"></span>
+            <span class="wordmark">MELIFLOZ</span>
+            <button class="icon-btn" type="button" aria-label="Bag" id="bag">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+              <span class="bag-count" id="bag-count" hidden>1</span>
+            </button>
+          </header>
+          <div class="view">
+            <canvas id="c-product" role="img" aria-label="The lehenga set, drawn as a 3D drape you can turn"></canvas>
+            <p class="turn-hint">Drag to turn</p>
+          </div>
+          <div class="sheet">
+            <p class="eyebrow">Lehenga set · Made to order</p>
+            <h1 class="title">Floral Embroidery</h1>
+            <p class="price">$1,250 USD</p>
+            <div class="fabric">
+              <img src="swatch.jpg" alt="Close-up of the floral embroidery on champagne silk" width="140" height="140" />
+              <span>Raw silk with hand embroidery. Blouse and floor-length skirt.</span>
+            </div>
+            <div class="sizes" id="sizes-product" role="group" aria-label="Size">
+              <span class="label">Size</span>
+            </div>
+            <button class="btn" type="button" id="find-fit">Find my fit</button>
+          </div>
+        </section>
+
+        <!-- 2. Scan intro -->
+        <section class="screen dark" id="s-intro" aria-label="Before the scan" hidden>
+          <div class="intro">
+            <p class="eyebrow">Fit confidence</p>
+            <h2>Find your fit in 30 seconds</h2>
+            <ol class="steps">
+              <li>Stand about two metres from your phone.</li>
+              <li>Wear something fitted, so the outline is clear.</li>
+              <li>Turn slowly, once, when the scan starts.</li>
+            </ol>
+            <p class="note">This is a demo: the scan is simulated. No camera is used and nothing is stored.</p>
+            <div class="actions">
+              <button class="btn ivory" type="button" id="start-scan">Start scan</button>
+              <button class="text-btn" type="button" data-go="product">Not now</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Scan -->
+        <section class="screen dark" id="s-scan" aria-label="Body scan" hidden>
+          <header class="status-bar">
+            <span class="spacer"></span>
+            <h2 id="scan-status" aria-live="polite">Analyzing proportions…</h2>
+            <span class="spacer"></span>
+          </header>
+          <div class="view">
+            <canvas id="c-scan" role="img" aria-label="A 3D outline of the body appears as the scan moves down"></canvas>
+          </div>
+          <div class="panel">
+            <div id="scan-progress">
+              <div class="progress-row"><span id="scan-step">Hold still, then turn slowly</span><b id="scan-pct">0%</b></div>
+              <div class="progress"><i id="scan-bar"></i></div>
+            </div>
+            <div id="scan-result" hidden>
+              <dl class="measures" id="measures"></dl>
+              <details class="tune">
+                <summary>Fine-tune my measurements</summary>
+                <label>Bust <input type="range" id="t-bust" min="78" max="104" step="1" /><output id="o-bust"></output></label>
+                <label>Waist <input type="range" id="t-waist" min="58" max="90" step="1" /><output id="o-waist"></output></label>
+                <label>Hips <input type="range" id="t-hips" min="84" max="112" step="1" /><output id="o-hips"></output></label>
+              </details>
+            </div>
+            <button class="btn" type="button" id="see-fit" disabled>See it on me</button>
+          </div>
+        </section>
+
+        <!-- 4. Fit -->
+        <section class="screen dark" id="s-fit" aria-label="Your fit" hidden>
+          <header class="status-bar">
+            <button class="icon-btn" type="button" aria-label="Back to the product" data-go="product">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+            </button>
+            <div class="seg" role="group" aria-label="View">
+              <button type="button" id="v-drape" aria-pressed="true">Drape</button>
+              <button type="button" id="v-map" aria-pressed="false">Fit map</button>
+            </div>
+            <span class="spacer"></span>
+          </header>
+          <div class="view">
+            <canvas id="c-fit" role="img" aria-label="The lehenga draped on your scanned body. Drag to turn."></canvas>
+            <p class="turn-hint">Drag to turn</p>
+          </div>
+          <div class="panel">
+            <div class="sizes" id="sizes-fit" role="group" aria-label="Size">
+              <span class="label">Size</span>
+            </div>
+            <div class="match"><strong id="match-pct">0%</strong><span id="match-text"></span></div>
+            <ul class="readouts" id="readouts"></ul>
+            <div class="cta-row">
+              <button class="btn line" type="button" id="save-look">Save look</button>
+              <button class="btn" type="button" id="add-cart">Add to cart</button>
+            </div>
+          </div>
+          <div class="toast" id="toast" role="status" hidden>Look saved</div>
+          <div class="overlay" id="added" hidden>
+            <div class="card" role="dialog" aria-labelledby="added-title">
+              <p class="eyebrow">In your bag</p>
+              <h2 id="added-title">Floral Embroidery</h2>
+              <p id="added-text"></p>
+              <button class="btn" type="button" id="keep">Keep exploring</button>
+              <a href="../index.html">Back to the case study</a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <p class="hint">Concept prototype, rebuilt in 2026. The body scan is simulated: no camera is used and nothing is stored.</p>
+
+  <script>
+  (() => {
+    "use strict";
+    const TAU = Math.PI * 2;
+    const HEIGHT = 162; // cm; the demo body
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const smooth = t => t * t * (3 - 2 * t);
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const $ = id => document.getElementById(id);
+
+    /* =====================================================================
+       THE BODY: a stack of elliptical cross-sections, sampled into a point cloud.
+       All lengths are fractions of the body's height (0 = floor, 1 = top of the head).
+       ===================================================================== */
+    function sample(keys, y) {
+      if (y <= keys[0][0]) return keys[0].slice(1);
+      for (let i = 0; i < keys.length - 1; i++) {
+        const a = keys[i], b = keys[i + 1];
+        if (y <= b[0]) {
+          const t = smooth((y - a[0]) / (b[0] - a[0]));
+          return a.slice(1).map((v, k) => lerp(v, b[k + 1], t));
+        }
+      }
+      return keys[keys.length - 1].slice(1);
+    }
+    //             y,    half-width, half-depth, forward offset
+    const TORSO = [[.470, .098, .070, 0], [.500, .104, .078, 0], [.530, .105, .080, .004], [.580, .092, .066, .002],
+                   [.630, .075, .055, 0], [.680, .082, .062, -.004], [.735, .095, .072, -.010], [.780, .098, .058, -.004],
+                   [.815, .112, .048, 0], [.835, .060, .040, 0], [.850, .030, .030, 0], [.875, .027, .028, 0]];
+    const LEG = [[.030, .020], [.080, .021], [.200, .034], [.275, .029], [.300, .031], [.440, .053], [.490, .056]];
+    const ARM = [[.128, .800, 0, .027], [.150, .700, .004, .024], [.160, .620, .006, .021], [.168, .540, -.006, .018], [.173, .460, -.018, .015]];
+    const LEVEL = { shoulders: .815, bust: .735, waist: .630, hips: .530 };
+    const gauss = (y, c, s) => Math.exp(-(((y - c) / s) ** 2));
+    const shape = { bust: 1, waist: 1, hips: 1 }; // multipliers the fine-tune sliders change
+
+    function torso(y) {
+      const [rx, rz, zc] = sample(TORSO, y);
+      const k = 1 + (shape.bust - 1) * gauss(y, LEVEL.bust, .045) + (shape.waist - 1) * gauss(y, LEVEL.waist, .045) + (shape.hips - 1) * gauss(y, LEVEL.hips, .055);
+      return [rx * k, rz * k, zc];
+    }
+    const legR = y => sample(LEG, y)[0] * (1 + (shape.hips - 1) * gauss(y, .47, .09) * .7);
+    // Ramanujan's approximation for the perimeter of an ellipse
+    const perimeter = (a, b) => Math.PI * (3 * (a + b) - Math.sqrt((3 * a + b) * (a + 3 * b)));
+    const girth = y => { const [rx, rz] = torso(y); return perimeter(rx * HEIGHT, rz * HEIGHT); };
+    const measure = () => ({
+      height: HEIGHT,
+      shoulders: 2 * torso(LEVEL.shoulders)[0] * HEIGHT,
+      bust: girth(LEVEL.bust), waist: girth(LEVEL.waist), hips: girth(LEVEL.hips),
+    });
+    const BASE = measure(); // the body as scanned, before any fine-tuning
+
+    // deterministic pseudo-random numbers, so the cloud looks the same on every visit
+    let seed = 7;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+    function ellipsoid(pts, cx, cy, cz, rx, ry, rz, n, part) {
+      for (let i = 0; i < n; i++) {
+        const v = 1 - 2 * (i + .5) / n, r = Math.sqrt(1 - v * v), a = i * 2.39996;
+        pts.push({ x: cx + rx * r * Math.cos(a), y: cy + ry * v, z: cz + rz * r * Math.sin(a), part, s: rnd() });
+      }
+    }
+    function buildBody() {
+      seed = 7;
+      const pts = [];
+      for (let y = .47; y <= .876; y += .0065) {
+        const [rx, rz, zc] = torso(y);
+        const n = Math.round(20 + (rx + rz) * 250), off = rnd() * TAU;
+        for (let k = 0; k < n; k++) {
+          const a = off + k / n * TAU;
+          pts.push({ x: rx * Math.cos(a), y, z: zc + rz * Math.sin(a), part: "torso", s: rnd() });
+        }
+      }
+      ellipsoid(pts, 0, .935, -.004, .043, .062, .050, 280, "head");
+      for (const side of [-1, 1]) {
+        for (let y = .03; y < .49; y += .0075) {
+          const r = legR(y), cx = side * lerp(.036, .054, (y - .03) / .46);
+          const n = Math.round(9 + r * 300), off = rnd() * TAU;
+          for (let k = 0; k < n; k++) {
+            const a = off + k / n * TAU;
+            pts.push({ x: cx + r * Math.cos(a), y, z: r * 1.08 * Math.sin(a), part: "leg", s: rnd() });
+          }
+        }
+        ellipsoid(pts, side * .04, .016, -.03, .022, .015, .055, 60, "leg");
+        for (let i = 0; i < ARM.length - 1; i++) {
+          const a = ARM[i], b = ARM[i + 1];
+          const steps = Math.round((a[1] - b[1]) / .0075);
+          for (let j = 0; j < steps; j++) {
+            const t = j / steps, r = lerp(a[3], b[3], t);
+            const cx = side * lerp(a[0], b[0], t), y = lerp(a[1], b[1], t), cz = lerp(a[2], b[2], t);
+            const n = Math.round(8 + r * 280), off = rnd() * TAU;
+            for (let k = 0; k < n; k++) {
+              const ang = off + k / n * TAU;
+              pts.push({ x: cx + r * Math.cos(ang), y, z: cz + r * Math.sin(ang), part: "arm", s: rnd() });
+            }
+          }
+        }
+        ellipsoid(pts, side * .176, .425, -.02, .013, .034, .020, 44, "arm");
+      }
+      return pts;
+    }
+    let body = buildBody();
+
+    /* =====================================================================
+       THE GARMENT: a fitted blouse and a flared, pleated skirt, sized in centimetres.
+       ===================================================================== */
+    const SIZES = [
+      { name: "XS", bust: 82, waist: 64, length: 100 },
+      { name: "S",  bust: 86, waist: 68, length: 102 },
+      { name: "M",  bust: 90, waist: 72, length: 104 },
+      { name: "L",  bust: 96, waist: 78, length: 106 },
+      { name: "XL", bust: 102, waist: 84, length: 108 },
+    ];
+    const STATUS = {
+      tight: { label: "Tight", color: "#ff7b72" },
+      snug: { label: "Snug", color: "#f2b84b" },
+      comfortable: { label: "Comfortable", color: "#58d6a4" },
+      loose: { label: "Loose", color: "#8db8ff" },
+    };
+    const easeStatus = e => e < -.5 ? "tight" : e < 2 ? "snug" : e <= 7 ? "comfortable" : "loose";
+
+    function fitFor(size) {
+      const m = measure();
+      const bust = size.bust - m.bust, waist = size.waist - m.waist;
+      const gap = LEVEL.waist * HEIGHT - size.length; // cm between the hem and the floor, barefoot
+      const sb = easeStatus(bust), sw = easeStatus(waist);
+      let lengthStatus, lengthText, lengthShort;
+      if (gap > 4) { lengthStatus = "snug"; lengthShort = "Short"; lengthText = "Sits above the ankle"; }
+      else if (gap > 0) { lengthStatus = "comfortable"; lengthShort = "Good"; lengthText = "Ankle length, barefoot"; }
+      else if (gap >= -3) { lengthStatus = "comfortable"; lengthShort = "Good"; lengthText = "Floor length with " + (Math.round(-gap) + 2) + " cm heels"; }
+      else { lengthStatus = "loose"; lengthShort = "Long"; lengthText = "Long: needs " + (Math.round(-gap) + 2) + " cm heels or a hem"; }
+      const cost = { tight: 30, snug: 8, comfortable: 0, loose: 15 };
+      const costW = { tight: 30, snug: 4, comfortable: 0, loose: 5 }; // the waist has a drawstring, so loose costs little
+      let score = 100 - cost[sb] - costW[sw] - (gap > 4 ? 8 : gap < -3 ? 10 : 0);
+      score -= Math.abs(bust - 3.5) + Math.abs(waist - 3) * .25;
+      return { size, bust, waist, gap, sb, sw, lengthStatus, lengthText, lengthShort, score: Math.round(clamp(score, 5, 99)) };
+    }
+    const bestSize = () => SIZES.map(fitFor).sort((a, b) => b.score - a.score)[0].size;
+
+    function garmentFor(size) {
+      const f = fitFor(size);
+      const toR = cm => cm / (TAU * HEIGHT); // extra girth in cm, as extra radius
+      const [wx, wz] = torso(LEVEL.waist);
+      const dW = toR(clamp(f.waist, .4, 14)), dB = toR(clamp(f.bust, .4, 14));
+      return {
+        fit: f, dB,
+        yw: LEVEL.waist, yh: Math.max(.006, LEVEL.waist - size.length / HEIGHT),
+        wx: wx + dW, wz: wz + dW,
+        hem: .262 + SIZES.indexOf(size) * .005,
+        pleats: 20,
+      };
+    }
+    function skirtPoint(g, u, th, twist) {
+      const f = Math.pow(u, .72), y = lerp(g.yw, g.yh, u);
+      let ex = lerp(g.wx, g.hem, f), ez = lerp(g.wz, g.hem * .97, f);
+      if (y > .47) { const [bx, bz] = torso(y); ex = Math.max(ex, bx + .008); ez = Math.max(ez, bz + .008); }
+      const a = th - twist * u; // the hem lags behind when the body turns
+      const fold = 1 + .055 * Math.pow(u, .8) * Math.sin(g.pleats * th);
+      return [ex * fold * Math.cos(a), y, ez * fold * Math.sin(a)];
+    }
+
+    /* =====================================================================
+       RENDERING: plain 2D canvas with a hand-rolled turntable projection.
+       ===================================================================== */
+    const PALETTE = {
+      dark: { body: "#f3ead8", line: "#ecd5ae", band: "#d9b36a", dots: ["#f0a3ae", "#e7c27a", "#8fd6b8"], text: "#f3ead8", sub: "#a9c7bc", plane: "143, 227, 196" },
+      light: { body: "#1c1a17", line: "#7a5c3e", band: "#b8935a", dots: ["#b9584f", "#b8935a", "#3d6a4c"], text: "#1c1a17", sub: "#6f675c", plane: "15, 107, 87" },
+    };
+
+    class Scene {
+      constructor(canvas, theme, draw) {
+        this.c = canvas; this.ctx = canvas.getContext("2d");
+        this.p = PALETTE[theme]; this.draw = draw;
+        this.angle = .5; this.vel = 0; this.twist = 0; this.auto = !reduced; this.zoom = 1; this.lift = 0;
+        this.resize();
+        new ResizeObserver(() => this.resize()).observe(canvas);
+        let last = null;
+        canvas.addEventListener("pointerdown", e => { last = e.clientX; canvas.setPointerCapture(e.pointerId); this.dragging = true; });
+        canvas.addEventListener("pointermove", e => {
+          if (last === null) return;
+          const d = (e.clientX - last) * .012; last = e.clientX;
+          this.angle += d; this.vel = d;
+        });
+        const up = () => { last = null; this.dragging = false; };
+        canvas.addEventListener("pointerup", up); canvas.addEventListener("pointercancel", up);
+      }
+      resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        this.w = this.c.clientWidth; this.h = this.c.clientHeight;
+        this.c.width = Math.max(1, Math.round(this.w * dpr)); this.c.height = Math.max(1, Math.round(this.h * dpr));
+        this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      step(dt) {
+        if (!this.dragging) {
+          if (this.auto && !this.locked) this.angle += dt * .35;
+          this.vel *= .9;
+        }
+        this.twist = lerp(this.twist, clamp(this.vel * 14, -1.1, 1.1), .12);
+        this.cos = Math.cos(this.angle); this.sin = Math.sin(this.angle);
+        this.S = this.h * .84 * this.zoom; this.cx = this.w / 2; this.cy = this.h * (.5 + this.lift);
+      }
+      // returns [screen x, screen y, depth]; depth < 0 is nearer the viewer
+      at(x, y, z) {
+        const X = x * this.cos + z * this.sin, Z = -x * this.sin + z * this.cos;
+        const k = 1 / (1 + Z * .5);
+        return [this.cx + X * this.S * k, this.cy - (y - .5) * this.S * k, Z];
+      }
+      near(z, span = .34) { return clamp(.5 - z / span, 0, 1); }
+      frame(t, dt) {
+        if (this.w < 2 || this.h < 2) return;
+        this.step(dt);
+        this.ctx.clearRect(0, 0, this.w, this.h);
+        this.draw(this, t);
+      }
+    }
+
+    function drawBody(sc, opt = {}) {
+      const { ctx, p } = sc;
+      ctx.fillStyle = opt.color || p.body;
+      for (const pt of body) {
+        let a = opt.reveal ? opt.reveal(pt) : 1;
+        if (a <= 0) continue;
+        const [x, y, z] = sc.at(pt.x, pt.y, pt.z);
+        const n = sc.near(z);
+        let size = 1.1 + n * .9;
+        if (opt.flashY !== undefined && Math.abs(pt.y - opt.flashY) < .012) { a = 1; size = 2.6; }
+        else a *= (.16 + .84 * n) * (opt.alpha || 1);
+        ctx.globalAlpha = a;
+        ctx.fillRect(x - size / 2, y - size / 2, size, size);
+      }
+      ctx.globalAlpha = 1;
+    }
+    function ring(sc, y, color, width, alpha, grow = 0) {
+      const { ctx } = sc, [rx, rz, zc] = torso(y);
+      ctx.strokeStyle = color; ctx.lineWidth = width;
+      // back half faint, front half bright
+      for (const front of [false, true]) {
+        ctx.globalAlpha = alpha * (front ? 1 : .28);
+        ctx.beginPath();
+        let pen = false;
+        for (let i = 0; i <= 72; i++) {
+          const a = i / 72 * TAU;
+          const [x, sy, z] = sc.at((rx + grow) * Math.cos(a), y, zc + (rz + grow) * Math.sin(a));
+          if ((z < 0) === front) { pen ? ctx.lineTo(x, sy) : ctx.moveTo(x, sy); pen = true; } else pen = false;
+        }
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+    function drawGarment(sc, g, opt = {}) {
+      const { ctx, p } = sc, map = opt.map, f = g.fit;
+      const colBust = map ? STATUS[f.sb].color : p.line, colWaist = map ? STATUS[f.sw].color : p.band;
+      const colHem = map ? STATUS[f.lengthStatus].color : p.line;
+      const base = opt.alpha || 1;
+
+      // blouse: rings hugging the torso from under the bust to the shoulders
+      for (let y = .668; y <= .802; y += .0115) ring(sc, y, colBust, map ? 1.6 : 1.1, base * (map ? .95 : .8), g.dB);
+
+      // skirt: one line per fold, top to hem
+      const lines = g.pleats * 2;
+      ctx.lineWidth = 1;
+      for (let k = 0; k < lines; k++) {
+        const th = k / lines * TAU, zMid = sc.at(...skirtPoint(g, .6, th, sc.twist))[2];
+        ctx.globalAlpha = base * (.14 + .66 * sc.near(zMid, .5));
+        ctx.strokeStyle = p.line;
+        ctx.beginPath();
+        for (let i = 0; i <= 26; i++) {
+          const [x, y] = sc.at(...skirtPoint(g, i / 26, th, sc.twist));
+          i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.stroke();
+      }
+      // waistband, border and hem
+      const hoop = (u, color, width, alpha) => {
+        ctx.strokeStyle = color; ctx.lineWidth = width;
+        for (const front of [false, true]) {
+          ctx.globalAlpha = base * alpha * (front ? 1 : .3);
+          ctx.beginPath();
+          let pen = false;
+          for (let i = 0; i <= 200; i++) {
+            const [x, y, z] = sc.at(...skirtPoint(g, u, i / 200 * TAU, sc.twist));
+            if ((z < 0) === front) { pen ? ctx.lineTo(x, y) : ctx.moveTo(x, y); pen = true; } else pen = false;
+          }
+          ctx.stroke();
+        }
+      };
+      hoop(0, colWaist, map ? 3 : 2.4, 1);
+      hoop(.012, colWaist, map ? 3 : 2.4, 1);
+      hoop(.88, map ? colHem : p.band, 1.2, .8);
+      hoop(1, colHem, map ? 2.6 : 1.6, 1);
+
+      // embroidery: a lattice of small motifs that thickens toward the hem
+      if (!map) {
+        for (let j = 2; j < 15; j++) {
+          const u = j / 15 + .02;
+          for (let i = 0; i < 40; i++) {
+            const th = (i + (j % 2) * .5) / 40 * TAU;
+            const [x, y, z] = sc.at(...skirtPoint(g, u, th, sc.twist));
+            const n = sc.near(z, .5);
+            if (n < .35) continue;
+            const size = (1 + u * 2.2) * (.6 + n * .6);
+            ctx.globalAlpha = base * n * (.55 + .45 * Math.sin(opt.t * 2 + i * 1.7 + j));
+            ctx.fillStyle = p.dots[(i + j) % 3];
+            ctx.beginPath(); ctx.arc(x, y, size, 0, TAU); ctx.fill();
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    function label(sc, x, y, small, big, align) {
+      const { ctx, p } = sc;
+      ctx.textAlign = align; ctx.textBaseline = "alphabetic";
+      ctx.fillStyle = p.sub; ctx.font = '500 10px "Jost", system-ui, sans-serif';
+      ctx.fillText(small.toUpperCase().split("").join(" "), x, y - 6);
+      ctx.fillStyle = p.text; ctx.font = '600 21px "Cormorant Garamond", Georgia, serif';
+      ctx.fillText(big, x, y + 14);
+    }
+
+    /* ----- product: the garment alone, on paper ----- */
+    let selected = SIZES[2];
+    const product = new Scene($("c-product"), "light", (sc, t) => {
+      sc.zoom = .93; sc.lift = .03;
+      const g = garmentFor(selected);
+      drawBody(sc, { alpha: .4, reveal: pt => (pt.part === "leg" && pt.y < g.yw) ? 0 : 1 }); // a faint dress form
+      drawGarment(sc, g, { t });
+    });
+
+    /* ----- scan: the body appears as a plane of light sweeps it twice ----- */
+    const SCAN = { start: 0, done: false, running: false };
+    const PASS1 = [.5, 4.1], PASS2 = [4.1, 6.3], END = 6.6;
+    const CALLOUTS = [["shoulders", -1, "Shoulders"], ["bust", 1, "Bust"], ["waist", -1, "Waist"], ["hips", 1, "Hips"]];
+    const scan = new Scene($("c-scan"), "dark", (sc, t) => {
+      const { ctx, p } = sc, m = measure();
+      const e = SCAN.done ? END : clamp(t - SCAN.start, 0, END);
+      let planeY = null, pass = 0;
+      if (e >= PASS1[0] && e < PASS1[1]) { pass = 1; planeY = lerp(1.03, -.03, (e - PASS1[0]) / (PASS1[1] - PASS1[0])); }
+      else if (e >= PASS2[0] && e < PASS2[1]) { pass = 2; planeY = lerp(-.03, 1.03, (e - PASS2[0]) / (PASS2[1] - PASS2[0])); }
+      if (!SCAN.done) { sc.locked = true; sc.angle = .5 + smooth(e / END) * TAU; } else sc.locked = false;
+      sc.zoom = .94; sc.lift = .02;
+
+      // framing brackets, like a viewfinder
+      const fw = sc.S * .56, fh = sc.S * 1.08, x0 = sc.cx - fw / 2, y0 = sc.cy - fh / 2, c = SCAN.done ? 0 : 18;
+      ctx.strokeStyle = "rgba(" + p.plane + ", 0.55)"; ctx.lineWidth = 1.5;
+      for (const [x, y, dx, dy] of [[x0, y0, 1, 1], [x0 + fw, y0, -1, 1], [x0, y0 + fh, 1, -1], [x0 + fw, y0 + fh, -1, -1]]) {
+        ctx.beginPath(); ctx.moveTo(x + dx * c, y); ctx.lineTo(x, y); ctx.lineTo(x, y + dy * c); ctx.stroke();
+      }
+
+      drawBody(sc, {
+        flashY: planeY === null ? undefined : planeY,
+        reveal: pt => {
+          if (SCAN.done || e >= PASS2[1]) return 1;
+          if (pass === 0 && e < PASS1[0]) return .05;
+          const first = pt.s < .5;
+          if (first) return (pass === 2 || pt.y >= planeY) ? .9 : .05;
+          return (pass === 2 && pt.y <= planeY) ? 1 : (pt.y >= (pass === 1 ? planeY : 2) ? .05 : .05);
+        },
+      });
+
+      // the plane of light
+      if (planeY !== null) {
+        const sy = sc.at(0, planeY, 0)[1];
+        const grad = ctx.createLinearGradient(0, sy - 26, 0, sy + 26);
+        grad.addColorStop(0, "rgba(" + p.plane + ", 0)"); grad.addColorStop(.5, "rgba(" + p.plane + ", 0.3)"); grad.addColorStop(1, "rgba(" + p.plane + ", 0)");
+        ctx.fillStyle = grad; ctx.fillRect(0, sy - 26, sc.w, 52);
+        ctx.strokeStyle = "rgba(" + p.plane + ", 0.95)"; ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        for (let i = 0; i <= 80; i++) {
+          const a = i / 80 * TAU, [x, y] = sc.at(.24 * Math.cos(a), planeY, .24 * Math.sin(a));
+          i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      // measurements: each one shows up when the plane first crosses it, and settles on the second pass
+      for (const [key, side, name] of CALLOUTS) {
+        const y = LEVEL[key];
+        const seen = SCAN.done || pass === 2 || e >= PASS2[1] || (pass === 1 && planeY <= y);
+        if (!seen) continue;
+        const locked = SCAN.done || e >= PASS2[1] || (pass === 2 && planeY >= y);
+        ring(sc, y, locked ? "#e7c27a" : "rgb(" + p.plane + ")", 1.6, locked ? 1 : .7, .004);
+        const [rx, rz] = torso(y);
+        const edge = Math.hypot(rx * sc.cos, rz * sc.sin) * sc.S;
+        const sy = sc.at(0, y, 0)[1], lx = side < 0 ? 14 : sc.w - 14;
+        ctx.strokeStyle = "rgba(243, 234, 216, 0.5)"; ctx.lineWidth = 1; ctx.setLineDash([3, 4]);
+        ctx.beginPath(); ctx.moveTo(sc.cx + side * (edge + 6), sy); ctx.lineTo(lx + side * -66, sy); ctx.stroke();
+        ctx.setLineDash([]);
+        const value = key === "shoulders" ? m.shoulders : m[key];
+        const shown = locked ? Math.round(value) : Math.round(value + Math.sin(t * 9 + y * 40) * 3);
+        label(sc, lx, sy, name, shown + " cm", side < 0 ? "left" : "right");
+      }
+      if (SCAN.done || e >= PASS2[1]) {
+        const top = sc.at(0, 1, 0)[1], foot = sc.at(0, 0, 0)[1], x = sc.cx + sc.S * .3;
+        ctx.strokeStyle = "rgba(243, 234, 216, 0.5)"; ctx.lineWidth = 1; ctx.setLineDash([3, 4]);
+        ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, foot); ctx.stroke(); ctx.setLineDash([]);
+        ctx.beginPath(); ctx.moveTo(x - 5, top); ctx.lineTo(x + 5, top); ctx.moveTo(x - 5, foot); ctx.lineTo(x + 5, foot); ctx.stroke();
+        label(sc, sc.w - 14, top + 6, "Height", HEIGHT + " cm", "right");
+      }
+
+      // progress, and the hand-off to the results
+      if (SCAN.running) {
+        const pct = Math.round(e / END * 100);
+        $("scan-pct").textContent = pct + "%"; $("scan-bar").style.width = pct + "%";
+        $("scan-step").textContent = pass <= 1 ? "Hold still, then turn slowly" : "Refining the outline";
+        if (e >= END) finishScan();
+      }
+    });
+
+    /* ----- fit: the garment on the scanned body ----- */
+    let mapView = false;
+    const fit = new Scene($("c-fit"), "dark", (sc, t) => {
+      sc.zoom = .9; sc.lift = .0;
+      const g = garmentFor(selected);
+      drawBody(sc, { alpha: mapView ? .5 : .75, reveal: pt => (pt.part === "leg" && pt.y < g.yw) ? .3 : 1 });
+      drawGarment(sc, g, { t, map: mapView });
+      if (mapView) {
+        const f = g.fit, tag = (y, side, name, text) => {
+          const sy = sc.at(0, y, 0)[1];
+          label(sc, side < 0 ? 14 : sc.w - 14, sy, name, text, side < 0 ? "left" : "right");
+        };
+        tag(LEVEL.bust, 1, "Bust", STATUS[f.sb].label); tag(LEVEL.waist, -1, "Waist", STATUS[f.sw].label); tag(g.yh + .16, -1, "Length", f.lengthShort);
+      }
+    });
+
+    /* =====================================================================
+       FLOW
+       ===================================================================== */
+    const scenes = { product, scan, fit };
+    let current = "product";
+    function go(name) {
+      for (const s of document.querySelectorAll(".screen")) s.hidden = s.id !== "s-" + name;
+      const el = $("s-" + name);
+      el.classList.remove("enter"); void el.offsetWidth; el.classList.add("enter");
+      current = name;
+      if (scenes[name]) scenes[name].resize();
+      const focus = el.querySelector("h1, h2");
+      if (focus) { focus.tabIndex = -1; focus.focus({ preventScroll: true }); }
+    }
+    document.addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) go(b.dataset.go); });
+
+    function sizePills(holder, onPick) {
+      for (const s of SIZES) {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "size"; b.textContent = s.name; b.dataset.size = s.name;
+        b.addEventListener("click", () => { selected = s; paintSizes(); onPick && onPick(); });
+        holder.appendChild(b);
+      }
+    }
+    let scanned = false;
+    function paintSizes() {
+      const best = scanned ? bestSize() : null;
+      for (const b of document.querySelectorAll(".size")) {
+        b.setAttribute("aria-pressed", String(b.dataset.size === selected.name));
+        const old = b.querySelector(".best"); if (old) old.remove();
+        if (best && b.dataset.size === best.name) {
+          const tag = document.createElement("span"); tag.className = "best"; tag.textContent = "Best fit"; b.appendChild(tag);
+        }
+      }
+    }
+    sizePills($("sizes-product"));
+    sizePills($("sizes-fit"), paintFit);
+
+    function paintMeasures() {
+      const m = measure();
+      $("measures").innerHTML = [["Height", m.height], ["Shoulder", m.shoulders], ["Bust", m.bust], ["Waist", m.waist], ["Hips", m.hips]]
+        .map(([k, v]) => "<div><dt>" + k + "</dt><dd>" + Math.round(v) + "<small>cm</small></dd></div>").join("");
+      for (const k of ["bust", "waist", "hips"]) { $("t-" + k).value = Math.round(m[k]); $("o-" + k).textContent = Math.round(m[k]) + " cm"; }
+    }
+    function paintFit() {
+      const f = fitFor(selected), best = bestSize();
+      $("match-pct").textContent = f.score + "% match";
+      $("match-text").textContent = selected === best ? "Size " + selected.name + " is your best fit" : "Size " + best.name + " fits you better";
+      const ease = e => (e >= 0 ? "+" : "−") + Math.abs(e).toFixed(1) + " cm";
+      const row = (name, st, detail) => '<li><b>' + name + '</b><span class="tag" style="--c:' + STATUS[st].color + '">' + STATUS[st].label + " <small>" + detail + "</small></span></li>";
+      $("readouts").innerHTML = row("Bust", f.sb, ease(f.bust) + " of ease") + row("Waist", f.sw, ease(f.waist) + ", with drawstring") +
+        '<li><b>Length</b><span class="tag" style="--c:' + STATUS[f.lengthStatus].color + '">' + f.lengthText + "</span></li>";
+      paintSizes();
+    }
+
+    function startScan() {
+      go("scan");
+      $("scan-status").textContent = "Analyzing proportions…";
+      $("scan-progress").hidden = false; $("scan-result").hidden = true; $("see-fit").disabled = true;
+      SCAN.done = false; SCAN.running = true; SCAN.start = performance.now() / 1000;
+      if (reduced) { SCAN.start -= END; }
+    }
+    function finishScan() {
+      SCAN.running = false; SCAN.done = true; scanned = true;
+      $("scan-status").textContent = "Proportions mapped";
+      $("scan-progress").hidden = true; $("scan-result").hidden = false; $("see-fit").disabled = false;
+      paintMeasures();
+    }
+    for (const k of ["bust", "waist", "hips"]) {
+      $("t-" + k).addEventListener("input", e => {
+        shape[k] = e.target.value / BASE[k];
+        body = buildBody();
+        const m = measure();
+        $("o-" + k).textContent = Math.round(m[k]) + " cm";
+        $("measures").querySelectorAll("dd")[{ bust: 2, waist: 3, hips: 4 }[k]].firstChild.textContent = Math.round(m[k]);
+      });
+    }
+
+    $("find-fit").addEventListener("click", () => scanned ? openFit() : go("intro"));
+    $("start-scan").addEventListener("click", startScan);
+    function openFit() { selected = bestSize(); mapView = false; paintView(); go("fit"); paintFit(); }
+    $("see-fit").addEventListener("click", openFit);
+    function paintView() { $("v-drape").setAttribute("aria-pressed", String(!mapView)); $("v-map").setAttribute("aria-pressed", String(mapView)); }
+    $("v-drape").addEventListener("click", () => { mapView = false; paintView(); });
+    $("v-map").addEventListener("click", () => { mapView = true; paintView(); });
+
+    let toastTimer = null;
+    $("save-look").addEventListener("click", () => {
+      $("toast").hidden = false; clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { $("toast").hidden = true; }, 1800);
+    });
+    $("add-cart").addEventListener("click", () => {
+      const f = fitFor(selected);
+      $("added-text").textContent = "Size " + selected.name + ", " + f.score + "% match. Your fit profile is ready for the next piece you try.";
+      $("added").hidden = false; $("bag-count").hidden = false;
+      $("keep").focus();
+    });
+    $("keep").addEventListener("click", () => { $("added").hidden = true; $("add-cart").focus(); });
+    $("bag").addEventListener("click", () => { if (scanned) openFit(); });
+
+    $("restart").addEventListener("click", () => {
+      shape.bust = shape.waist = shape.hips = 1; body = buildBody();
+      scanned = false; SCAN.done = false; SCAN.running = false; selected = SIZES[2]; mapView = false;
+      $("added").hidden = true; $("bag-count").hidden = true; $("toast").hidden = true;
+      document.querySelector("details.tune").open = false;
+      paintSizes(); go("product");
+    });
+
+    /* ----- one loop draws whichever scene is on screen ----- */
+    let prev = performance.now();
+    function loop(now) {
+      const dt = Math.min(.05, (now - prev) / 1000); prev = now;
+      if (scenes[current] && !document.hidden) scenes[current].frame(now / 1000, dt);
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    /* ----- scale the phone to the window, like the other prototypes ----- */
+    const phone = $("phone");
+    function fitPhone() {
+      if (innerWidth <= 480) { phone.style.setProperty("--scale", 1); return; }
+      const room = innerHeight - 150;
+      phone.style.setProperty("--scale", Math.min(1, Math.max(.55, room / 844)).toFixed(3));
+    }
+    addEventListener("resize", fitPhone);
+    fitPhone();
+    paintSizes();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => scenes[current] && scenes[current].resize());
+  })();
+  </script>
+</body>
+</html>
