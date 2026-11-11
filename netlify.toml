@@ -1,0 +1,5 @@
+# This is a plain static site: there is nothing to build.
+# Netlify just serves the repository as it is.
+[build]
+  publish = "."
+  command = "echo 'Static site, nothing to build'"
