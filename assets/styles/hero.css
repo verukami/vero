@@ -82,6 +82,9 @@
   border-top: 1px solid var(--line);
 }
 .proof div { min-width: 0; }
+/* a small pixel icon per fact, drawn on a 16-pixel grid */
+.px-icon { display: block; width: 44px; height: 44px; margin-bottom: 12px; shape-rendering: crispEdges; }
+.px-a { fill: var(--pink); } .px-b { fill: var(--purple); } .px-c { fill: var(--blue); } .px-d { fill: var(--lime); } .px-e { fill: #fff; }
 .proof strong { display: block; font-size: clamp(30px, 3.4vw, 46px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
 .proof b { display: block; margin: 8px 0 4px; font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
 .proof span { display: block; color: var(--ink-soft); font-size: 15px; max-width: 34ch; }
