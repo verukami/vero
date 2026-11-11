@@ -302,7 +302,7 @@
 .obj .movie.f-poster { font-size: clamp(20px, 2.2vw, 32px); }
 
 /* ======================================================
-   THE LAB — personal experiments, kept apart from client work
+   THE LAB — experiments and concepts, kept apart from the main client work
 ====================================================== */
 .lab-grid {
   display: grid;
@@ -334,11 +334,10 @@
 .lab-card .ctas { margin-top: 20px; }
 
 .lab-soon {
-  grid-column: 1 / -1; /* a slim row under the lab cards */
+  /* fills the last cell of the lab grid */
   display: grid;
-  grid-auto-flow: column;
   place-content: center;
-  align-items: center;
+  justify-items: center;
   gap: 8px 14px;
   padding: 22px 28px;
   border-radius: 24px;

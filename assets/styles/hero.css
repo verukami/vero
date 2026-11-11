@@ -92,8 +92,6 @@
 /* ============ NIGHT ============ */
 .night .hero { background: linear-gradient(#09070f 72%, var(--canvas)); }
 .night .guides line { animation: march 1.6s linear infinite; }
-.night .guides rect { stroke: var(--lilac); }
-.night .guides text { fill: rgba(205, 188, 255, 0.8); letter-spacing: 0.12em; }
 @keyframes march { to { stroke-dashoffset: -18; } }
 
 /* the name: RGB split in short bursts */
@@ -163,8 +161,6 @@
 }
 .night .dims { background: #120d1d; color: var(--lilac); border: 1px solid rgba(205, 188, 255, 0.55); }
 .night .shape { filter: drop-shadow(0 0 14px rgba(184, 156, 255, 0.5)); }
-/* night keeps the star and the sparkle; day adds the bolt */
-.night .shape:nth-child(3) { display: none; }
 
 /* intro: about one second of tape tracking, then it settles */
 .night.intro .hero-copy, .night.intro .portrait { animation: tracking 1s steps(9) both; }
